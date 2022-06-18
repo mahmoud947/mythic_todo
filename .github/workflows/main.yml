@@ -1,18 +1,18 @@
 name: Release
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths-ignore:
       - '*/README.md'
   pull_request:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 jobs:
   deploy:
       runs-on: ubuntu-latest
       steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable' # or: 'beta' or 'master'
       - run: flutter pub get
