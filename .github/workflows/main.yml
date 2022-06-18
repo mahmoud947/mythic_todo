@@ -22,3 +22,4 @@ jobs:
         with:
           artifacts: "build/app/outputs/flutter-apk/.apk"
           token: ${{ secrets.GITHUB_TOKEN }}
+          tag: "Deploy"
