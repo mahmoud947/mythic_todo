@@ -11,8 +11,8 @@ jobs:
   deploy:
       runs-on: ubuntu-latest
       steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
         with:
           channel: 'stable' # or: 'beta' or 'master'
       - run: flutter pub get
@@ -21,4 +21,4 @@ jobs:
       - uses: ncipollo/release-action@v2
         with:
           artifacts: "build/app/outputs/flutter-apk/.apk"
-          token: $
+          token: ${{ secrets.GITHUB_TOKEN }}
