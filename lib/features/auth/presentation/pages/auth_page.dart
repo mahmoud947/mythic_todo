@@ -12,6 +12,7 @@ class _AuthPage extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      body: Container(),
     );
   }
 }
