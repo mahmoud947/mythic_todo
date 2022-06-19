@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/common/app_colors.dart';
+
+import 'app_colors.dart';
 
 class AppThemes {
   AppThemes._();

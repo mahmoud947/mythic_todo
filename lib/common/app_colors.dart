@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -17,14 +16,12 @@ class AppColors {
   static const Color lightOnSurfaceColor = Color(0xFF000000);
   static const Color lightOnErrorColor = Color(0xFFE9E7EF);
 
-
   //? dark Mode
   static const Color darkPrimaryColor = Color(0xFF191921);
   static const Color darkSecondaryColor = Color(0xFFDD2041);
   static const Color darkBackgroundColor = Color(0xFF000000);
   static const Color darkSurfaceColor = Color(0xFF191921);
   static const Color darkErrorColor = Colors.red;
-
 
   static const Color darkOnPrimaryColor = Color(0xFFE9E7EF);
   static const Color darkOnSecondaryColor = Color(0xFFE9E7EF);

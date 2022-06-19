@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/common/app_themes.dart';
+import 'common/app_themes.dart';
 
 void main() {
   runApp(const MyApp());
