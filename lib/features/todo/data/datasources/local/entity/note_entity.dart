@@ -1,20 +1,40 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-enum TodoColor { yellow, green, pink, babyBlue, purple, orange }
+enum NoteColor { yellow, green, pink, babyBlue, purple, orang }
 
-class TodoEntity {
+extension NoteColorFromMap on NoteEntity {
+  NoteColor fromMap(int colorNumber) {
+    switch (colorNumber) {
+      case 1:
+        return NoteColor.babyBlue;
+      case 2:
+        return NoteColor.babyBlue;
+      case 3:
+        return NoteColor.babyBlue;
+      case 4:
+        return NoteColor.babyBlue;
+      case 5:
+        return NoteColor.babyBlue;
+      case 6:
+        return NoteColor.babyBlue;
+      default:
+        return NoteColor.green;
+    }
+  }
+}
+
+class NoteEntity {
   final int id;
   final String title;
   final String description;
   final String? startTime;
   final String? endTime;
-  final int color;
+  final NoteColor color;
   final bool isCompleted;
   final bool reminder;
-  TodoEntity({
+  NoteEntity({
     required this.id,
     required this.title,
     required this.description,
@@ -25,19 +45,19 @@ class TodoEntity {
     required this.reminder,
   });
 
-  Color get getTodoColor {
-    switch (color) {
-      case 1:
+  Color get getNoteColor {
+    switch (color.index) {
+      case 0:
         return const Color(0xFFF9E5AF);
-      case 2:
+      case 1:
         return const Color(0xFFA1EF9B);
-      case 3:
+      case 2:
         return const Color(0xFFFFAFDF);
-      case 4:
+      case 3:
         return const Color(0xFFADE3FE);
-      case 5:
+      case 4:
         return const Color(0xFFD5CFF4);
-      case 6:
+      case 5:
         return const Color(0xFFF68C8C);
       default:
         return const Color(0xFFF9E5AF);
@@ -51,20 +71,20 @@ class TodoEntity {
       'description': description,
       'startTime': startTime,
       'endTime': endTime,
-      'color': color,
+      'color': color.index,
       'isCompleted': isCompleted,
       'reminder': reminder,
     };
   }
 
-  factory TodoEntity.fromMap(Map<String, dynamic> map) {
-    return TodoEntity(
+  factory NoteEntity.fromMap(Map<String, dynamic> map) {
+    return NoteEntity(
       id: map['id'] as int,
       title: map['title'] as String,
       description: map['description'] as String,
       startTime: map['startTime'] != null ? map['startTime'] as String : null,
       endTime: map['endTime'] != null ? map['endTime'] as String : null,
-      color: map['color'] as int,
+      color: NoteColor.values[map['color'] as int],
       isCompleted: map['isCompleted'] as bool,
       reminder: map['reminder'] as bool,
     );
@@ -72,6 +92,6 @@ class TodoEntity {
 
   String toJson() => json.encode(toMap());
 
-  factory TodoEntity.fromJson(String source) =>
-      TodoEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory NoteEntity.fromJson(String source) =>
+      NoteEntity.fromMap(json.decode(source) as Map<String, dynamic>);
 }
