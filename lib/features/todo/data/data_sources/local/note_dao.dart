@@ -1,5 +1,3 @@
-
-
 import 'package:dartz/dartz.dart';
 
 import '../../data_sources/local/entity/note_entity.dart';

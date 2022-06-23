@@ -1,14 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
-import 'package:mythic_todo/core/error/exeptions.dart';
+import '../../../../../core/error/exceptions.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../data_sources/local/entity/note_entity.dart';
 import 'note_dao.dart';
 
 class NoteDaoImpl implements NoteDao {
-  final Database database;
   NoteDaoImpl({required this.database});
+  final Database database;
 
   @override
   Future<List<NoteEntity>> getNotes() async {
