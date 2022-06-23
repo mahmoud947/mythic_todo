@@ -24,7 +24,7 @@ class NoteDaoImpl implements NoteDao {
   }
 
   @override
-  Future<Unit> deleteNote(int noteId) async {
+  Future<Unit> deleteNote({required int noteId}) async {
     final int affectedRowsCount = await database.delete(
       NoteTableInfo.tableName.getName,
       where: '${NoteTableInfo.id.getName} = ?',
@@ -39,7 +39,7 @@ class NoteDaoImpl implements NoteDao {
   }
 
   @override
-  Future<Unit> insertNote(NoteEntity noteEntity) async {
+  Future<Unit> insertNote({required NoteEntity noteEntity}) async {
     final int insertedRowsCount = await database.insert(
       NoteTableInfo.tableName.getName,
       noteEntity.toMap(),
@@ -53,7 +53,7 @@ class NoteDaoImpl implements NoteDao {
   }
 
   @override
-  Future<NoteEntity> updateNote(NoteEntity noteEntity) async {
+  Future<NoteEntity> updateNote({required NoteEntity noteEntity}) async {
     final int affectedRowsCount = await database.update(
       NoteTableInfo.tableName.getName,
       noteEntity.toMap(),
