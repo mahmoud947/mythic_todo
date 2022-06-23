@@ -21,8 +21,10 @@ extension GetTableInfo on NoteTableInfo {
     switch (this) {
       case NoteTableInfo.tableName:
         return 'note_table';
+
       case NoteTableInfo.id:
         return '_id';
+
       case NoteTableInfo.title:
         return 'title';
 
@@ -88,27 +90,31 @@ class NoteEntity {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
-      'title': title,
-      'description': description,
-      'startTime': startTime,
-      'endTime': endTime,
-      'color': color.index,
-      'isCompleted': isCompleted,
-      'reminder': reminder,
+      NoteTableInfo.id.getName: id,
+      NoteTableInfo.title.getName: title,
+      NoteTableInfo.description.getName: description,
+      NoteTableInfo.startTime.getName: startTime,
+      NoteTableInfo.endTime.getName: endTime,
+      NoteTableInfo.color.getName: color.index,
+      NoteTableInfo.isCompleted.getName: isCompleted,
+      NoteTableInfo.reminder.getName: reminder,
     };
   }
 
   factory NoteEntity.fromMap(Map<String, dynamic> map) {
     return NoteEntity(
-      id: map['id'] as int,
-      title: map['title'] as String,
-      description: map['description'] as String,
-      startTime: map['startTime'] != null ? map['startTime'] as String : null,
-      endTime: map['endTime'] != null ? map['endTime'] as String : null,
-      color: NoteColor.values[map['color'] as int],
-      isCompleted: map['isCompleted'] as bool,
-      reminder: map['reminder'] as bool,
+      id: map[NoteTableInfo.id.getName] as int,
+      title: map[NoteTableInfo.title.getName] as String,
+      description: map[NoteTableInfo.description.getName] as String,
+      startTime: map[NoteTableInfo.startTime.getName] != null
+          ? map['startTime'] as String
+          : null,
+      endTime: map[NoteTableInfo.endTime.getName] != null
+          ? map['endTime'] as String
+          : null,
+      color: NoteColor.values[map[NoteTableInfo.color.getName] as int],
+      isCompleted: map[NoteTableInfo.isCompleted.getName] as bool,
+      reminder: map[NoteTableInfo.reminder.getName] as bool,
     );
   }
 
