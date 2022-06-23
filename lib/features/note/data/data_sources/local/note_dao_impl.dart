@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../../core/error/exceptions.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../data_sources/local/entity/note_entity.dart';
+import 'entities/note_entity.dart';
 import 'note_dao.dart';
 
 class NoteDaoImpl implements NoteDao {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 enum NoteColor { yellow, green, pink, babyBlue, purple, orang }
@@ -49,24 +50,24 @@ extension GetTableInfo on NoteTableInfo {
   }
 }
 
-class NoteEntity {
-  final int id;
+class NoteEntity extends Equatable {
+  final int? id;
   final String title;
-  final String description;
+  final String? description;
   final String? startTime;
   final String? endTime;
   final NoteColor color;
   final bool? isCompleted;
-  final bool reminder;
-  NoteEntity({
-    required this.id,
+  final bool? reminder;
+  const NoteEntity({
+    this.id,
     required this.title,
-    required this.description,
+    this.description,
     this.startTime,
     this.endTime,
     required this.color,
     this.isCompleted,
-    required this.reminder,
+    this.reminder,
   });
 
   Color get getNoteColor {
@@ -122,4 +123,16 @@ class NoteEntity {
 
   factory NoteEntity.fromJson(String source) =>
       NoteEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        description,
+        startTime,
+        endTime,
+        color,
+        isCompleted,
+        reminder,
+      ];
 }
