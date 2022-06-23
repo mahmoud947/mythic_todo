@@ -4,23 +4,45 @@ import 'package:flutter/material.dart';
 
 enum NoteColor { yellow, green, pink, babyBlue, purple, orang }
 
-extension NoteColorFromMap on NoteEntity {
-  NoteColor fromMap(int colorNumber) {
-    switch (colorNumber) {
-      case 1:
-        return NoteColor.babyBlue;
-      case 2:
-        return NoteColor.babyBlue;
-      case 3:
-        return NoteColor.babyBlue;
-      case 4:
-        return NoteColor.babyBlue;
-      case 5:
-        return NoteColor.babyBlue;
-      case 6:
-        return NoteColor.babyBlue;
-      default:
-        return NoteColor.green;
+enum NoteTableInfo {
+  tableName,
+  id,
+  title,
+  description,
+  startTime,
+  endTime,
+  color,
+  isCompleted,
+  reminder,
+}
+
+extension GetTableInfo on NoteTableInfo {
+  get getName {
+    switch (this) {
+      case NoteTableInfo.tableName:
+        return 'note_table';
+      case NoteTableInfo.id:
+        return '_id';
+      case NoteTableInfo.title:
+        return 'title';
+
+      case NoteTableInfo.description:
+        return 'description';
+
+      case NoteTableInfo.startTime:
+        return 'start_time';
+
+      case NoteTableInfo.endTime:
+        return 'end_time';
+
+      case NoteTableInfo.color:
+        return 'color';
+
+      case NoteTableInfo.isCompleted:
+        return 'note_state';
+
+      case NoteTableInfo.reminder:
+        return 'reminder_state';
     }
   }
 }
@@ -32,7 +54,7 @@ class NoteEntity {
   final String? startTime;
   final String? endTime;
   final NoteColor color;
-  final bool isCompleted;
+  final bool? isCompleted;
   final bool reminder;
   NoteEntity({
     required this.id,
@@ -41,7 +63,7 @@ class NoteEntity {
     this.startTime,
     this.endTime,
     required this.color,
-    required this.isCompleted,
+    this.isCompleted,
     required this.reminder,
   });
 
