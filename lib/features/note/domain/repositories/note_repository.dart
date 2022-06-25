@@ -8,4 +8,5 @@ abstract class NoteRepository {
   Future<Either<Failure, Unit>> insertNote({required NoteEntity noteEntity});
   Future<Either<Failure, Unit>> deleteNote({required int noteId});
   Future<Either<Failure, Note>> updateNote({required NoteEntity noteEntity});
+  Future<Either<Failure, Note>> getNote({required int noteId});
 }
