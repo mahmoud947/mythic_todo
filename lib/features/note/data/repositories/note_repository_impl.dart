@@ -36,10 +36,10 @@ class NoteRepositoryImpl implements NoteRepository {
 
   @override
   Future<Either<Failure, Unit>> insertNote({
-    required NoteModel noteEntity,
+    required NoteModel noteModel,
   }) async {
     try {
-      await noteDao.insertNote(noteEntity: noteEntity);
+      await noteDao.insertNote(noteEntity: noteModel);
       return const Right(unit);
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));
@@ -48,11 +48,11 @@ class NoteRepositoryImpl implements NoteRepository {
 
   @override
   Future<Either<Failure, Note>> updateNote({
-    required NoteModel noteEntity,
+    required NoteModel noteModel,
   }) async {
     try {
       final localUpdatedResult =
-          await noteDao.updateNote(noteEntity: noteEntity);
+          await noteDao.updateNote(noteEntity: noteModel);
       return Right(localUpdatedResult.toDomain());
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));
