@@ -2,11 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:mythic_todo/core/error/exceptions.dart';
 
 import 'package:mythic_todo/core/error/failures.dart';
-import 'package:mythic_todo/features/note/data/data_sources/local/entities/note_entity.dart';
 import 'package:mythic_todo/features/note/data/data_sources/local/note_dao.dart';
 import 'package:mythic_todo/features/note/data/mapper/mapper.dart';
-import 'package:mythic_todo/features/note/domain/models/note.dart';
+import 'package:mythic_todo/features/note/domain/entities/note.dart';
 import 'package:mythic_todo/features/note/domain/repositories/note_repository.dart';
+
+import '../models/note_model.dart';
 
 class NoteRepositoryImpl implements NoteRepository {
   NoteRepositoryImpl({required this.noteDao});
@@ -35,7 +36,7 @@ class NoteRepositoryImpl implements NoteRepository {
 
   @override
   Future<Either<Failure, Unit>> insertNote({
-    required NoteEntity noteEntity,
+    required NoteModel noteEntity,
   }) async {
     try {
       await noteDao.insertNote(noteEntity: noteEntity);
@@ -47,7 +48,7 @@ class NoteRepositoryImpl implements NoteRepository {
 
   @override
   Future<Either<Failure, Note>> updateNote({
-    required NoteEntity noteEntity,
+    required NoteModel noteEntity,
   }) async {
     try {
       final localUpdatedResult =
@@ -56,5 +57,11 @@ class NoteRepositoryImpl implements NoteRepository {
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));
     }
+  }
+
+  @override
+  Future<Either<Failure, Note>> getNote({required int noteId}) {
+    // TODO: implement getNote
+    throw UnimplementedError();
   }
 }

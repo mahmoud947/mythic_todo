@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mocktail/mocktail.dart';
-import 'package:mythic_todo/features/note/data/data_sources/local/entities/note_entity.dart';
-import 'package:mythic_todo/features/note/domain/models/note.dart';
+import 'package:mythic_todo/features/note/data/models/note_model.dart';
+import 'package:mythic_todo/features/note/domain/entities/note.dart';
 import 'package:mythic_todo/features/note/domain/repositories/note_repository.dart';
 import 'package:mythic_todo/features/note/domain/usecases/get_note_use_case.dart';
 

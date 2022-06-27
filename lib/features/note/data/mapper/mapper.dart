@@ -1,8 +1,9 @@
 import 'package:mythic_todo/core/util/extension.dart';
-import 'package:mythic_todo/features/note/data/data_sources/local/entities/note_entity.dart';
-import 'package:mythic_todo/features/note/domain/models/note.dart';
+import 'package:mythic_todo/features/note/domain/entities/note.dart';
 
-extension NoteEntityMapper on NoteEntity {
+import '../models/note_model.dart';
+
+extension NoteEntityMapper on NoteModel {
   Note toDomain() {
     return Note(
       id: id.orZero(),

@@ -50,7 +50,7 @@ extension GetTableInfo on NoteTableInfo {
   }
 }
 
-class NoteEntity extends Equatable {
+class NoteModel extends Equatable {
   final int? id;
   final String title;
   final String? description;
@@ -59,7 +59,7 @@ class NoteEntity extends Equatable {
   final NoteColor color;
   final bool? isCompleted;
   final bool? reminder;
-  const NoteEntity({
+  const NoteModel({
     this.id,
     required this.title,
     this.description,
@@ -102,8 +102,8 @@ class NoteEntity extends Equatable {
     };
   }
 
-  factory NoteEntity.fromMap(Map<String, dynamic> map) {
-    return NoteEntity(
+  factory NoteModel.fromMap(Map<String, dynamic> map) {
+    return NoteModel(
       id: map[NoteTableInfo.id.getName] as int,
       title: map[NoteTableInfo.title.getName] as String,
       description: map[NoteTableInfo.description.getName] as String,
@@ -121,8 +121,8 @@ class NoteEntity extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory NoteEntity.fromJson(String source) =>
-      NoteEntity.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory NoteModel.fromJson(String source) =>
+      NoteModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   List<Object?> get props => [

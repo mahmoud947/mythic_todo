@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 
-import 'entities/note_entity.dart';
+import '../../models/note_model.dart';
 
 abstract class NoteDao {
-  Future<List<NoteEntity>> getNotes();
-  Future<Unit> insertNote({required NoteEntity noteEntity});
+  Future<List<NoteModel>> getNotes();
+  Future<Unit> insertNote({required NoteModel noteEntity});
   Future<Unit> deleteNote({required int noteId});
-  Future<NoteEntity> updateNote({required NoteEntity noteEntity});
+  Future<NoteModel> updateNote({required NoteModel noteEntity});
 }
