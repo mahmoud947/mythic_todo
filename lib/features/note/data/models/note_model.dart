@@ -24,7 +24,7 @@ extension GetTableInfo on NoteTableInfo {
         return 'note_table';
 
       case NoteTableInfo.id:
-        return '_id';
+        return 'id';
 
       case NoteTableInfo.title:
         return 'title';
@@ -33,19 +33,19 @@ extension GetTableInfo on NoteTableInfo {
         return 'description';
 
       case NoteTableInfo.startTime:
-        return 'start_time';
+        return 'startTime';
 
       case NoteTableInfo.endTime:
-        return 'end_time';
+        return 'endTime';
 
       case NoteTableInfo.color:
         return 'color';
 
       case NoteTableInfo.isCompleted:
-        return 'note_state';
+        return 'isCompleted';
 
       case NoteTableInfo.reminder:
-        return 'reminder_state';
+        return 'reminder';
     }
   }
 }
