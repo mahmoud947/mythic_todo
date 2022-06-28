@@ -17,14 +17,39 @@ void main() {
       reminder: true);
 
   group('data transfer object', () {
-    test('should return a valid model', () async {
+    test('should return a valid model from map', () async {
       // arrange
-      final Map<String, dynamic> jsonMap =
-          json.decode(fixture('note_map.json'));
+      final Map<String, dynamic> map =
+          json.decode(fixture('note_response.json'));
       // act
-      final result = NoteModel.fromMap(jsonMap);
+      final result = NoteModel.fromMap(map);
       // assert
       expect(result, tNoteModel);
+    });
+    test('should return a valid model from json', () async {
+      // arrange
+      final jsonString = fixture('note_response.json');
+      // act
+      final result = NoteModel.fromJson(jsonString);
+      // assert
+      expect(result, tNoteModel);
+    });
+    test('should return a valid json from NoteModel', () async {
+      // arrange
+      final jsonString = fixture('note_response.json');
+      // act
+      final result = tNoteModel.toJson();
+      // assert
+      expect(result, jsonString);
+    });
+
+    test('should return valid map from NoteModel', () async {
+      // arrange
+      final map = json.decode(fixture('note_response.json'));
+      // act
+      final result = tNoteModel.toMap();
+      // assert
+      expect(result, map);
     });
   });
 }
