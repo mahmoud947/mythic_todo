@@ -60,8 +60,13 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<Either<Failure, Note>> getNote({required int noteId}) {
-    // TODO: implement getNote
-    throw UnimplementedError();
+  Future<Either<Failure, Note>> getNote({required int noteId}) async {
+    try {
+      final NoteModel localNoteModel = await noteDao.getNote(noteId: noteId);
+      final Note note = localNoteModel.toDomain();
+      return Right(note);
+    } on LocalDatabaseNotFoundException catch (e) {
+      return Left(LocalDatabaseNotFoundFailure(message: e.message));
+    }
   }
 }

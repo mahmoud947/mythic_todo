@@ -140,4 +140,78 @@ void main() {
           (failure) => expect(failure, LocalDatabaseFailure()), (_) => null);
     });
   });
+
+  group('updateNote', () {
+    const NoteModel tNoteModel = NoteModel(
+        id: 2,
+        title: 'title2',
+        description: 'description',
+        startTime: 'startTime',
+        endTime: 'endTime',
+        color: NoteColor.babyBlue,
+        isCompleted: true,
+        reminder: true);
+
+    final Note tNote = tNoteModel.toDomain();
+    test(
+        'should return note when local data source is update note successfully',
+        () async {
+      // arrange
+      when(() => mockNoteDao.updateNote(noteEntity: tNoteModel))
+          .thenAnswer((_) async => tNoteModel);
+      // act
+      final result = await repository.updateNote(noteModel: tNoteModel);
+      // assert
+      result.fold((_) => null, (note) => expect(note, tNote));
+    });
+
+    test(
+        'should return local database failure when local data source fail in update note ',
+        () async {
+      // arrange
+      when(() => mockNoteDao.insertNote(noteEntity: tNoteModel))
+          .thenThrow(LocalDatabaseException());
+      // act
+      final result = await repository.insertNote(noteModel: tNoteModel);
+      // assert
+      result.fold(
+          (failure) => expect(failure, LocalDatabaseFailure()), (_) => null);
+    });
+  });
+
+  group('getNote', () {
+    const tNoteId = 1;
+    const NoteModel tNoteModel = NoteModel(
+        id: 2,
+        title: 'title2',
+        description: 'description',
+        startTime: 'startTime',
+        endTime: 'endTime',
+        color: NoteColor.babyBlue,
+        isCompleted: true,
+        reminder: true);
+    final tNote = tNoteModel.toDomain();
+    test('should return note when local data source is successfully', () async {
+      // arrange
+      when(() => mockNoteDao.getNote(noteId: tNoteId))
+          .thenAnswer((_) async => tNoteModel);
+      // act
+      final result = await repository.getNote(noteId: tNoteId);
+      // assert
+      result.fold((_) => null, (note) => expect(note, tNote));
+    });
+
+    test(
+        'should return local database not found failure when local data source fail in get note ',
+        () async {
+      // arrange
+      when(() => mockNoteDao.getNote(noteId: tNoteId))
+          .thenThrow(LocalDatabaseNotFoundException());
+      // act
+      final result = await repository.getNote(noteId: tNoteId);
+      // assert
+      result.fold((failure) => expect(failure, LocalDatabaseNotFoundFailure()),
+          (_) => null);
+    });
+  });
 }
