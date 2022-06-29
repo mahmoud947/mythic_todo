@@ -65,17 +65,15 @@ void main() {
     });
 
     test(
-        'should return local database failure when call to local data source is fail',
+        'should return empty local database failure when call to local data source is fail',
         () async {
       // arrange
-      when(() => mockNoteDao.getNotes()).thenThrow(LocalDatabaseException());
+      when(() => mockNoteDao.getNotes()).thenThrow(EmptyNotesDataException());
       // act
       final result = await repository.getNotes();
       // assert
-      result.fold((failure) {
-        expect(failure, LocalDatabaseFailure());
-        print(LocalDatabaseFailure().message);
-      }, (_) => null);
+      result.fold(
+          (failure) => expect(failure, EmptyNotesDataFailure()), (_) => null);
     });
   });
 
@@ -101,6 +99,42 @@ void main() {
           .thenThrow(LocalDatabaseException());
       // act
       final result = await repository.deleteNote(noteId: tNoteId);
+      // assert
+      result.fold(
+          (failure) => expect(failure, LocalDatabaseFailure()), (_) => null);
+    });
+  });
+
+  group('insertNote', () {
+    const NoteModel tNoteModel = NoteModel(
+        id: 2,
+        title: 'title2',
+        description: 'description',
+        startTime: 'startTime',
+        endTime: 'endTime',
+        color: NoteColor.babyBlue,
+        isCompleted: true,
+        reminder: true);
+    test(
+        'should return unit when local data source is insert note successfully',
+        () async {
+      // arrange
+      when(() => mockNoteDao.insertNote(noteEntity: tNoteModel))
+          .thenAnswer((_) async => unit);
+      // act
+      final result = await repository.insertNote(noteModel: tNoteModel);
+      // assert
+      result.fold((_) => null, (success) => expect(success, unit));
+    });
+
+    test(
+        'should return local database failure when local data source fail in insert note ',
+        () async {
+      // arrange
+      when(() => mockNoteDao.insertNote(noteEntity: tNoteModel))
+          .thenThrow(LocalDatabaseException());
+      // act
+      final result = await repository.insertNote(noteModel: tNoteModel);
       // assert
       result.fold(
           (failure) => expect(failure, LocalDatabaseFailure()), (_) => null);

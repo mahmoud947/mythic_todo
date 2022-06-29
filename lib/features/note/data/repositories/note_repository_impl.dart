@@ -19,8 +19,8 @@ class NoteRepositoryImpl implements NoteRepository {
       final List<Note> notes =
           localNotes.map((localNote) => localNote.toDomain()).toList();
       return Right(notes);
-    } on LocalDatabaseException catch (e) {
-      return Left(LocalDatabaseFailure(message: e.message));
+    } on EmptyNotesDataException catch (e) {
+      return Left(EmptyNotesDataFailure(message: e.message));
     }
   }
 
