@@ -68,4 +68,19 @@ class NoteDaoImpl implements NoteDao {
       return Future.value(noteEntity);
     }
   }
+
+  @override
+  Future<NoteModel> getNote({required int noteId}) async {
+    final List<Map<String, dynamic>> noteAsMap = await database.query(
+        NoteTableInfo.tableName.getName,
+        where: '${NoteTableInfo.id} = ?',
+        whereArgs: [noteId]);
+    if (noteAsMap.isEmpty) {
+      // TODO: remove hard coded
+      throw LocalDatabaseNotFoundException(message: 'Notes not found');
+    } else {
+      final NoteModel note = NoteModel.fromMap(noteAsMap.first);
+      return Future.value(note);
+    }
+  }
 }
