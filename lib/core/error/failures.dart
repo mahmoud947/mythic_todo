@@ -17,3 +17,10 @@ class LocalDatabaseFailure extends Failure {
   @override
   List<Object?> get props => [message];
 }
+
+class LocalDatabaseNotFoundFailure extends Failure {
+  LocalDatabaseNotFoundFailure({this.message});
+  final String? message;
+  @override
+  List<Object?> get props => [message];
+}
