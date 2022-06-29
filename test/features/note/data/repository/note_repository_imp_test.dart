@@ -78,4 +78,32 @@ void main() {
       }, (_) => null);
     });
   });
+
+  group('deleteNote', () {
+    const tNoteId = 1;
+    test(
+        'should return unit when local data source is delete note successfully',
+        () async {
+      // arrange
+      when(() => mockNoteDao.deleteNote(noteId: tNoteId))
+          .thenAnswer((_) async => unit);
+      // act
+      final result = await repository.deleteNote(noteId: tNoteId);
+      // assert
+      result.fold((_) => null, (success) => expect(success, unit));
+    });
+
+    test(
+        'should return local database failure when local data source fail in delete note ',
+        () async {
+      // arrange
+      when(() => mockNoteDao.deleteNote(noteId: tNoteId))
+          .thenThrow(LocalDatabaseException());
+      // act
+      final result = await repository.deleteNote(noteId: tNoteId);
+      // assert
+      result.fold(
+          (failure) => expect(failure, LocalDatabaseFailure()), (_) => null);
+    });
+  });
 }
