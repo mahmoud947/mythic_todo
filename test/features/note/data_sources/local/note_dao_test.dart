@@ -96,8 +96,8 @@ void main() {
 
   group('deleteNote', () {
     const tNoteId = 1;
-    final successCount = Future.value(1);
-    final failureCount = Future.value(0);
+    const successCount = 1;
+    const failureCount = 0;
     test(
         'should return unit from Database(sqflite) when there is notesModels to delete in the database',
         () async {
@@ -108,7 +108,7 @@ void main() {
           where: '${NoteTableInfo.id.getName} = ?',
           whereArgs: [tNoteId],
         ),
-      ).thenAnswer((_) => successCount);
+      ).thenAnswer((_) async => successCount);
       // act
       final result = await daoImpl.deleteNote(noteId: tNoteId);
       // assert
@@ -125,7 +125,7 @@ void main() {
           where: '${NoteTableInfo.id.getName} = ?',
           whereArgs: [tNoteId],
         ),
-      ).thenAnswer((_) => failureCount);
+      ).thenAnswer((_) async => failureCount);
       // act
       final call = daoImpl.deleteNote;
       // assert
@@ -144,8 +144,8 @@ void main() {
         color: NoteColor.babyBlue,
         isCompleted: true,
         reminder: true);
-    final successRowCount = Future.value(1);
-    final failureRowCount = Future.value(0);
+    const successRowCount = 1;
+    const failureRowCount = 0;
     test(
         'should return unit from Database(sqflite) when there is notesModels inserted in the database',
         () async {
@@ -153,7 +153,7 @@ void main() {
       when(
         () =>
             mockDatabase.insert(NoteTableInfo.tableName.getName, tNote.toMap()),
-      ).thenAnswer((_) => successRowCount);
+      ).thenAnswer((_) async => successRowCount);
       // act
       final result = await daoImpl.insertNote(noteModel: tNote);
       // assert
@@ -167,7 +167,7 @@ void main() {
       when(
         () =>
             mockDatabase.insert(NoteTableInfo.tableName.getName, tNote.toMap()),
-      ).thenAnswer((_) => failureRowCount);
+      ).thenAnswer((_) async => failureRowCount);
       // act
       final call = daoImpl.insertNote;
       // assert
@@ -186,8 +186,8 @@ void main() {
         color: NoteColor.babyBlue,
         isCompleted: true,
         reminder: true);
-    final successRowCount = Future.value(1);
-    final failureRowCount = Future.value(0);
+    const successRowCount = 1;
+    const failureRowCount = 0;
     test('should return noteModel when database(sqflite) success in update',
         () async {
       // arrange
@@ -198,7 +198,7 @@ void main() {
           where: '${NoteTableInfo.id.getName} = ?',
           whereArgs: [tNote.id],
         ),
-      ).thenAnswer((_) => successRowCount);
+      ).thenAnswer((_) async => successRowCount);
       // act
       final result = await daoImpl.updateNote(noteModel: tNote);
       // assert
@@ -216,12 +216,66 @@ void main() {
           where: '${NoteTableInfo.id.getName} = ?',
           whereArgs: [tNote.id],
         ),
-      ).thenAnswer((_) => failureRowCount);
+      ).thenAnswer((_) async => failureRowCount);
       // act
       final call = daoImpl.updateNote;
       // assert
       expect(
           () => call(noteModel: tNote), throwsA(isA<LocalDatabaseException>()));
+    });
+  });
+
+  group('getNote', () {
+    const tNote = NoteModel(
+        id: 1,
+        title: 'title1',
+        description: 'description',
+        startTime: 'startTime',
+        endTime: 'endTime',
+        color: NoteColor.babyBlue,
+        isCompleted: true,
+        reminder: true);
+
+    const List<Map<String, dynamic>> tMap = [
+      {
+        'id': 1,
+        'title': 'title1',
+        'description': 'description',
+        'startTime': 'startTime',
+        'endTime': 'endTime',
+        'color': 3,
+        'isCompleted': true,
+        'reminder': true
+      },
+    ];
+    const tNoteId = 1;
+    test(
+        'should return notesModel by noteId from Database(sqflite) when database success to found it',
+        () async {
+      // arrange
+      when(
+        () => mockDatabase.query(NoteTableInfo.tableName.getName,
+            where: '${NoteTableInfo.id} = ?', whereArgs: [tNoteId]),
+      ).thenAnswer((_) async => tMap);
+      // act
+      final result = await daoImpl.getNote(noteId: tNoteId);
+      // assert
+      expect(result, tNote);
+    });
+
+    test(
+        'should throw a LocalDatabaseException when database fail to find noteModel by noteId ',
+        () async {
+      // arrange
+      when(
+        () => mockDatabase.query(NoteTableInfo.tableName.getName,
+            where: '${NoteTableInfo.id} = ?', whereArgs: [tNoteId]),
+      ).thenAnswer((_) async => []);
+      // act
+      final call = daoImpl.getNote;
+      // assert
+      expect(() => call(noteId: tNoteId),
+          throwsA(isA<LocalDatabaseNotFoundException>()));
     });
   });
 }
