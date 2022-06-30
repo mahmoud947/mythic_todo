@@ -133,4 +133,46 @@ void main() {
           () => call(noteId: tNoteId), throwsA(isA<LocalDatabaseException>()));
     });
   });
+
+  group('insertNote', () {
+    const tNote = NoteModel(
+        id: 3,
+        title: 'title1',
+        description: 'description',
+        startTime: 'startTime',
+        endTime: 'endTime',
+        color: NoteColor.babyBlue,
+        isCompleted: true,
+        reminder: true);
+    final successRowCount = Future.value(1);
+    final failureRowCount = Future.value(0);
+    test(
+        'should return unit from Database(sqflite) when there is notesModels inserted in the database',
+        () async {
+      // arrange
+      when(
+        () =>
+            mockDatabase.insert(NoteTableInfo.tableName.getName, tNote.toMap()),
+      ).thenAnswer((_) => successRowCount);
+      // act
+      final result = await daoImpl.insertNote(noteModel: tNote);
+      // assert
+      expect(result, unit);
+    });
+
+    test(
+        'should throw a LocalDatabaseException when database fail to insert note ',
+        () async {
+      // arrange
+      when(
+        () =>
+            mockDatabase.insert(NoteTableInfo.tableName.getName, tNote.toMap()),
+      ).thenAnswer((_) => failureRowCount);
+      // act
+      final call = daoImpl.insertNote;
+      // assert
+      expect(
+          () => call(noteModel: tNote), throwsA(isA<LocalDatabaseException>()));
+    });
+  });
 }
