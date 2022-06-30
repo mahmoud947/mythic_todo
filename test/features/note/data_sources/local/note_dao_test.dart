@@ -93,4 +93,44 @@ void main() {
       expect(() => call(), throwsA(isA<EmptyNotesDataException>()));
     });
   });
+
+  group('deleteNote', () {
+    const tNoteId = 1;
+    final successCount = Future.value(1);
+    final failureCount = Future.value(0);
+    test(
+        'should return unit from Database(sqflite) when there is notesModels to delete in the database',
+        () async {
+      // arrange
+      when(
+        () => mockDatabase.delete(
+          NoteTableInfo.tableName.getName,
+          where: '${NoteTableInfo.id.getName} = ?',
+          whereArgs: [tNoteId],
+        ),
+      ).thenAnswer((_) => successCount);
+      // act
+      final result = await daoImpl.deleteNote(noteId: tNoteId);
+      // assert
+      expect(result, unit);
+    });
+
+    test(
+        'should throw a LocalDatabaseException when there is no note to delete ',
+        () async {
+      // arrange
+      when(
+        () => mockDatabase.delete(
+          NoteTableInfo.tableName.getName,
+          where: '${NoteTableInfo.id.getName} = ?',
+          whereArgs: [tNoteId],
+        ),
+      ).thenAnswer((_) => failureCount);
+      // act
+      final call = daoImpl.deleteNote;
+      // assert
+      expect(
+          () => call(noteId: tNoteId), throwsA(isA<LocalDatabaseException>()));
+    });
+  });
 }
