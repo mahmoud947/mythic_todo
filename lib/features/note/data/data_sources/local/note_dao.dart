@@ -4,8 +4,8 @@ import '../../models/note_model.dart';
 
 abstract class NoteDao {
   Future<List<NoteModel>> getNotes();
-  Future<Unit> insertNote({required NoteModel noteEntity});
+  Future<Unit> insertNote({required NoteModel noteModel});
   Future<Unit> deleteNote({required int noteId});
-  Future<NoteModel> updateNote({required NoteModel noteEntity});
+  Future<NoteModel> updateNote({required NoteModel noteModel});
   Future<NoteModel> getNote({required int noteId});
 }

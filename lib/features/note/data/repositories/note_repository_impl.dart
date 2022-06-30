@@ -39,7 +39,7 @@ class NoteRepositoryImpl implements NoteRepository {
     required NoteModel noteModel,
   }) async {
     try {
-      await noteDao.insertNote(noteEntity: noteModel);
+      await noteDao.insertNote(noteModel: noteModel);
       return const Right(unit);
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));
@@ -51,8 +51,7 @@ class NoteRepositoryImpl implements NoteRepository {
     required NoteModel noteModel,
   }) async {
     try {
-      final localUpdatedResult =
-          await noteDao.updateNote(noteEntity: noteModel);
+      final localUpdatedResult = await noteDao.updateNote(noteModel: noteModel);
       return Right(localUpdatedResult.toDomain());
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));

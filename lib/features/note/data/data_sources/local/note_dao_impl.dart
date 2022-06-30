@@ -39,10 +39,10 @@ class NoteDaoImpl implements NoteDao {
   }
 
   @override
-  Future<Unit> insertNote({required NoteModel noteEntity}) async {
+  Future<Unit> insertNote({required NoteModel noteModel}) async {
     final int insertedRowsCount = await database.insert(
       NoteTableInfo.tableName.getName,
-      noteEntity.toMap(),
+      noteModel.toMap(),
     );
     if (insertedRowsCount == 0) {
       // TODO: remove hard coded
@@ -53,19 +53,19 @@ class NoteDaoImpl implements NoteDao {
   }
 
   @override
-  Future<NoteModel> updateNote({required NoteModel noteEntity}) async {
+  Future<NoteModel> updateNote({required NoteModel noteModel}) async {
     final int affectedRowsCount = await database.update(
       NoteTableInfo.tableName.getName,
-      noteEntity.toMap(),
+      noteModel.toMap(),
       where: '${NoteTableInfo.id.getName} = ?',
-      whereArgs: [noteEntity.id],
+      whereArgs: [noteModel.id],
     );
 
     if (affectedRowsCount == 0) {
       // TODO: remove hard coded
       throw LocalDatabaseException(message: 'an error occurred');
     } else {
-      return Future.value(noteEntity);
+      return Future.value(noteModel);
     }
   }
 

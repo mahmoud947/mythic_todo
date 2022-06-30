@@ -122,7 +122,7 @@ void main() {
         'should return unit when local data source is insert note successfully',
         () async {
       // arrange
-      when(() => mockNoteDao.insertNote(noteEntity: tNoteModel))
+      when(() => mockNoteDao.insertNote(noteModel: tNoteModel))
           .thenAnswer((_) async => unit);
       // act
       final result = await repository.insertNote(noteModel: tNoteModel);
@@ -134,7 +134,7 @@ void main() {
         'should return local database failure when local data source fail in insert note ',
         () async {
       // arrange
-      when(() => mockNoteDao.insertNote(noteEntity: tNoteModel))
+      when(() => mockNoteDao.insertNote(noteModel: tNoteModel))
           .thenThrow(LocalDatabaseException());
       // act
       final result = await repository.insertNote(noteModel: tNoteModel);
@@ -159,7 +159,7 @@ void main() {
         'should return note when local data source is update note successfully',
         () async {
       // arrange
-      when(() => mockNoteDao.updateNote(noteEntity: tNoteModel))
+      when(() => mockNoteDao.updateNote(noteModel: tNoteModel))
           .thenAnswer((_) async => tNoteModel);
       // act
       final result = await repository.updateNote(noteModel: tNoteModel);
@@ -171,7 +171,7 @@ void main() {
         'should return local database failure when local data source fail in update note ',
         () async {
       // arrange
-      when(() => mockNoteDao.insertNote(noteEntity: tNoteModel))
+      when(() => mockNoteDao.insertNote(noteModel: tNoteModel))
           .thenThrow(LocalDatabaseException());
       // act
       final result = await repository.insertNote(noteModel: tNoteModel);
