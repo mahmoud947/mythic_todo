@@ -175,4 +175,53 @@ void main() {
           () => call(noteModel: tNote), throwsA(isA<LocalDatabaseException>()));
     });
   });
+
+  group('updateNote', () {
+    const tNote = NoteModel(
+        id: 3,
+        title: 'title1',
+        description: 'description',
+        startTime: 'startTime',
+        endTime: 'endTime',
+        color: NoteColor.babyBlue,
+        isCompleted: true,
+        reminder: true);
+    final successRowCount = Future.value(1);
+    final failureRowCount = Future.value(0);
+    test('should return noteModel when database(sqflite) success in update',
+        () async {
+      // arrange
+      when(
+        () => mockDatabase.update(
+          NoteTableInfo.tableName.getName,
+          tNote.toMap(),
+          where: '${NoteTableInfo.id.getName} = ?',
+          whereArgs: [tNote.id],
+        ),
+      ).thenAnswer((_) => successRowCount);
+      // act
+      final result = await daoImpl.updateNote(noteModel: tNote);
+      // assert
+      expect(result, tNote);
+    });
+
+    test(
+        'should throw a LocalDatabaseException when database fail to update note',
+        () async {
+      // arrange
+      when(
+        () => mockDatabase.update(
+          NoteTableInfo.tableName.getName,
+          tNote.toMap(),
+          where: '${NoteTableInfo.id.getName} = ?',
+          whereArgs: [tNote.id],
+        ),
+      ).thenAnswer((_) => failureRowCount);
+      // act
+      final call = daoImpl.updateNote;
+      // assert
+      expect(
+          () => call(noteModel: tNote), throwsA(isA<LocalDatabaseException>()));
+    });
+  });
 }
