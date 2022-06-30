@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mythic_todo/core/error/exceptions.dart';
@@ -57,10 +58,14 @@ void main() {
       when(() => mockNoteDao.getNotes()).thenAnswer((_) async => tNotesModels);
       // act
       final result = await repository.getNotes();
-
+      /*
+      * Using fold as this is a problem with dart itself and lists, for info:
+      * https://github.com/spebbe/dartz/issues/39
+      * and https://stackoverflow.com/questions/10404516/how-can-i-compare-lists-for-equality-in-dart
+      */
       // assert
-      result.fold((_) => null, (notes) {
-        expect(notes, tNotes);
+      result.fold((left) => expect(left, null), (notes) {
+        expect(listEquals(notes, tNotes), true);
       });
     });
 
@@ -72,8 +77,7 @@ void main() {
       // act
       final result = await repository.getNotes();
       // assert
-      result.fold(
-          (failure) => expect(failure, EmptyNotesDataFailure()), (_) => null);
+      expect(result, Left(EmptyNotesDataFailure()));
     });
   });
 
@@ -88,7 +92,7 @@ void main() {
       // act
       final result = await repository.deleteNote(noteId: tNoteId);
       // assert
-      result.fold((_) => null, (success) => expect(success, unit));
+      expect(result, const Right(unit));
     });
 
     test(
@@ -100,8 +104,7 @@ void main() {
       // act
       final result = await repository.deleteNote(noteId: tNoteId);
       // assert
-      result.fold(
-          (failure) => expect(failure, LocalDatabaseFailure()), (_) => null);
+      expect(result, Left(LocalDatabaseFailure()));
     });
   });
 
@@ -124,7 +127,7 @@ void main() {
       // act
       final result = await repository.insertNote(noteModel: tNoteModel);
       // assert
-      result.fold((_) => null, (success) => expect(success, unit));
+      expect(result, const Right(unit));
     });
 
     test(
@@ -136,8 +139,7 @@ void main() {
       // act
       final result = await repository.insertNote(noteModel: tNoteModel);
       // assert
-      result.fold(
-          (failure) => expect(failure, LocalDatabaseFailure()), (_) => null);
+      expect(result, Left(LocalDatabaseFailure()));
     });
   });
 
@@ -162,7 +164,7 @@ void main() {
       // act
       final result = await repository.updateNote(noteModel: tNoteModel);
       // assert
-      result.fold((_) => null, (note) => expect(note, tNote));
+      expect(result, Right(tNote));
     });
 
     test(
@@ -174,8 +176,7 @@ void main() {
       // act
       final result = await repository.insertNote(noteModel: tNoteModel);
       // assert
-      result.fold(
-          (failure) => expect(failure, LocalDatabaseFailure()), (_) => null);
+      expect(result, Left(LocalDatabaseFailure()));
     });
   });
 
@@ -198,7 +199,7 @@ void main() {
       // act
       final result = await repository.getNote(noteId: tNoteId);
       // assert
-      result.fold((_) => null, (note) => expect(note, tNote));
+      expect(result, Right(tNote));
     });
 
     test(
@@ -210,8 +211,7 @@ void main() {
       // act
       final result = await repository.getNote(noteId: tNoteId);
       // assert
-      result.fold((failure) => expect(failure, LocalDatabaseNotFoundFailure()),
-          (_) => null);
+      expect(result, Left(LocalDatabaseNotFoundFailure()));
     });
   });
 }
