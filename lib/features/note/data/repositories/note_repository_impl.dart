@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:mythic_todo/core/error/exceptions.dart';
+import '../../../../core/error/exceptions.dart';
 
-import 'package:mythic_todo/core/error/failures.dart';
-import 'package:mythic_todo/features/note/data/data_sources/local/note_dao.dart';
-import 'package:mythic_todo/features/note/data/mapper/mapper.dart';
-import 'package:mythic_todo/features/note/domain/entities/note.dart';
-import 'package:mythic_todo/features/note/domain/repositories/note_repository.dart';
+import '../../../../core/error/failures.dart';
+import '../data_sources/local/note_dao.dart';
+import '../mapper/mapper.dart';
+import '../../domain/entities/note.dart';
+import '../../domain/repositories/note_repository.dart';
 
 import '../models/note_model.dart';
 

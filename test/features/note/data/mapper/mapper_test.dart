@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:mythic_todo/features/note/data/mapper/mapper.dart';
 import 'package:mythic_todo/features/note/data/models/note_model.dart';
 import 'package:mythic_todo/features/note/domain/entities/note.dart';

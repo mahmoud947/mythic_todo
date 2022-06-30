@@ -1,5 +1,5 @@
-import 'package:mythic_todo/core/util/extension.dart';
-import 'package:mythic_todo/features/note/domain/entities/note.dart';
+import '../../../../core/util/extension.dart';
+import '../../domain/entities/note.dart';
 
 import '../models/note_model.dart';
 

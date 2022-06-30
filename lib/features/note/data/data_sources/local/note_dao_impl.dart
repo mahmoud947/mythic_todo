@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import '../../../../../core/error/exceptions.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../../../../core/error/exceptions.dart';
 import '../../models/note_model.dart';
 import 'note_dao.dart';
 

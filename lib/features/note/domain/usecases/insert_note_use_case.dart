@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
-import 'package:mythic_todo/core/error/failures.dart';
-import 'package:mythic_todo/features/note/data/models/note_model.dart';
-import 'package:mythic_todo/features/note/domain/repositories/note_repository.dart';
+import '../../../../core/error/failures.dart';
+import '../../data/models/note_model.dart';
+import '../repositories/note_repository.dart';
 
 class InsertNoteUseCase {
   InsertNoteUseCase({required this.repository});
