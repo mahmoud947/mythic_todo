@@ -17,6 +17,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_svg: ^1.1.1
   path: ^1.8.1
+  shared_preferences: ^2.0.15
   sqflite: ^2.0.2+1
 
 dev_dependencies:
