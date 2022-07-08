@@ -1,3 +1,7 @@
 {
-  "dimmer.enabled": false
+  "dimmer.enabled": false,
+  "cSpell.words": [
+    "inconsolata",
+    "pacifico"
+  ]
 }
