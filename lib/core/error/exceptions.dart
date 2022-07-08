@@ -1,4 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+class AppSettingException implements Exception {
+  AppSettingException({this.message});
+  String? message;
+}
+
 class EmptyNotesDataException implements Exception {
   EmptyNotesDataException({this.message});
   String? message;

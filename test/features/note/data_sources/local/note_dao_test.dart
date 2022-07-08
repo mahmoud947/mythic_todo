@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mythic_todo/core/error/exceptions.dart';
+import 'package:mythic_todo/features/note/data/data_sources/local/note_dao.dart';
 import 'package:mythic_todo/features/note/data/data_sources/local/note_dao_impl.dart';
 import 'package:mythic_todo/features/note/data/models/note_model.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -14,7 +15,7 @@ class MockDatabase extends Mock implements Database {}
 
 void main() {
   late MockDatabase mockDatabase;
-  late NoteDaoImpl daoImpl;
+  late NoteDao daoImpl;
 
   setUp(() {
     mockDatabase = MockDatabase();
