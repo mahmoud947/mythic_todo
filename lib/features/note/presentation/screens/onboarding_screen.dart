@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mythic_todo/common/app_fonts.dart';
+import '../../../../common/app_fonts.dart';
 
-import 'package:mythic_todo/features/note/presentation/cubit/on_boarding_cubit.dart';
-import 'package:mythic_todo/features/note/presentation/utils/on_boarding_object.dart';
+import '../cubit/on_boarding_cubit.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   OnBoardingScreen({Key? key}) : super(key: key);

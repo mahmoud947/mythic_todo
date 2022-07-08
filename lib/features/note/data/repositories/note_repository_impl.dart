@@ -1,12 +1,11 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/exceptions.dart';
 
+import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
-import '../data_sources/local/note_dao.dart';
-import '../mapper/mapper.dart';
 import '../../domain/entities/note.dart';
 import '../../domain/repositories/note_repository.dart';
-
+import '../data_sources/local/note_dao.dart';
+import '../mapper/mapper.dart';
 import '../models/note_model.dart';
 
 class NoteRepositoryImpl implements NoteRepository {

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mythic_todo/features/note/presentation/utils/on_boarding_object.dart';
+import '../utils/on_boarding_object.dart';
 
 import '../../../../common/app_strings.dart';
 import '../../../../common/image_resources.dart';
