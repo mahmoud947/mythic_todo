@@ -4,7 +4,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:mythic_todo/application/app_constants.dart';
 import 'package:mythic_todo/application/app_setting.dart';
 import 'package:mythic_todo/application/app_setting_impl.dart';
-import 'package:mythic_todo/core/error/exceptions.dart';
 import 'package:mythic_todo/core/error/failures.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

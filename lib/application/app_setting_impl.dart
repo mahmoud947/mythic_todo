@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../core/error/failures.dart';
 import 'app_constants.dart';
 import 'app_setting.dart';
-import '../core/error/exceptions.dart';
-import '../core/error/failures.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSettingImpl implements AppSetting {
   AppSettingImpl({required this.prefs});
