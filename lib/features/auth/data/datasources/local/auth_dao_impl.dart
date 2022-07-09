@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:mythic_todo/application/app_constants.dart';
-import 'package:mythic_todo/core/error/exceptions.dart';
+import '../../../../../application/app_constants.dart';
+import '../../../../../core/error/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth_dao.dart';

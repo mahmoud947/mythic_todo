@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../common/app_fonts.dart';
 
+import '../../../../common/app_fonts.dart';
 import '../cubit/on_boarding_cubit.dart';
 
 class OnBoardingScreen extends StatelessWidget {
