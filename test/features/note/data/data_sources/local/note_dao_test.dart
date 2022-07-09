@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:sqflite/sqlite_api.dart';
+
 import 'package:mythic_todo/core/error/exceptions.dart';
 import 'package:mythic_todo/features/note/data/data_sources/local/note_dao.dart';
 import 'package:mythic_todo/features/note/data/data_sources/local/note_dao_impl.dart';
 import 'package:mythic_todo/features/note/data/models/note_model.dart';
-import 'package:sqflite/sqlite_api.dart';
 
-import '../../../../fixtures/fixtures_render.dart';
+import '../../../../../fixtures/fixtures_render.dart';
 
 class MockDatabase extends Mock implements Database {}
 

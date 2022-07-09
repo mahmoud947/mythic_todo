@@ -1,8 +1,4 @@
 {
   "dimmer.enabled": false,
-  "cSpell.words": [
-    "inconsolata",
-    "pacifico",
-    "prefs"
-  ]
+  "cSpell.words": ["datasources", "inconsolata", "pacifico", "prefs"]
 }

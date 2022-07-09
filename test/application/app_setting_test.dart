@@ -58,7 +58,20 @@ void main() {
       expect(result, const Right(unit));
     });
 
-    test('''should return failure when 
+    test('''should return failure(un saved error) when 
+      fail in insert bool value in application setting(SharedPreferences)''',
+        () async {
+      // arrange
+      when(() => mockSharedPreferences.setBool(
+              AppConstants.IS_FIRST_LAUNCHING_APP_KEY, true))
+          .thenAnswer((invocation) async => false);
+      // act
+      final result = await appSettingImpl.setFirstLaunch(isFirstLaunch: true);
+      // assert
+      expect(result, Left(AppSettingFailure(message: 'un saved error')));
+    });
+
+    test('''should return failure(unexpected error occurred) when 
       fail in insert bool value in application setting(SharedPreferences)''',
         () async {
       // arrange
