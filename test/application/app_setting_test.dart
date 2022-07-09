@@ -18,33 +18,59 @@ void main() {
     mockSharedPreferences = MockSharedPreferences();
     appSettingImpl = AppSettingImpl(prefs: mockSharedPreferences);
   });
-  group(
-    'isFirstLaunching',
-    () {
-      test(
-          'should return bool value from application setting(SharedPreferences)',
-          () async {
-        // arrange
-        when(() => mockSharedPreferences.getBool(
-            AppConstants.IS_FIRST_LAUNCHING_APP_KEY)).thenAnswer((_) => true);
-        // act
-        final result = appSettingImpl.isFirstLaunching();
-        // assert
-        expect(result, const Right(true));
-      });
 
-      test('''should return failure when 
-      fail to get bool from from application setting(SharedPreferences)''',
-          () async {
-        // arrange
-        when(() => mockSharedPreferences
-                .getBool(AppConstants.IS_FIRST_LAUNCHING_APP_KEY))
-            .thenThrow(AppSettingException());
-        // act
-        final result = appSettingImpl.isFirstLaunching();
-        // assert
-        expect(result, Left(AppSettingFailure()));
-      });
-    },
-  );
+  group('isFirstLaunching', () {
+    test('should return bool value from application setting(SharedPreferences)',
+        () async {
+      // arrange
+      when(() => mockSharedPreferences.getBool(
+          AppConstants.IS_FIRST_LAUNCHING_APP_KEY)).thenAnswer((_) => true);
+      // act
+      final result = appSettingImpl.isFirstLaunching();
+      // assert
+      expect(result, const Right(true));
+    });
+
+    test('''should return failure when 
+      fail to get bool from application setting(SharedPreferences)''',
+        () async {
+      // arrange
+      when(() => mockSharedPreferences.getBool(
+          AppConstants.IS_FIRST_LAUNCHING_APP_KEY)).thenThrow(Exception());
+      // act
+      final result = appSettingImpl.isFirstLaunching();
+      // assert
+      expect(result,
+          Left(AppSettingFailure(message: 'unexpected error occurred')));
+    });
+  });
+
+  group('setFirstLaunch', () {
+    test(
+        'should return unit when successfully insert bool value in application setting(SharedPreferences)',
+        () async {
+      // arrange
+      when(() => mockSharedPreferences.setBool(
+              AppConstants.IS_FIRST_LAUNCHING_APP_KEY, true))
+          .thenAnswer((_) async => true);
+      // act
+      final result = await appSettingImpl.setFirstLaunch(isFirstLaunch: true);
+      // assert
+      expect(result, const Right(unit));
+    });
+
+    test('''should return failure when 
+      fail in insert bool value in application setting(SharedPreferences)''',
+        () async {
+      // arrange
+      when(() => mockSharedPreferences.setBool(
+              AppConstants.IS_FIRST_LAUNCHING_APP_KEY, true))
+          .thenThrow(Exception());
+      // act
+      final result = await appSettingImpl.setFirstLaunch(isFirstLaunch: true);
+      // assert
+      expect(result,
+          Left(AppSettingFailure(message: 'unexpected error occurred')));
+    });
+  });
 }
