@@ -14,4 +14,7 @@ class AppStrings {
   static const onBoardingSubTitleThree =
       '''Put all your worries on when to do what, organize your thoughts in colorful bite sizes, enjoy clicking 
 *completed* on every one after doing it''';
+
+  static const onBoardingNextBtnText = 'NEXT';
+  static const onBoardingFinishBtnText = '''Let's go''';
 }

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import '../../../../../application/app_constants.dart';
-import '../../../../../core/error/exceptions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../application/app_constants.dart';
+import '../../../../../core/error/exceptions.dart';
 import 'auth_dao.dart';
 
 class AuthDaoImpl implements AuthDao {

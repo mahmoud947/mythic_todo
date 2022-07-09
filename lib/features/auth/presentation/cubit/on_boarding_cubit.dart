@@ -3,36 +3,40 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/app_strings.dart';
 import '../../../../common/image_resources.dart';
-import '../../../note/presentation/utils/on_boarding_object.dart';
+import '../utils/on_boarding_object.dart';
 
 part 'on_boarding_state.dart';
 
 class OnBoardingCubit extends Cubit<OnBoardingInitial> {
   final List<OnBoardingObject> _pages = [
     OnBoardingObject(
-      title: AppStrings.onBoardingTitleOne,
-      subTitle: AppStrings.onBoardingSubTitleOne,
-      backGroundImage: ImageResources.onBoardingBackgroundOne,
+        title: AppStrings.onBoardingTitleOne,
+        subTitle: AppStrings.onBoardingSubTitleOne,
+        backGroundImage: ImageResources.onBoardingBackgroundOne,
+        btnText: AppStrings.onBoardingNextBtnText),
+    OnBoardingObject(
+      title: AppStrings.onBoardingTitleTwo,
+      subTitle: AppStrings.onBoardingSubTitleTwo,
+      backGroundImage: ImageResources.onBoardingBackgroundTwo,
+      logo: ImageResources.onBoardingLogoOne,
+      btnText: AppStrings.onBoardingNextBtnText,
     ),
     OnBoardingObject(
-        title: AppStrings.onBoardingTitleTwo,
-        subTitle: AppStrings.onBoardingSubTitleTwo,
-        backGroundImage: ImageResources.onBoardingBackgroundTwo,
-        logo: ImageResources.onBoardingLogoOne),
-    OnBoardingObject(
-        title: AppStrings.onBoardingTitleThree,
-        subTitle: AppStrings.onBoardingSubTitleThree,
-        backGroundImage: ImageResources.onBoardingBackgroundTwo,
-        logo: ImageResources.onBoardingLogoTwo),
+      title: AppStrings.onBoardingTitleThree,
+      subTitle: AppStrings.onBoardingSubTitleThree,
+      backGroundImage: ImageResources.onBoardingBackgroundTwo,
+      logo: ImageResources.onBoardingLogoTwo,
+      btnText: AppStrings.onBoardingFinishBtnText,
+    ),
   ];
   OnBoardingCubit()
       : super(
           OnBoardingInitial(
             onBoardingObject: OnBoardingObject(
-              title: AppStrings.onBoardingTitleOne,
-              subTitle: AppStrings.onBoardingSubTitleOne,
-              backGroundImage: ImageResources.onBoardingBackgroundOne,
-            ),
+                title: AppStrings.onBoardingTitleOne,
+                subTitle: AppStrings.onBoardingSubTitleOne,
+                backGroundImage: ImageResources.onBoardingBackgroundOne,
+                btnText: AppStrings.onBoardingNextBtnText),
           ),
         );
   int _currentIndex = 0;
