@@ -1,9 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../utils/on_boarding_object.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/app_strings.dart';
 import '../../../../common/image_resources.dart';
+import '../utils/on_boarding_object.dart';
 
 part 'on_boarding_state.dart';
 

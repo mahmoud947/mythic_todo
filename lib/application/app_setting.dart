@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:mythic_todo/core/error/failures.dart';
+import '../core/error/failures.dart';
 
 abstract class AppSetting {
   /// check if it first time lunching application

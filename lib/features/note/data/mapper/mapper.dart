@@ -1,6 +1,5 @@
 import '../../../../core/util/extension.dart';
 import '../../domain/entities/note.dart';
-
 import '../models/note_model.dart';
 
 extension NoteEntityMapper on NoteModel {
