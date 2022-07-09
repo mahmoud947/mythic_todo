@@ -40,6 +40,8 @@ flutter:
     - assets/images/onboarding_logo_two.svg
     - assets/images/onboarding_background_one.svg
     - assets/images/onboarding_background_two.svg
+    - assets/images/splash_screen_background.svg
+    - assets/images/app_logo.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

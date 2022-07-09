@@ -1,4 +1,8 @@
 class AppStrings {
+  //? SplashScreen
+  //*... subTitle
+  static const splashScreenSubTitle = 'Created by mahmoud kamal';
+
   //? onBoarding
   //*... title
   static const onBoardingTitleOne = 'Welcome to mythic todo';

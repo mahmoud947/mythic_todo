@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/features/auth/presentation/pages/splash_screen.dart';
 
 import 'common/app_themes.dart';
-import 'features/auth/presentation/cubit/on_boarding_cubit.dart';
-import 'features/auth/presentation/pages/onboarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,8 +18,7 @@ class MyApp extends StatelessWidget {
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       themeMode: ThemeMode.system,
-      home: BlocProvider<OnBoardingCubit>(
-          create: (context) => OnBoardingCubit(), child: OnBoardingScreen()),
+      home: const SplashScreen(),
     );
   }
 }
