@@ -18,14 +18,24 @@ class AppSettingImpl implements AppSetting {
       } else {
         return right(false);
       }
-    } on AppSettingException {
-      return left(AppSettingFailure());
+    } catch (e) {
+      return left(AppSettingFailure(message: 'unexpected error occurred'));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> setFirstLaunch({required bool isFirstLaunch}) {
-    // TODO: implement isFirstLaunching
-    throw UnimplementedError();
+  Future<Either<Failure, Unit>> setFirstLaunch(
+      {required bool isFirstLaunch}) async {
+    try {
+      final result = await prefs.setBool(
+          AppConstants.IS_FIRST_LAUNCHING_APP_KEY, isFirstLaunch);
+      if (result) {
+        return right(unit);
+      } else {
+        return left(AppSettingFailure(message: 'un saved error'));
+      }
+    } catch (e) {
+      return left(AppSettingFailure(message: 'unexpected error occurred'));
+    }
   }
 }
