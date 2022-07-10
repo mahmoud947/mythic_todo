@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mythic_todo/common/app_routes.dart';
-import 'package:mythic_todo/common/app_strings.dart';
-import 'package:mythic_todo/common/image_resources.dart';
-import 'package:mythic_todo/features/auth/presentation/cubit/splash_cubit.dart';
+import '../../../../common/app_routes.dart';
+import '../../../../common/app_strings.dart';
+import '../../../../common/image_resources.dart';
+import '../cubit/splash_cubit.dart';
 
 import '../../../../common/app_fonts.dart';
 

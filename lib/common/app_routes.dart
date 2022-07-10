@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/features/auth/presentation/cubit/on_boarding_cubit.dart';
-import 'package:mythic_todo/features/auth/presentation/cubit/splash_cubit.dart';
-import 'package:mythic_todo/features/auth/presentation/pages/onboarding_screen.dart';
-import 'package:mythic_todo/features/auth/presentation/pages/splash_screen.dart';
+import '../features/auth/presentation/cubit/on_boarding_cubit.dart';
+import '../features/auth/presentation/cubit/splash_cubit.dart';
+import '../features/auth/presentation/pages/onboarding_screen.dart';
+import '../features/auth/presentation/pages/splash_screen.dart';
 
 class AppRoutes {
   static const String splashScreen = '/';

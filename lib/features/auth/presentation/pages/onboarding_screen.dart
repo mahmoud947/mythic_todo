@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mythic_todo/core/util/extension.dart';
+import '../../../../core/util/extension.dart';
 
 import '../../../../common/app_fonts.dart';
 import '../cubit/on_boarding_cubit.dart';

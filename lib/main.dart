@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:mythic_todo/common/app_routes.dart';
-import 'package:mythic_todo/features/auth/presentation/cubit/splash_cubit.dart';
-import 'package:mythic_todo/features/auth/presentation/pages/splash_screen.dart';
+import 'common/app_routes.dart';
+import 'features/auth/presentation/cubit/splash_cubit.dart';
+import 'features/auth/presentation/pages/splash_screen.dart';
 
 import 'common/app_themes.dart';
 
