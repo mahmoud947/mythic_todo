@@ -17,7 +17,7 @@ void main() {
     authDao = AuthDaoImpl(prefs: mockSharedPreferences);
   });
 
-  test('should return bool value from AuthDao(SharedPreferences)', () async {
+  test('should return bool value from AuthDao(SharedPreferences )', () async {
     // arrange
     when(() => mockSharedPreferences.getBool(
         AppConstants.IS_FIRST_LAUNCHING_APP_KEY)).thenAnswer((_) => true);
