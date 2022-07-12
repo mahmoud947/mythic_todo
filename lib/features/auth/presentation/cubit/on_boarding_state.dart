@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'on_boarding_cubit.dart';
 
 abstract class OnBoardingState extends Equatable {
@@ -16,4 +15,11 @@ class OnBoardingInitial extends OnBoardingState {
 
   @override
   List<Object> get props => [onBoardingObject];
+}
+
+class FinishOnBoarding extends OnBoardingState {}
+
+class ErrorState extends OnBoardingState {
+  const ErrorState({this.message});
+  final String? message;
 }

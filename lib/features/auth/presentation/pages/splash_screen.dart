@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../../../common/app_fonts.dart';
 import '../../../../common/app_routes.dart';
 import '../../../../common/app_strings.dart';
 import '../../../../common/image_resources.dart';
 import '../cubit/splash_cubit.dart';
-
-import '../../../../common/app_fonts.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,9 +14,13 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashCubit, SplashState>(
-      listenWhen: (previous, current) => current is NavigateState,
       listener: (context, state) {
-        Navigator.of(context).pushReplacementNamed(AppRoutes.onBoardingScreen);
+        if (state is NavigateToOnBoarding) {
+          Navigator.of(context)
+              .pushReplacementNamed(AppRoutes.onBoardingScreen);
+        } else if (state is NavigateToHome) {
+          Navigator.of(context).pushReplacementNamed(AppRoutes.authScreen);
+        }
       },
       child: Scaffold(
         body: Stack(

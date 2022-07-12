@@ -2,12 +2,14 @@
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
+  get message;
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 class AppSettingFailure extends Failure {
   AppSettingFailure({this.message});
+  @override
   final String? message;
   @override
   List<Object?> get props => [message];
@@ -15,6 +17,7 @@ class AppSettingFailure extends Failure {
 
 class EmptyNotesDataFailure extends Failure {
   EmptyNotesDataFailure({this.message});
+  @override
   final String? message;
 
   @override
@@ -23,6 +26,7 @@ class EmptyNotesDataFailure extends Failure {
 
 class LocalDatabaseFailure extends Failure {
   LocalDatabaseFailure({this.message});
+  @override
   final String? message;
   @override
   List<Object?> get props => [message];
@@ -30,6 +34,7 @@ class LocalDatabaseFailure extends Failure {
 
 class LocalDatabaseNotFoundFailure extends Failure {
   LocalDatabaseNotFoundFailure({this.message});
+  @override
   final String? message;
   @override
   List<Object?> get props => [message];

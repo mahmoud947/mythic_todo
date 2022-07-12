@@ -1,6 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../domain/usecases/auth_use_cases.dart';
 
 import '../../../../common/app_strings.dart';
 import '../../../../common/image_resources.dart';
@@ -8,7 +8,8 @@ import '../utils/on_boarding_object.dart';
 
 part 'on_boarding_state.dart';
 
-class OnBoardingCubit extends Cubit<OnBoardingInitial> {
+class OnBoardingCubit extends Cubit<OnBoardingState> {
+  final AuthUseCases useCases;
   final List<OnBoardingObject> _pages = [
     OnBoardingObject(
         title: AppStrings.onBoardingTitleOne,
@@ -30,7 +31,7 @@ class OnBoardingCubit extends Cubit<OnBoardingInitial> {
       btnText: AppStrings.onBoardingFinishBtnText,
     ),
   ];
-  OnBoardingCubit()
+  OnBoardingCubit({required this.useCases})
       : super(
           OnBoardingInitial(
             onBoardingObject: OnBoardingObject(
@@ -42,11 +43,15 @@ class OnBoardingCubit extends Cubit<OnBoardingInitial> {
         );
   int _currentIndex = 0;
 
-  getNextPage() {
+  getNextPage() async {
     if (_currentIndex < _pages.length - 1) {
       return ++_currentIndex;
     } else {
-      return _currentIndex;
+      final either =
+          await useCases.setIsFirstLaunchUseCase(isFirstLaunch: true);
+
+      either.fold((failure) => emit(ErrorState(message: failure.message)),
+          (success) => emit(FinishOnBoarding()));
     }
   }
 
