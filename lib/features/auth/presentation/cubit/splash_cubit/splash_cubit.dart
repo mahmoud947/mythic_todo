@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../application/app_constants.dart';
-import '../../domain/usecases/auth_use_cases.dart';
+
+import '../../../../../application/app_constants.dart';
+import '../../../domain/usecases/auth_use_cases.dart';
 
 part 'splash_state.dart';
 
@@ -19,10 +20,9 @@ class SplashCubit extends Cubit<SplashState> {
     final either = useCases.checkIsFirstLaunchUseCase();
     either.fold(
       (failure) {
-        emit(NavigateToOnBoarding());
+        emit(ErrorState(message: failure.message));
       },
       (isFirstLaunch) {
-        print(isFirstLaunch);
         if (isFirstLaunch) {
           emit(NavigateToHome());
         } else {

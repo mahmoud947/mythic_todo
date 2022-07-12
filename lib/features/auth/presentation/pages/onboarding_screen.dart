@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mythic_todo/common/app_routes.dart';
 
 import '../../../../common/app_fonts.dart';
 import '../../../../core/util/extension.dart';
-import '../cubit/on_boarding_cubit.dart';
+import '../cubit/splash_cubit/on_boarding_cubit/on_boarding_cubit.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   OnBoardingScreen({Key? key}) : super(key: key);
@@ -39,8 +40,8 @@ class OnBoardingPage extends StatelessWidget {
     return BlocConsumer<OnBoardingCubit, OnBoardingState>(
         listenWhen: (previous, current) => current is OnBoardingInitial,
         listener: (context, state) {
-          if (state is OnBoardingInitial) {
-            state.onBoardingObject;
+          if (state is FinishOnBoarding) {
+            Navigator.of(context).pushReplacementNamed(AppRoutes.authScreen);
           }
         },
         builder: (context, state) {
@@ -124,10 +125,6 @@ class OnBoardingPage extends StatelessWidget {
                   ),
                 ),
               ],
-            );
-          } else if (state is FinishOnBoarding) {
-            return const Center(
-              child: Text('finish On Boarding'),
             );
           } else {
             return Container();

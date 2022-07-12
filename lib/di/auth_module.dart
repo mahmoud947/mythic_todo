@@ -5,8 +5,8 @@ import '../features/auth/domain/repositories/auth_repository.dart';
 import '../features/auth/domain/usecases/auth_use_cases.dart';
 import '../features/auth/domain/usecases/check_is_first_launch_use_case.dart';
 import '../features/auth/domain/usecases/set_is_first_launch_use_case.dart';
-import '../features/auth/presentation/cubit/on_boarding_cubit.dart';
-import '../features/auth/presentation/cubit/splash_cubit.dart';
+import '../features/auth/presentation/cubit/splash_cubit/on_boarding_cubit/on_boarding_cubit.dart';
+import '../features/auth/presentation/cubit/splash_cubit/splash_cubit.dart';
 import 'app_module.dart';
 
 initAuthModule() {

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:mythic_todo/core/error/error_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../application/app_constants.dart';
@@ -14,7 +15,7 @@ class AuthDaoImpl implements AuthDao {
     if (result != null) {
       return result;
     } else {
-      throw AppSettingException(message: 'unexpected error occurred');
+      return false;
     }
   }
 
@@ -25,7 +26,7 @@ class AuthDaoImpl implements AuthDao {
     if (result) {
       return Future.value(unit);
     } else {
-      throw AppSettingException(message: 'un saved error');
+      throw AppSettingException(message: ErrorString.unSavedError);
     }
   }
 }

@@ -6,7 +6,7 @@ import '../../../../common/app_fonts.dart';
 import '../../../../common/app_routes.dart';
 import '../../../../common/app_strings.dart';
 import '../../../../common/image_resources.dart';
-import '../cubit/splash_cubit.dart';
+import '../cubit/splash_cubit/splash_cubit.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);

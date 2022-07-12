@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import '../../../../core/error/error_strings.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -14,8 +15,8 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final result = authDao.isFirstLaunching();
       return Right(result);
-    } on AppSettingException catch (e) {
-      return Left(AppSettingFailure(message: e.message));
+    } catch (e) {
+      return Left(AppSettingFailure(message: ErrorString.unexpectedError));
     }
   }
 

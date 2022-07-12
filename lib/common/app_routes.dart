@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../di/auth_module.dart';
-import '../features/auth/presentation/pages/auth_page.dart';
 
 import '../di/app_module.dart';
-import '../features/auth/presentation/cubit/on_boarding_cubit.dart';
-import '../features/auth/presentation/cubit/splash_cubit.dart';
+import '../di/auth_module.dart';
+import '../features/auth/presentation/cubit/splash_cubit/on_boarding_cubit/on_boarding_cubit.dart';
+import '../features/auth/presentation/cubit/splash_cubit/splash_cubit.dart';
+import '../features/auth/presentation/pages/auth_page.dart';
 import '../features/auth/presentation/pages/onboarding_screen.dart';
 import '../features/auth/presentation/pages/splash_screen.dart';
 

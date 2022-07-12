@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/usecases/auth_use_cases.dart';
 
-import '../../../../common/app_strings.dart';
-import '../../../../common/image_resources.dart';
-import '../utils/on_boarding_object.dart';
+import '../../../../../../common/app_strings.dart';
+import '../../../../../../common/image_resources.dart';
+import '../../../../domain/usecases/auth_use_cases.dart';
+import '../../../utils/on_boarding_object.dart';
 
 part 'on_boarding_state.dart';
 
