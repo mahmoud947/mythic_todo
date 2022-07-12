@@ -36,7 +36,8 @@ void main() {
       // act
       final result = repository.isFirstLaunching();
       // assert
-      expect(result, Left(AppSettingFailure()));
+      expect(result,
+          Left(AppSettingFailure(message: 'unexpected error occurred')));
     });
   });
 

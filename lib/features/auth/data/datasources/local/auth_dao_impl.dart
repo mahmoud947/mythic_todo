@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:mythic_todo/core/error/error_strings.dart';
+import '../../../../../core/error/error_strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../application/app_constants.dart';
