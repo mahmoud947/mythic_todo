@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mythic_todo/features/note/presentation/pages/note_view/note_page.dart';
 
 import 'common/app_routes.dart';
 import 'common/app_themes.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       themeMode: ThemeMode.system,
-      onGenerateRoute: appRoutes.generateRoute,
+      home: const NotePage(),
+      //onGenerateRoute: appRoutes.generateRoute,
     );
   }
 }

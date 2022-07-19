@@ -6,6 +6,7 @@ class AppFontConstants {
 }
 
 class AppFontWeight {
+  static const FontWeight bold = FontWeight.w700;
   static const FontWeight light = FontWeight.w300;
   static const FontWeight regular = FontWeight.w400;
 }
