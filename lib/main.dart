@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       home: const NotePage(),
       //onGenerateRoute: appRoutes.generateRoute,
+      //test
     );
   }
 }
