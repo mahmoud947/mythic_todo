@@ -110,8 +110,9 @@ class OnBoardingPage extends StatelessWidget {
                                 curve: Curves.ease);
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
-                            onPrimary: Theme.of(context).colorScheme.primary,
+                            backgroundColor: Colors.white,
+                            foregroundColor:
+                                Theme.of(context).colorScheme.primary,
                             minimumSize: const Size(320, 52),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
