@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/common/app_text_styles.dart';
+import 'app_text_styles.dart';
 
 import 'app_colors.dart';
 

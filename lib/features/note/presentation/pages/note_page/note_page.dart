@@ -1,10 +1,10 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/common/app_colors.dart';
-import 'package:mythic_todo/common/app_fonts.dart';
-import 'package:mythic_todo/common/app_size.dart';
-import 'package:mythic_todo/features/note/data/models/note_model.dart';
-import 'package:mythic_todo/features/note/domain/entities/note.dart';
+import '../../../../../common/app_colors.dart';
+import '../../../../../common/app_fonts.dart';
+import '../../../../../common/app_size.dart';
+import '../../../data/models/note_model.dart';
+import '../../../domain/entities/note.dart';
 import '../../../data/util/note_extension.dart';
 
 class NotePage extends StatelessWidget {

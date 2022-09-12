@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mythic_todo/common/app_colors.dart';
-import 'package:mythic_todo/common/app_fonts.dart';
+
+import 'app_colors.dart';
+import 'app_fonts.dart';
 
 class AppTextStyle {
   AppTextStyle._();

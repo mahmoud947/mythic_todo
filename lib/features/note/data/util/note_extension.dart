@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/features/note/data/models/note_model.dart';
+import '../models/note_model.dart';
 
 extension GetColor on NoteColor {
   Color get intColor {
