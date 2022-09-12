@@ -1,5 +1,6 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:mythic_todo/common/app_colors.dart';
 import 'package:mythic_todo/common/app_fonts.dart';
 import 'package:mythic_todo/common/app_size.dart';
 import 'package:mythic_todo/features/note/data/models/note_model.dart';
@@ -21,18 +22,31 @@ class NotePage extends StatelessWidget {
               child: _buildDateSelectedAndAddTaskSection(context),
             ),
             _buildDatePickerSection(context),
-            // ListView.builder(
-            //   itemCount: ,
-            //   itemBuilder: (_, index){
-
-            // })
+            Expanded(
+              child: ListView.builder(
+                  itemCount: 4,
+                  itemBuilder: (_, index) {
+                    return _noteWidget(
+                        context,
+                        Note(
+                            id: index,
+                            title: 'it is a title',
+                            description:
+                                'this is a description an more for just test we can do it if we work to gether',
+                            startTime: 'startTime',
+                            endTime: 'endTime',
+                            color: NoteColor.babyBlue,
+                            isCompleted: true,
+                            reminder: true));
+                  }),
+            )
           ],
         ),
       ),
     );
   }
 
-  Card _buildNote(BuildContext context, Note note) {
+  Card _noteWidget(BuildContext context, Note note) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.1),
@@ -47,19 +61,14 @@ class NotePage extends StatelessWidget {
           children: [
             Text(
               note.title,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: AppFontSize.overLine,
-                fontWeight: AppFontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleSmall,
             ),
             Text(
               '${note.startTime} AM',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: AppFontSize.overLine,
-                fontWeight: AppFontWeight.bold,
-              ),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall
+                  ?.copyWith(color: AppColors.lightOnNoteColor),
             ),
           ],
         ),
@@ -68,22 +77,20 @@ class NotePage extends StatelessWidget {
         children: [
           Text(
             note.description,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onBackground,
-              fontSize: AppFontSize.overLine,
-              fontWeight: AppFontWeight.regular,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: AppColors.lightOnNoteColor),
           ),
           const SizedBox(height: AppSpace.regular),
           Row(
             children: [
               Text(
                 'Completed',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
-                  fontSize: AppFontSize.overLine,
-                  fontWeight: AppFontWeight.bold,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleSmall
+                    ?.copyWith(color: AppColors.lightOnNoteColor),
               ),
               Checkbox(
                 value: note.isCompleted,
@@ -105,23 +112,9 @@ class NotePage extends StatelessWidget {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Today',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: AppFontSize.title,
-                fontWeight: AppFontWeight.bold,
-              ),
-            ),
+            Text('Today', style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: AppSpace.regular),
-            Text(
-              'April 27,2022',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: AppFontSize.saml,
-                fontWeight: AppFontWeight.regular,
-              ),
-            ),
+            Text('April 27,2022', style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
         Row(
@@ -130,17 +123,13 @@ class NotePage extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.add_circle_rounded,
-                size: 34,
-                color: Theme.of(context).colorScheme.primary,
+                size: 30,
+                color: Theme.of(context).colorScheme.onBackground,
               ),
             ),
             Text(
               'Task',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: AppFontSize.body1,
-                fontWeight: AppFontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ],
         )
@@ -174,18 +163,20 @@ class NotePage extends StatelessWidget {
         ),
       ),
       actions: [
-        Icon(
-          Icons.search,
-          color: Theme.of(context).colorScheme.onBackground,
-          size: 34,
-        )
+        IconButton(
+            onPressed: () => {},
+            icon: Icon(
+              Icons.search,
+              size: 32,
+              color: Theme.of(context).colorScheme.onBackground,
+            ))
       ],
       title: Text(
         'Home',
         style: TextStyle(
           color: Theme.of(context).colorScheme.onBackground,
           fontFamily: AppFontConstants.inconsolataFontFamily,
-          fontSize: AppFontSize.title,
+          fontSize: AppFontSize.titleMedium,
           fontWeight: AppFontWeight.bold,
         ),
       ),

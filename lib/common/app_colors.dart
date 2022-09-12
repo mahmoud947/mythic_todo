@@ -15,6 +15,7 @@ class AppColors {
   static const Color lightOnBackgroundColor = Color(0xFF000000);
   static const Color lightOnSurfaceColor = Color(0xFF000000);
   static const Color lightOnErrorColor = Color(0xFFE9E7EF);
+  static const Color lightOnNoteColor = Color(0xFF000000);
 
   //? dark Mode
   static const Color darkPrimaryColor = Color(0xFF191921);
@@ -28,4 +29,5 @@ class AppColors {
   static const Color darkOnBackgroundColor = Color(0xFFE9E7EF);
   static const Color darkOnSurfaceColor = Color(0xFFE9E7EF);
   static const Color darkOnErrorColor = Color(0xFFE9E7EF);
+  static const Color darkOnNoteColor = Color(0xFF000000);
 }
