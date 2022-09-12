@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/features/note/presentation/pages/note_view/note_page.dart';
+import 'package:mythic_todo/features/note/presentation/pages/note_page/note_page.dart';
 
 import 'common/app_routes.dart';
 import 'common/app_themes.dart';
