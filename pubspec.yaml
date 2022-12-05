@@ -21,6 +21,8 @@ dependencies:
   google_fonts: ^3.0.1
   path: ^1.8.1
   shared_preferences: ^2.0.15
+  sizer: ^2.0.15
+  smooth_page_indicator: ^1.0.0+2
   sqflite: ^2.0.2+1
 
 dev_dependencies:
@@ -40,13 +42,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/onboarding_logo_one.svg
-    - assets/images/onboarding_logo_two.svg
-    - assets/images/onboarding_background_one.svg
-    - assets/images/onboarding_background_two.svg
-    - assets/images/splash_screen_background.svg
-    - assets/images/app_logo.svg
-    - assets/images/app_icon.png
+    - assets/images/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

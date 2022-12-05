@@ -2,13 +2,11 @@ class OnBoardingObject {
   OnBoardingObject({
     required this.title,
     required this.subTitle,
-    required this.backGroundImage,
-    this.logo,
-    this.btnText,
+    required this.logo,
+    required this.btnText,
   });
   final String title;
   final String subTitle;
-  final String backGroundImage;
-  final String? logo;
-  final String? btnText;
+  final String logo;
+  final String btnText;
 }

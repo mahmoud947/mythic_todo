@@ -9,7 +9,7 @@ part 'splash_state.dart';
 class SplashCubit extends Cubit<SplashState> {
   final AuthUseCases useCases;
   SplashCubit({required this.useCases}) : super(SplashInitial()) {
-    _navigate();
+    //_navigate();
   }
 
   _navigate() async {
