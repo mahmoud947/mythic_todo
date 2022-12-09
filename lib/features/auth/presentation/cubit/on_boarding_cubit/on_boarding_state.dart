@@ -20,6 +20,6 @@ class OnBoardingInitial extends OnBoardingState {
 class FinishOnBoarding extends OnBoardingState {}
 
 class ErrorState extends OnBoardingState {
-  const ErrorState({this.message});
-  final String? message;
+  const ErrorState({required this.message});
+  final String message;
 }

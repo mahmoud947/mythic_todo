@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
+  flutter_hooks: ^0.18.5+1
   flutter_svg: ^1.1.1
   get_it: ^7.2.0
   google_fonts: ^3.0.1

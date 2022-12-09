@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 import 'app_colors.dart';
 import 'app_fonts.dart';
@@ -13,8 +14,8 @@ class AppTextStyle {
         color: AppColors.lightOnBackgroundColor,
         fontWeight: AppFontWeight.medium),
     bodySmall: GoogleFonts.fredoka(
-        fontSize: AppFontSize.bodySmall,
-        color: AppColors.lightOnBackgroundColor,
+        fontSize: 12.sp,
+        color: Colors.black54,
         fontWeight: AppFontWeight.regular),
     titleSmall: GoogleFonts.fredoka(
         fontSize: AppFontSize.titleSmall,
@@ -28,7 +29,7 @@ class AppTextStyle {
         color: AppColors.darkOnBackgroundColor,
         fontWeight: AppFontWeight.medium),
     bodySmall: GoogleFonts.fredoka(
-        fontSize: AppFontSize.bodySmall,
+        fontSize: 12.sp,
         color: AppColors.darkOnBackgroundColor,
         fontWeight: AppFontWeight.regular),
     titleSmall: GoogleFonts.fredoka(

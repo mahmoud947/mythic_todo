@@ -7,3 +7,13 @@ extension DarkMode on BuildContext {
     return brightness == Brightness.dark;
   }
 }
+
+extension ShowSnackBar on BuildContext {
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(this).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+}

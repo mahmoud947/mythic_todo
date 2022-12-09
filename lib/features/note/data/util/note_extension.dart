@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/note_model.dart';
 
 extension GetColor on NoteColor {

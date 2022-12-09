@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:mythic_todo/core/platorm/utils/exetension.dart';
-
 class ImageResources {
   // Application Logo
   static const String applicationLogo = 'assets/images/app_logo.svg';
@@ -34,4 +31,7 @@ class ImageResources {
       'assets/images/on_boarding_right_circle.svg';
   static const String onBoardingSmallRightLightBlueCircle =
       'assets/images/on_boarding_right_small_light_blue_circle.svg';
+
+  // auth
+  static const String gmailLogo = 'assets/images/gmail_logo.svg';
 }

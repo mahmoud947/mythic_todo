@@ -46,11 +46,17 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
     if (_currentIndex < _pages.length - 1) {
       return ++_currentIndex;
     } else {
-      // final either =
-      //     await useCases.setIsFirstLaunchUseCase(isFirstLaunch: true);
+      final either =
+          await useCases.setIsFirstLaunchUseCase(isFirstLaunch: true);
 
-      // either.fold((failure) => emit(ErrorState(message: failure.message)),
-      //     (success) => emit(FinishOnBoarding()));
+      either.fold(
+        (failure) => emit(
+          ErrorState(message: failure.message),
+        ),
+        (success) => emit(
+          FinishOnBoarding(),
+        ),
+      );
     }
   }
 

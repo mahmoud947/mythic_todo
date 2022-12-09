@@ -1,4 +1,6 @@
 class AppStrings {
+  //? AppName
+  static const appName = 'mythic todo';
   //? SplashScreen
   //*... subTitle
   static const splashScreenSubTitle = 'Created by mahmoud kamal';
@@ -18,4 +20,15 @@ class AppStrings {
 
   static const onBoardingNextBtnText = 'NEXT';
   static const onBoardingFinishBtnText = '''Let's go''';
+
+  //? SignInScreen
+  //*... title
+  static const welcomeToMythicTodo = 'Welcome to\n mythic todo';
+  static const doNotHaveAnAccount = 'Don\'t have an account?';
+  static const signUp = 'Sign Up';
+
+  //? Register
+  static const register = 'Register';
+  static const alreadyHaveAnAccount = 'Already have an account?';
+  static const signIn = 'SignIn';
 }

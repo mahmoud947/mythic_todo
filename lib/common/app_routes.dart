@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../features/auth/presentation/pages/resiter/register_screen.dart';
 
 import '../di/app_module.dart';
 import '../di/auth_module.dart';
 
 import '../features/auth/presentation/cubit/on_boarding_cubit/on_boarding_cubit.dart';
 import '../features/auth/presentation/cubit/splash_cubit/splash_cubit.dart';
-import '../features/auth/presentation/pages/auth_page.dart';
-import '../features/auth/presentation/pages/onboarding_screen.dart';
-import '../features/auth/presentation/pages/splash_screen.dart';
+import '../features/auth/presentation/pages/sign_in/sign_in_page.dart';
+import '../features/auth/presentation/pages/on_boarding/onboarding_screen.dart';
+import '../features/auth/presentation/pages/splash/splash_screen.dart';
 
 class AppRoutes {
   static const String splashScreen = '/';
   static const String onBoardingScreen = 'onBoarding_screen';
-  static const String authScreen = 'auth_screen';
+  static const String signInScreen = 'signIn_screen';
+  static const String registerScreen = 'register_screen';
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -30,8 +32,10 @@ class AppRoutes {
                   create: (context) => ls<OnBoardingCubit>(),
                   child: OnBoardingScreen(),
                 ));
-      case authScreen:
-        return MaterialPageRoute(builder: (_) => const AuthPage());
+      case signInScreen:
+        return MaterialPageRoute(builder: (_) => const SignInPage());
+      case registerScreen:
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
       default:
         return null;
     }

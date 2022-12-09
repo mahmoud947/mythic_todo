@@ -4,7 +4,6 @@ import 'package:sizer/sizer.dart';
 import 'common/app_routes.dart';
 import 'common/app_themes.dart';
 import 'di/app_module.dart' as di;
-import 'features/note/presentation/pages/note_page/note_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
