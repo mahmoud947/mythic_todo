@@ -13,6 +13,8 @@ dependencies:
   dartz: ^0.10.1
   date_picker_timeline: ^1.2.3
   equatable: ^2.0.3
+  firebase_auth: ^4.2.0
+  firebase_core: ^2.4.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
@@ -20,6 +22,7 @@ dependencies:
   flutter_svg: ^1.1.1
   get_it: ^7.2.0
   google_fonts: ^3.0.1
+  google_sign_in: ^5.4.2
   path: ^1.8.1
   shared_preferences: ^2.0.15
   sizer: ^2.0.15

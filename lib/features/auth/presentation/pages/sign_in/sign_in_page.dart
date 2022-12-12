@@ -59,12 +59,6 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 73.5.h,
-                left: 0,
-                right: 0,
-                child: const TextOnDivider(),
-              ),
-              Positioned(
                 top: 70.h,
                 right: -10.w,
                 width: 20.w,
@@ -76,7 +70,7 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 65.h,
+                top: 70.h,
                 left: 0,
                 right: 0,
                 child: GoogleButton(

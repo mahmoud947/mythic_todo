@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "208559165492",
+    "project_id": "mythictodo-cf582",
+    "storage_bucket": "mythictodo-cf582.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208559165492:android:181582f68c5890b535ba61",
+        "android_client_info": {
+          "package_name": "com.example.mythic_todo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208559165492-obsm5g667ovd9neka309dnrc3pbijv38.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB45Pv_DY0YL-vxJH0qz2QB8PRVedtalCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208559165492-obsm5g667ovd9neka309dnrc3pbijv38.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -136,7 +136,7 @@ class NormalTextField extends StatelessWidget {
           style: Theme.of(context).textTheme.bodySmall,
           decoration: InputDecoration(
             hintText: hint,
-            prefixIcon: const Icon(Icons.email),
+            prefixIcon: Icon(icon),
           ),
         ),
       ),

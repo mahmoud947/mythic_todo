@@ -21,6 +21,15 @@ class AppTextStyle {
         fontSize: AppFontSize.titleSmall,
         color: AppColors.lightOnNoteColor,
         fontWeight: AppFontWeight.medium),
+    headlineMedium: GoogleFonts.fredoka(
+      fontSize: 18.sp,
+      color: AppColors.lightOnPrimaryColor,
+      fontWeight: FontWeight.w500,
+    ),
+    bodyMedium: GoogleFonts.fredoka(
+      fontSize: 12.sp,
+      color: AppColors.lightOnPrimaryColor,
+    ),
   );
 
   static final TextTheme darkTextTheme = TextTheme(
@@ -36,5 +45,14 @@ class AppTextStyle {
         fontSize: AppFontSize.titleSmall,
         color: AppColors.darkOnNoteColor,
         fontWeight: AppFontWeight.medium),
+    headlineMedium: GoogleFonts.fredoka(
+      fontSize: 18.sp,
+      color: AppColors.darkOnPrimaryColor,
+      fontWeight: FontWeight.w500,
+    ),
+    bodyMedium: GoogleFonts.fredoka(
+      fontSize: 12.sp,
+      color: AppColors.darkOnPrimaryColor,
+    ),
   );
 }

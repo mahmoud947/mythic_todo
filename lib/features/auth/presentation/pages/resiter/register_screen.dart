@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mythic_todo/common/app_routes.dart';
 import '../../../../../common/app_strings.dart';
 import '../../../../../core/platform/widgets/custom_elevated_button.dart';
-import '../../widgets/canvas_half_circle.dart';
+import '../../widgets/over_lapping_circles.dart';
 import '../../widgets/canvas_line_end_with_circle.dart';
 import '../../widgets/google_button.dart';
 import '../../widgets/red_top_left_circle.dart';
@@ -31,15 +32,16 @@ class RegisterScreen extends StatelessWidget {
               const TopLeftText(),
               const TopTitle(title: AppStrings.register),
               Positioned(
-                  height: 200,
-                  top: 25.h,
-                  left: 50.w,
-                  child: CustomPaint(
-                    foregroundPainter: LineEndWithCircle(
-                      color: Colors.red,
-                      circleRadius: 6.w,
-                    ),
-                  )),
+                height: 30.h,
+                top: 25.h,
+                left: 50.w,
+                child: CustomPaint(
+                  foregroundPainter: LineEndWithCircle(
+                    color: Colors.red,
+                    circleRadius: 6.w,
+                  ),
+                ),
+              ),
               Positioned(
                 top: 73.5.h,
                 left: 0,
@@ -86,7 +88,11 @@ class RegisterScreen extends StatelessWidget {
                 left: 0,
                 right: 0,
                 child: CustomElevatedButton(
-                    onClick: () {}, text: 'SignUp with Email'),
+                    onClick: () {
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.signUpWithEmailScreen);
+                    },
+                    text: 'SignUp with Email'),
               ),
               Positioned(
                 top: 90.h,

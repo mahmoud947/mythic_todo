@@ -21,7 +21,7 @@ class ClickableTexts extends StatelessWidget {
       alignment: WrapAlignment.center,
       children: [
         GestureDetector(
-          onTap: onPostFixTextClick,
+          onTap: onPrefixTextClick,
           child: Text(
             prefixText,
             textAlign: TextAlign.center,
@@ -30,7 +30,7 @@ class ClickableTexts extends StatelessWidget {
         ),
         SizedBox(width: 2.w),
         GestureDetector(
-          onTap: onPrefixTextClick,
+          onTap: onPostFixTextClick,
           child: Text(
             postfixText,
             textAlign: TextAlign.center,

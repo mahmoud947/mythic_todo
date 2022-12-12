@@ -9,4 +9,6 @@ abstract class AuthRepository {
 
   /// set is first time launching application
   Future<Either<Failure, Unit>> setFirstLaunch({required bool isFirstLaunch});
+
+  ///
 }

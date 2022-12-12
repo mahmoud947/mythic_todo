@@ -11,11 +11,13 @@ class AppThemes {
 
   static final ThemeData lightTheme = ThemeData(
     appBarTheme: const AppBarTheme(
-        systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
-      statusBarBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.dark,
-    )),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      centerTitle: true,
+    ),
     scaffoldBackgroundColor: AppColors.lightBackgroundColor,
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
@@ -62,11 +64,13 @@ class AppThemes {
 
   static final ThemeData darkTheme = ThemeData(
     appBarTheme: const AppBarTheme(
-        systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Colors.black87,
-      statusBarBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.light,
-    )),
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: Colors.black87,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light,
+      ),
+      centerTitle: true,
+    ),
     scaffoldBackgroundColor: AppColors.darkBackgroundColor,
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,
