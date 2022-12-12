@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/error/failures.dart';
 
@@ -10,5 +11,6 @@ abstract class AuthRepository {
   /// set is first time launching application
   Future<Either<Failure, Unit>> setFirstLaunch({required bool isFirstLaunch});
 
-  ///
+  /// sign in with google account
+  Future<Either<Failure, UserCredential>> signInWithGoogle();
 }

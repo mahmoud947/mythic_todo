@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/features/auth/presentation/bloc/register/register_bloc.dart';
 
 import '../di/app_module.dart';
 import '../di/auth_module.dart';
@@ -37,7 +38,11 @@ class AppRoutes {
       case signInScreen:
         return MaterialPageRoute(builder: (_) => const SignInPage());
       case registerScreen:
-        return MaterialPageRoute(builder: (_) => const RegisterScreen());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider<RegisterBloc>(
+                  create: (context) => ls<RegisterBloc>(),
+                  child: const RegisterScreen(),
+                ));
       case signUpWithEmailScreen:
         return MaterialPageRoute(builder: (_) => const SignUpWithEmail());
       default:

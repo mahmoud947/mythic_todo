@@ -8,7 +8,8 @@ abstract class Failure extends Equatable {
 }
 
 class AppSettingFailure extends Failure {
-  AppSettingFailure({this.message});
+  AppSettingFailure({this.message}) : super();
+
   @override
   final String? message;
   @override
@@ -34,6 +35,22 @@ class LocalDatabaseFailure extends Failure {
 
 class LocalDatabaseNotFoundFailure extends Failure {
   LocalDatabaseNotFoundFailure({this.message});
+  @override
+  final String? message;
+  @override
+  List<Object?> get props => [message];
+}
+
+class FirebaseAuthAccountAlreadyExistFailure extends Failure {
+  FirebaseAuthAccountAlreadyExistFailure({this.message});
+  @override
+  final String? message;
+  @override
+  List<Object?> get props => [message];
+}
+
+class UnKnownFailure extends Failure {
+  UnKnownFailure({this.message});
   @override
   final String? message;
   @override

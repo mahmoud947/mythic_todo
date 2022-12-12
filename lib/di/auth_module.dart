@@ -1,3 +1,8 @@
+import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator.dart';
+import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator_with_firebase.dart';
+import 'package:mythic_todo/features/auth/domain/usecases/sign_in_with_google_use_case.dart';
+import 'package:mythic_todo/features/auth/presentation/bloc/register/register_bloc.dart';
+
 import '../features/auth/data/datasources/local/auth_dao.dart';
 import '../features/auth/data/datasources/local/auth_dao_impl.dart';
 import '../features/auth/data/repositories/auth_repository_impl.dart';
@@ -16,19 +21,21 @@ initAuthModule() {
 //? ...OnBoardingCubit
   ls.registerFactory<OnBoardingCubit>(() => OnBoardingCubit(useCases: ls()));
 
+  ls.registerFactory<RegisterBloc>(() => RegisterBloc(useCases: ls()));
+
 //! UseCases
 //? ...provide all usecases with singltone pattern
   ls.registerLazySingleton<AuthUseCases>(
     () => AuthUseCases(
-      checkIsFirstLaunchUseCase: CheckIsFirstLaunchUseCase(repository: ls()),
-      setIsFirstLaunchUseCase: SetIsFirstLaunchUseCase(repository: ls()),
-    ),
+        checkIsFirstLaunchUseCase: CheckIsFirstLaunchUseCase(repository: ls()),
+        setIsFirstLaunchUseCase: SetIsFirstLaunchUseCase(repository: ls()),
+        signInWithGoogleUseCase: SignInWithGoogleUseCase(authRepository: ls())),
   );
 
 //! Repository
 //? ...AuthRepository
   ls.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(authDao: ls()),
+    () => AuthRepositoryImpl(authDao: ls(), socialAuthenticator: ls()),
   );
 
 //! Datasources
@@ -36,4 +43,8 @@ initAuthModule() {
   ls.registerLazySingleton<AuthDao>(
     () => AuthDaoImpl(prefs: ls()),
   );
+
+//? ...remote data source
+  ls.registerLazySingleton<SocialAuthenticator>(
+      () => SocialAuthenticatorWithFirebase());
 }

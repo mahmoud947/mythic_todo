@@ -17,3 +17,13 @@ class LocalDatabaseNotFoundException implements Exception {
   LocalDatabaseNotFoundException({this.message});
   String? message;
 }
+
+class FirebaseAuthAccountAlreadyExistException implements Exception {
+  FirebaseAuthAccountAlreadyExistException({this.message});
+  String? message;
+}
+
+class UnKnownException implements Exception {
+  UnKnownException({this.message});
+  String? message;
+}
