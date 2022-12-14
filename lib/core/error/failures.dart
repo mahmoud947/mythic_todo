@@ -56,3 +56,11 @@ class UnKnownFailure extends Failure {
   @override
   List<Object?> get props => [message];
 }
+
+class InvalidInputFailure extends Failure {
+  InvalidInputFailure({this.message});
+  @override
+  final String? message;
+  @override
+  List<Object?> get props => [message];
+}

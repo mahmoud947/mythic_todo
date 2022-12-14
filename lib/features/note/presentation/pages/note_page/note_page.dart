@@ -1,5 +1,7 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mythic_todo/core/util/extensions.dart';
 
 import '../../../../../common/app_colors.dart';
 import '../../../../../common/app_fonts.dart';
@@ -9,8 +11,8 @@ import '../../../data/util/note_extension.dart';
 import '../../../domain/entities/note.dart';
 
 class NotePage extends StatelessWidget {
-  const NotePage({Key? key}) : super(key: key);
-
+  NotePage({Key? key}) : super(key: key);
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,16 +154,26 @@ class NotePage extends StatelessWidget {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.background,
       elevation: 0,
-      leading: IconButton(
-        onPressed: () => {},
-        icon: CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          radius: 17,
-          child: const Icon(
-            Icons.person,
-            color: Colors.white,
+      leadingWidth: 140,
+      leading: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            onPressed: () => {},
+            icon: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              backgroundImage:
+                  NetworkImage(firebaseAuth.currentUser!.photoURL!),
+            ),
           ),
-        ),
+          Flexible(
+            child: Text(
+              (firebaseAuth.currentUser?.displayName).orEmpty(),
+              style:
+                  Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 12),
+            ),
+          )
+        ],
       ),
       actions: [
         IconButton(
@@ -181,7 +193,6 @@ class NotePage extends StatelessWidget {
           fontWeight: AppFontWeight.bold,
         ),
       ),
-      centerTitle: true,
     );
   }
 }

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mythic_todo/features/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:mythic_todo/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
+import 'package:mythic_todo/features/note/presentation/pages/note_page/note_page.dart';
 
 import '../di/app_module.dart';
 import '../di/auth_module.dart';
 
 import '../features/auth/presentation/cubit/on_boarding_cubit/on_boarding_cubit.dart';
 import '../features/auth/presentation/cubit/splash_cubit/splash_cubit.dart';
-import '../features/auth/presentation/pages/resiter/register_screen.dart';
+import '../features/auth/presentation/pages/register/register_screen.dart';
 import '../features/auth/presentation/pages/sign_in/sign_in_page.dart';
 import '../features/auth/presentation/pages/on_boarding/onboarding_screen.dart';
-import '../features/auth/presentation/pages/sign_up_with_email/sign_up_with_emal.dart';
+import '../features/auth/presentation/pages/sign_up_with_email/sign_up_with_email.dart';
 import '../features/auth/presentation/pages/splash/splash_screen.dart';
 
 class AppRoutes {
@@ -19,6 +21,7 @@ class AppRoutes {
   static const String signInScreen = 'signIn_screen';
   static const String registerScreen = 'register_screen';
   static const String signUpWithEmailScreen = 'sign_up_with_email_screen';
+  static const String notsScreen = 'note_screen';
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -44,7 +47,13 @@ class AppRoutes {
                   child: const RegisterScreen(),
                 ));
       case signUpWithEmailScreen:
-        return MaterialPageRoute(builder: (_) => const SignUpWithEmail());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider<SignUpBloc>(
+                  create: (context) => ls<SignUpBloc>(),
+                  child: const SignUpWithEmailPage(),
+                ));
+      case notsScreen:
+        return MaterialPageRoute(builder: (_) => NotePage());
       default:
         return null;
     }

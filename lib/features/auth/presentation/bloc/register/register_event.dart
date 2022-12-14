@@ -8,3 +8,8 @@ abstract class RegisterEvent extends Equatable {
 }
 
 class SignInWithGoogleEvent extends RegisterEvent {}
+
+class SignUpEvent extends RegisterEvent {
+  const SignUpEvent({required this.userRequestDto});
+  final UserRequestDto userRequestDto;
+}

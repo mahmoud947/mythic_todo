@@ -36,9 +36,7 @@ class RegisterScreen extends StatelessWidget {
             } else if (state is RegisterError) {
               context.showSnackBar('Error');
             } else if (state is RegisterSuccessfully) {
-              context.showSnackBar(
-                (state.userCredential.user?.photoURL).orEmpty(),
-              );
+              Navigator.pushReplacementNamed(context, AppRoutes.notsScreen);
             }
           },
           child: Scaffold(

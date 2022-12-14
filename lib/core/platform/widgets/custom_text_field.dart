@@ -8,19 +8,21 @@ enum TextFieldType {
 }
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField(
-      {super.key,
-      this.textFieldType = TextFieldType.normal,
-      this.icon,
-      this.hint,
-      this.onTextChange,
-      this.validator});
+  const CustomTextField({
+    super.key,
+    this.textFieldType = TextFieldType.normal,
+    this.icon,
+    this.hint,
+    this.onTextChange,
+    this.validator,
+    this.errorText,
+  });
   final TextFieldType textFieldType;
   final IconData? icon;
   final String? hint;
   final Function(String)? onTextChange;
   final String? Function(String?)? validator;
-
+  final String? errorText;
   @override
   Widget build(BuildContext context) {
     switch (textFieldType) {
@@ -30,6 +32,7 @@ class CustomTextField extends StatelessWidget {
           icon: icon,
           onTextChange: onTextChange,
           validator: validator,
+          errorText: errorText,
         );
 
       case TextFieldType.password:
@@ -38,6 +41,7 @@ class CustomTextField extends StatelessWidget {
           icon: icon,
           onTextChange: onTextChange,
           validator: validator,
+          errorText: errorText,
         );
     }
   }
@@ -50,12 +54,14 @@ class PasswordTextField extends HookWidget {
     this.icon,
     this.onTextChange,
     this.validator,
+    this.errorText,
   }) : super(key: key);
 
   final String? hint;
   final IconData? icon;
   final Function(String)? onTextChange;
   final String? Function(String?)? validator;
+  final String? errorText;
   @override
   Widget build(BuildContext context) {
     final isVisible = useState(false);
@@ -78,6 +84,8 @@ class PasswordTextField extends HookWidget {
               child: Icon(
                   isVisible.value ? Icons.visibility_off : Icons.visibility),
             ),
+            errorText: errorText,
+            contentPadding: const EdgeInsets.all(8),
           ),
         ),
         child: TextFormField(
@@ -95,6 +103,8 @@ class PasswordTextField extends HookWidget {
               child: Icon(
                   isVisible.value ? Icons.visibility_off : Icons.visibility),
             ),
+            errorText: errorText,
+            contentPadding: const EdgeInsets.all(8),
           ),
         ),
       ),
@@ -109,12 +119,14 @@ class NormalTextField extends StatelessWidget {
     this.icon,
     this.onTextChange,
     this.validator,
+    this.errorText,
   }) : super(key: key);
 
   final String? hint;
   final IconData? icon;
   final Function(String)? onTextChange;
   final String? Function(String?)? validator;
+  final String? errorText;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -128,6 +140,8 @@ class NormalTextField extends StatelessWidget {
           style: Theme.of(context).textTheme.bodySmall,
           decoration: InputDecoration(
             hintText: hint,
+            errorText: errorText,
+            contentPadding: const EdgeInsets.all(8),
           ),
         ),
         child: TextFormField(
@@ -137,6 +151,8 @@ class NormalTextField extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hint,
             prefixIcon: Icon(icon),
+            errorText: errorText,
+            contentPadding: const EdgeInsets.all(8),
           ),
         ),
       ),
