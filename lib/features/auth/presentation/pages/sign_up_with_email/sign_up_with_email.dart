@@ -57,6 +57,8 @@ class SignUpWithEmailPage extends StatelessWidget {
                   listener: (context, state) {
                     if (state is SignUpSuccessfully) {
                       context.showSnackBar('signUp successfully ');
+                    } else if (state is SignUpError) {
+                      context.showSnackBar(state.message);
                     }
                   },
                   buildWhen: (previous, current) => current is SignUpFormState,

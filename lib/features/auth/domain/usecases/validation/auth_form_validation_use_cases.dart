@@ -2,7 +2,6 @@ import 'package:mythic_todo/core/usecase/text_field_validation_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/confirm_password_validation_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/email_validation_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/password_validation_use_case.dart';
-import 'package:mythic_todo/features/auth/domain/usecases/validation/register_form_validtion_use_case.dart';
 
 class AuthFormValidationUseCase {
   AuthFormValidationUseCase({

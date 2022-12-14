@@ -9,7 +9,6 @@ import 'package:mythic_todo/features/auth/domain/usecases/validation/auth_form_v
 import 'package:mythic_todo/features/auth/domain/usecases/validation/confirm_password_validation_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/email_validation_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/password_validation_use_case.dart';
-import 'package:mythic_todo/features/auth/domain/usecases/validation/register_form_validtion_use_case.dart';
 import 'package:mythic_todo/features/auth/presentation/bloc/register/register_bloc.dart';
 import 'package:mythic_todo/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
 
@@ -33,7 +32,10 @@ initAuthModule() {
 //? ...RegisterBloc
   ls.registerFactory<RegisterBloc>(() => RegisterBloc(useCases: ls()));
 //? ...SignUpBloc
-  ls.registerFactory<SignUpBloc>(() => SignUpBloc(ls(), ls()));
+  ls.registerFactory<SignUpBloc>(() => SignUpBloc(
+        authFormValidationUseCase: ls(),
+        authUseCases: ls(),
+      ));
 
 //! UseCases
 //? ...provide all usecases with singltone pattern
@@ -55,8 +57,6 @@ initAuthModule() {
         lastNameValidationUseCase: TextFieldValidationUseCase(),
       ));
 
-  ls.registerLazySingleton<RegisterFormValidationUseCase>(
-      () => RegisterFormValidationUseCase(validation: ls()));
 //! Repository
 //? ...AuthRepository
   ls.registerLazySingleton<AuthRepository>(

@@ -1,23 +1,24 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
+import 'package:mythic_todo/features/auth/domain/usecases/auth_use_cases.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/auth_form_validation_use_cases.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/confirm_password_validation_use_case.dart';
-import 'package:mythic_todo/features/auth/domain/usecases/validation/register_form_validtion_use_case.dart';
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  final AuthFormValidationUseCase _authFormValidationUseCase;
-  final RegisterFormValidationUseCase _registerFormValidationUseCase;
+  final AuthFormValidationUseCase authFormValidationUseCase;
+  final AuthUseCases authUseCases;
 
   SignUpBloc(
-      this._authFormValidationUseCase, this._registerFormValidationUseCase)
+      {required this.authFormValidationUseCase, required this.authUseCases})
       : super(const SignUpFormState()) {
     on<OnFirstNameChangeEvent>(
       (event, emit) async {
-        final firstNameEither = await _authFormValidationUseCase
+        final firstNameEither = await authFormValidationUseCase
             .firstNameValidationUseCase(event.firstName);
 
         firstNameEither.fold(
@@ -41,7 +42,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<OnLastNameChangeEvent>(
       (event, emit) async {
-        final lastNameValidationEither = await _authFormValidationUseCase
+        final lastNameValidationEither = await authFormValidationUseCase
             .lastNameValidationUseCase(event.lastName);
 
         lastNameValidationEither.fold(
@@ -67,8 +68,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     on<OnEmailChangeEvent>(
       (event, emit) async {
-        final passwordValidationEither = await _authFormValidationUseCase
-            .emailValidationUseCase(event.email);
+        final passwordValidationEither =
+            await authFormValidationUseCase.emailValidationUseCase(event.email);
 
         passwordValidationEither.fold(
           (failure) => emit(
@@ -92,7 +93,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     );
 
     on<OnPasswordChangeEvent>((event, emit) async {
-      final confirmPasswordEither = await _authFormValidationUseCase
+      final confirmPasswordEither = await authFormValidationUseCase
           .passwordValidationUseCase(event.password);
 
       confirmPasswordEither.fold(
@@ -118,7 +119,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<OnConfirmPasswordChangeEvent>((event, emit) async {
       final currentState = (state as SignUpFormState);
       final either =
-          await _authFormValidationUseCase.confirmPasswordValidationUseCase(
+          await authFormValidationUseCase.confirmPasswordValidationUseCase(
               ConfirmPasswordValidationUseCaseInput(
         password: currentState.password,
         confirmPassword: event.confirmPassword,
@@ -144,8 +145,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       );
     });
 
-    on<OnSubmitEvent>((event, emit) {
-      emit(SignUpSuccessfully());
+    on<OnSubmitEvent>((event, emit) async {
+      final formState = (state as SignUpFormState);
+      final either = await authUseCases.signUpUseCase(
+          userRequestDto: UserRequestDto(
+        email: formState.email,
+        displayName: '${formState.firstName} ${formState.lastName}',
+        password: formState.password,
+      ));
+
+      either.fold(
+        (failure) => emit(SignUpError(message: failure.message)),
+        (token) => emit(SignUpSuccessfully()),
+      );
     });
   }
   isAllInputValid(SignUpEvent event, Emitter<SignUpState> emit) {
