@@ -19,7 +19,7 @@ class AuthenticatorWithFirebase implements Authenticator {
       );
 
       final CollectionReference users = _firestore.collection('users');
-      users.add(userRequestDto.toMap());
+      users.doc(credential.user?.uid).set(userRequestDto.toMap());
 
       return credential.credential?.accessToken;
     } on FirebaseAuthException catch (e) {
