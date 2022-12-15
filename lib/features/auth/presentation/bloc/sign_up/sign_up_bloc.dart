@@ -1,10 +1,12 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/auth_use_cases.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/auth_form_validation_use_cases.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/confirm_password_validation_use_case.dart';
+
+import '../../../../../core/error/failures.dart';
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
@@ -17,150 +19,44 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       {required this.authFormValidationUseCase, required this.authUseCases})
       : super(const SignUpFormState()) {
     on<OnFirstNameChangeEvent>(
-      (event, emit) async {
-        final firstNameEither = await authFormValidationUseCase
-            .firstNameValidationUseCase(event.firstName);
-
-        firstNameEither.fold(
-            (failure) => emit(
-                  (state as SignUpFormState).copyWith(
-                    firstNameError: Wrapped.value(failure.message),
-                    firstName: '',
-                    isFormValid: false,
-                  ),
-                ), (input) {
-          emit(
-            (state as SignUpFormState).copyWith(
-              firstName: input,
-              firstNameError: const Wrapped.value(null),
-            ),
-          );
-          isAllInputValid(event, emit);
-        });
-      },
+      (event, emit) async => await _onFirstNameChange(event, emit),
     );
 
     on<OnLastNameChangeEvent>(
-      (event, emit) async {
-        final lastNameValidationEither = await authFormValidationUseCase
-            .lastNameValidationUseCase(event.lastName);
-
-        lastNameValidationEither.fold(
-          (failure) => emit(
-            (state as SignUpFormState).copyWith(
-              lastNameError: Wrapped.value(failure.message),
-              lastName: '',
-              isFormValid: false,
-            ),
-          ),
-          (input) {
-            emit(
-              (state as SignUpFormState).copyWith(
-                lastName: input,
-                lastNameError: const Wrapped.value(null),
-              ),
-            );
-            isAllInputValid(event, emit);
-          },
-        );
-      },
+      (event, emit) async => await _onLastNameChange(event, emit),
     );
 
     on<OnEmailChangeEvent>(
-      (event, emit) async {
-        final passwordValidationEither =
-            await authFormValidationUseCase.emailValidationUseCase(event.email);
+      (event, emit) async => await _onEmailChange(event, emit),
+    );
 
-        passwordValidationEither.fold(
-          (failure) => emit(
-            (state as SignUpFormState).copyWith(
-              emailError: Wrapped.value(failure.message),
-              email: '',
-              isFormValid: false,
-            ),
-          ),
-          (input) {
-            emit(
-              (state as SignUpFormState).copyWith(
-                email: input,
-                emailError: const Wrapped.value(null),
-              ),
-            );
-            isAllInputValid(event, emit);
-          },
+    on<OnPasswordChangeEvent>(
+      (event, emit) async => await _onPasswordChange(event, emit),
+    );
+
+    on<OnConfirmPasswordChangeEvent>(
+      (event, emit) async => await _onConfirmPasswordChange(event, emit),
+    );
+
+    on<OnSubmitEvent>(
+      (event, emit) async {
+        final formState = (state as SignUpFormState);
+        final either = await authUseCases.signUpUseCase(
+            userRequestDto: UserRequestDto(
+          email: formState.email,
+          displayName: '${formState.firstName} ${formState.lastName}',
+          password: formState.password,
+        ));
+
+        either.fold(
+          (failure) => emit(SignUpError(message: failure.message)),
+          (token) => emit(SignUpSuccessfully()),
         );
       },
     );
-
-    on<OnPasswordChangeEvent>((event, emit) async {
-      final confirmPasswordEither = await authFormValidationUseCase
-          .passwordValidationUseCase(event.password);
-
-      confirmPasswordEither.fold(
-        (failure) => emit(
-          (state as SignUpFormState).copyWith(
-            passwordError: Wrapped.value(failure.message),
-            password: '',
-            isFormValid: false,
-          ),
-        ),
-        (input) {
-          emit(
-            (state as SignUpFormState).copyWith(
-              password: input,
-              passwordError: const Wrapped.value(null),
-            ),
-          );
-          isAllInputValid(event, emit);
-        },
-      );
-    });
-
-    on<OnConfirmPasswordChangeEvent>((event, emit) async {
-      final currentState = (state as SignUpFormState);
-      final either =
-          await authFormValidationUseCase.confirmPasswordValidationUseCase(
-              ConfirmPasswordValidationUseCaseInput(
-        password: currentState.password,
-        confirmPassword: event.confirmPassword,
-      ));
-
-      either.fold(
-        (failure) => emit(
-          (state as SignUpFormState).copyWith(
-            confirmPasswordError: Wrapped.value(failure.message),
-            confirmPassword: '',
-            isFormValid: false,
-          ),
-        ),
-        (input) {
-          emit(
-            (state as SignUpFormState).copyWith(
-              confirmPassword: input,
-              confirmPasswordError: const Wrapped.value(null),
-            ),
-          );
-          isAllInputValid(event, emit);
-        },
-      );
-    });
-
-    on<OnSubmitEvent>((event, emit) async {
-      final formState = (state as SignUpFormState);
-      final either = await authUseCases.signUpUseCase(
-          userRequestDto: UserRequestDto(
-        email: formState.email,
-        displayName: '${formState.firstName} ${formState.lastName}',
-        password: formState.password,
-      ));
-
-      either.fold(
-        (failure) => emit(SignUpError(message: failure.message)),
-        (token) => emit(SignUpSuccessfully()),
-      );
-    });
   }
-  isAllInputValid(SignUpEvent event, Emitter<SignUpState> emit) {
+
+  _isAllInputValid(SignUpEvent event, Emitter<SignUpState> emit) {
     final formState = (state as SignUpFormState);
     final isFormValid = formState.firstName.isNotEmpty &&
         formState.lastName.isNotEmpty &&
@@ -169,5 +65,146 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         formState.confirmPassword.isNotEmpty;
 
     emit(formState.copyWith(isFormValid: isFormValid));
+  }
+
+  Future<void> _onConfirmPasswordChange(
+    OnConfirmPasswordChangeEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    final currentState = (state as SignUpFormState);
+    final either = await authFormValidationUseCase
+        .confirmPasswordValidationUseCase(ConfirmPasswordValidationUseCaseInput(
+      password: currentState.password,
+      confirmPassword: event.confirmPassword,
+    ));
+
+    either.fold(
+      (failure) => emit(
+        currentState.copyWith(
+          confirmPasswordError: Wrapped.value(failure.message),
+          confirmPassword: '',
+          isFormValid: false,
+        ),
+      ),
+      (input) {
+        emit(
+          currentState.copyWith(
+            confirmPassword: input,
+            confirmPasswordError: const Wrapped.value(null),
+          ),
+        );
+        _isAllInputValid(event, emit);
+      },
+    );
+  }
+
+  Future<void> _onPasswordChange(
+    OnPasswordChangeEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    final confirmPasswordEither = await authFormValidationUseCase
+        .passwordValidationUseCase(event.password);
+    final currentState = state as SignUpFormState;
+    confirmPasswordEither.fold(
+      (failure) => emit(
+        currentState.copyWith(
+          passwordError: Wrapped.value(failure.message),
+          password: '',
+          isFormValid: false,
+        ),
+      ),
+      (input) {
+        emit(
+          currentState.copyWith(
+            password: input,
+            passwordError: const Wrapped.value(null),
+          ),
+        );
+        _isAllInputValid(event, emit);
+      },
+    );
+  }
+
+  Future<void> _onEmailChange(
+    OnEmailChangeEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    final passwordValidationEither =
+        await authFormValidationUseCase.emailValidationUseCase(event.email);
+    final currentState = state as SignUpFormState;
+
+    passwordValidationEither.fold(
+      (failure) => emit(
+        currentState.copyWith(
+          emailError: Wrapped.value(failure.message),
+          email: '',
+          isFormValid: false,
+        ),
+      ),
+      (input) {
+        emit(
+          currentState.copyWith(
+            email: input,
+            emailError: const Wrapped.value(null),
+          ),
+        );
+        _isAllInputValid(event, emit);
+      },
+    );
+  }
+
+  Future<void> _onFirstNameChange(
+    OnFirstNameChangeEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    final firstNameEither = await authFormValidationUseCase
+        .firstNameValidationUseCase(event.firstName);
+    final currentState = state as SignUpFormState;
+
+    firstNameEither.fold(
+      (failure) {
+        emit(
+          currentState.copyWith(
+            firstNameError: Wrapped.value(failure.message),
+            firstName: '',
+            isFormValid: false,
+          ),
+        );
+      },
+      (input) {
+        emit(
+          currentState.copyWith(
+            firstName: input,
+            firstNameError: const Wrapped.value(null),
+          ),
+        );
+        _isAllInputValid(event, emit);
+      },
+    );
+  }
+
+  Future<void> _onLastNameChange(
+    OnLastNameChangeEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    final lastNameValidationEither = await authFormValidationUseCase
+        .lastNameValidationUseCase(event.lastName);
+    final currentState = state as SignUpFormState;
+    failureState(message) => currentState.copyWith(
+          lastNameError: Wrapped.value(message),
+          lastName: '',
+          isFormValid: false,
+        );
+    successState(input) => currentState.copyWith(
+          lastName: input,
+          lastNameError: const Wrapped.value(null),
+        );
+    lastNameValidationEither.fold(
+      (failure) => emit(failureState(failure.message)),
+      (input) {
+        emit(successState(input));
+        _isAllInputValid(event, emit);
+      },
+    );
   }
 }

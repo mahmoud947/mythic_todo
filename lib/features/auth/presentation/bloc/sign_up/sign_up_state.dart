@@ -32,6 +32,7 @@ class SignUpFormState extends SignUpState {
   final String? passwordError;
   final String? confirmPasswordError;
   final bool isFormValid;
+
   const SignUpFormState({
     this.firstName = '',
     this.lastName = '',
