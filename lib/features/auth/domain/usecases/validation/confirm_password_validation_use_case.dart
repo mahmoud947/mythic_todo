@@ -6,7 +6,7 @@ class ConfirmPasswordValidationUseCase
     extends BaseUseCase<ConfirmPasswordValidationUseCaseInput, String?> {
   @override
   Future<Either<Failure, String?>> call(
-      ConfirmPasswordValidationUseCaseInput input) async {
+      {required ConfirmPasswordValidationUseCaseInput input}) async {
     if (input.confirmPassword == null || input.confirmPassword!.isEmpty) {
       return Left(InvalidInputFailure(message: 'confirm password is required'));
     } else if (input.confirmPassword!.trim().length < 8) {

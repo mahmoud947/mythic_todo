@@ -57,7 +57,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Future<void> _onSubmit(Emitter<SignUpState> emit) async {
     final formState = (state as SignUpFormState);
     final either = await authUseCases.signUpUseCase(
-      UserRequestDto(
+      input: UserRequestDto(
         email: formState.email,
         displayName: '${formState.firstName} ${formState.lastName}',
         password: formState.password,
@@ -81,8 +81,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Emitter<SignUpState> emit,
   ) async {
     final currentState = (state as SignUpFormState);
-    final either = await authFormValidationUseCase
-        .confirmPasswordValidationUseCase(ConfirmPasswordValidationUseCaseInput(
+    final either =
+        await authFormValidationUseCase.confirmPasswordValidationUseCase(
+            input: ConfirmPasswordValidationUseCaseInput(
       password: currentState.password,
       confirmPassword: event.confirmPassword,
     ));
@@ -111,7 +112,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Emitter<SignUpState> emit,
   ) async {
     final confirmPasswordEither = await authFormValidationUseCase
-        .passwordValidationUseCase(event.password);
+        .passwordValidationUseCase(input: event.password);
     final currentState = state as SignUpFormState;
 
     failureState(message) => currentState.copyWith(
@@ -136,8 +137,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     OnEmailChangeEvent event,
     Emitter<SignUpState> emit,
   ) async {
-    final passwordValidationEither =
-        await authFormValidationUseCase.emailValidationUseCase(event.email);
+    final passwordValidationEither = await authFormValidationUseCase
+        .emailValidationUseCase(input: event.email);
     final currentState = state as SignUpFormState;
 
     failureState(message) => currentState.copyWith(
@@ -164,7 +165,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Emitter<SignUpState> emit,
   ) async {
     final firstNameEither = await authFormValidationUseCase
-        .firstNameValidationUseCase(event.firstName);
+        .firstNameValidationUseCase(input: event.firstName);
     final currentState = state as SignUpFormState;
     failureState(message) => currentState.copyWith(
         firstNameError: Wrapped.value(message),
@@ -189,7 +190,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Emitter<SignUpState> emit,
   ) async {
     final lastNameValidationEither = await authFormValidationUseCase
-        .lastNameValidationUseCase(event.lastName);
+        .lastNameValidationUseCase(input: event.lastName);
     final currentState = state as SignUpFormState;
     failureState(message) => currentState.copyWith(
         lastNameError: Wrapped.value(message),

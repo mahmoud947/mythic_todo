@@ -36,8 +36,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     OnEmailChangeEvent event,
     Emitter<SignInState> emit,
   ) async {
-    final passwordValidationEither =
-        await authFormValidationUseCase.emailValidationUseCase(event.email);
+    final passwordValidationEither = await authFormValidationUseCase
+        .emailValidationUseCase(input: event.email);
     final currentState = state as SignInFormState;
 
     failureState(message) => currentState.copyWith(
@@ -64,7 +64,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     Emitter<SignInState> emit,
   ) async {
     final confirmPasswordEither = await authFormValidationUseCase
-        .firstNameValidationUseCase(event.password);
+        .firstNameValidationUseCase(input: event.password);
     final currentState = state as SignInFormState;
 
     failureState(message) => currentState.copyWith(
@@ -88,7 +88,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   Future<void> _onSubmit(Emitter<SignInState> emit) async {
     final formState = (state as SignInFormState);
     final either = await authUseCases.signInUseCase(
-      SignInUseCaseInput(email: formState.email, password: formState.password),
+      input: SignInUseCaseInput(
+          email: formState.email, password: formState.password),
     );
 
     either.fold(

@@ -8,7 +8,7 @@ class EmailValidationUseCase extends BaseUseCase<String?, String?> {
       RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
 
   @override
-  Future<Either<Failure, String?>> call(String? input) async {
+  Future<Either<Failure, String?>> call({required String? input}) async {
     if (input == null || input.isEmpty) {
       return Left(InvalidInputFailure(message: 'email is required'));
     } else if (!_emailRegExp.hasMatch(input)) {

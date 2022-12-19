@@ -12,7 +12,7 @@ class GetUserInfoUseCase implements BaseUseCase<String, UserModel> {
   });
   final AuthRepository authRepository;
   @override
-  Future<Either<Failure, UserModel>> call(String input) {
+  Future<Either<Failure, UserModel>> call({required String input}) {
     return authRepository.getUserInfo(uid: input);
   }
 }

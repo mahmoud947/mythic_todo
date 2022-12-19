@@ -29,7 +29,7 @@ void main() {
   test('should get note from the repository', () async {
     when(() => mockNoteRepository.getNote(noteId: 1))
         .thenAnswer((_) async => const Right(tNote));
-    final result = await useCase(noteId: 1);
+    final result = await useCase(input: 1);
 
     expect(result, const Right(tNote));
 

@@ -24,7 +24,7 @@ void main() {
     when(() => mockNoteRepository.insertNote(noteModel: noteModel))
         .thenAnswer((_) async => const Right(unit));
     // act
-    final result = await useCase(noteModel: noteModel);
+    final result = await useCase(input: noteModel);
     // assert
     expect(result, const Right(unit));
     verify(() => mockNoteRepository.insertNote(noteModel: noteModel));

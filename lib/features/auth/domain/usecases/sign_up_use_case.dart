@@ -10,7 +10,7 @@ class SignUpUseCase implements BaseUseCase<UserRequestDto, UserModel> {
   final AuthRepository authRepository;
 
   @override
-  Future<Either<Failure, UserModel>> call(UserRequestDto input) {
+  Future<Either<Failure, UserModel>> call({required UserRequestDto input}) {
     return authRepository.signUp(userRequestDto: input);
   }
 }

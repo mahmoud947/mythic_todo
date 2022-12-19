@@ -11,7 +11,7 @@ class SignInUseCase implements BaseUseCase<SignInUseCaseInput, UserModel> {
   SignInUseCase({required this.authRepository});
 
   @override
-  Future<Either<Failure, UserModel>> call(SignInUseCaseInput input) {
+  Future<Either<Failure, UserModel>> call({required SignInUseCaseInput input}) {
     return authRepository.singIn(email: input.email, password: input.password);
   }
 }
