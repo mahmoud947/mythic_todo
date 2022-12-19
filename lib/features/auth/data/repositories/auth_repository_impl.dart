@@ -3,6 +3,7 @@ import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/us
 import 'package:mythic_todo/features/auth/data/datasources/remote/authenticator.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/dto/response/user_response_dto.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator.dart';
+import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
 import '../../../../core/error/error_strings.dart';
 
 import '../../../../core/error/exceptions.dart';
@@ -61,6 +62,32 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(token);
     } on FirebaseAuthAccountAlreadyExistException catch (e) {
       return Left(FirebaseAuthAccountAlreadyExistFailure(message: e.message));
+    } on UnKnownException catch (e) {
+      return Left(UnKnownFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> getUserInfo({required String uid}) async {
+    try {
+      final userInfo = await authenticator.getUserInfo(uid: uid);
+      return Right(userInfo);
+    } on UserNotFoundException catch (e) {
+      return Left(UserNotFoundFailure(message: e.message));
+    } on UnKnownException catch (e) {
+      return Left(UnKnownFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> singIn(
+      {required String email, required String password}) async {
+    try {
+      final result =
+          await authenticator.signIn(email: email, password: password);
+      return Right(result);
+    } on SignInException catch (e) {
+      return Left(SignInFailure(message: e.message));
     } on UnKnownException catch (e) {
       return Left(UnKnownFailure(message: e.message));
     }

@@ -64,3 +64,19 @@ class InvalidInputFailure extends Failure {
   @override
   List<Object?> get props => [message];
 }
+
+class UserNotFoundFailure extends Failure {
+  UserNotFoundFailure({this.message});
+  @override
+  final String? message;
+  @override
+  List<Object?> get props => [message];
+}
+
+class SignInFailure extends Failure {
+  SignInFailure({this.message});
+  @override
+  final String? message;
+  @override
+  List<Object?> get props => [message];
+}

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class UserResponseDto {
   UserResponseDto({
-    required this.uid,
+    this.uid,
     required this.email,
     required this.displayName,
     required this.imageUrl,
@@ -20,6 +20,13 @@ class UserResponseDto {
       email: user?.email,
       displayName: user?.displayName,
       imageUrl: user?.photoURL,
+    );
+  }
+  factory UserResponseDto.fromMap(Map<String, dynamic> map) {
+    return UserResponseDto(
+      email: map['email'],
+      displayName: map['displayName'],
+      imageUrl: map['imageUrl'],
     );
   }
 }

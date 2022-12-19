@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/common/app_routes.dart';
 import 'package:mythic_todo/common/app_strings.dart';
 import 'package:mythic_todo/core/platform/utils/exetension.dart';
 import 'package:mythic_todo/core/platform/widgets/custom_elevated_button.dart';
@@ -57,8 +58,14 @@ class SignUpWithEmailPage extends StatelessWidget {
                   listener: (context, state) {
                     if (state is SignUpSuccessfully) {
                       context.showSnackBar('signUp successfully ');
-                    } else if (state is SignUpError) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          AppRoutes.notsScreen, (route) => false);
+                    } else if (state is SignUpErrorState) {
                       context.showSnackBar(state.message);
+                    } else if (state is UserAlreadyExistState) {
+                      context.showSnackBar(state.message);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          AppRoutes.signInScreen, (route) => false);
                     }
                   },
                   buildWhen: (previous, current) => current is SignUpFormState,

@@ -1,3 +1,5 @@
+import 'package:mythic_todo/features/auth/domain/usecases/get_user_info_use_case.dart';
+import 'package:mythic_todo/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/sign_in_with_google_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/sign_up_use_case.dart';
 
@@ -10,9 +12,13 @@ class AuthUseCases {
     required this.setIsFirstLaunchUseCase,
     required this.signInWithGoogleUseCase,
     required this.signUpUseCase,
+    required this.signInUseCase,
+    required this.getUserInfoUseCase,
   });
   final CheckIsFirstLaunchUseCase checkIsFirstLaunchUseCase;
   final SetIsFirstLaunchUseCase setIsFirstLaunchUseCase;
   final SignInWithGoogleUseCase signInWithGoogleUseCase;
   final SignUpUseCase signUpUseCase;
+  final SignInUseCase signInUseCase;
+  final GetUserInfoUseCase getUserInfoUseCase;
 }

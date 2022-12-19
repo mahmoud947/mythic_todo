@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mythic_todo/features/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:mythic_todo/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:mythic_todo/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
 import 'package:mythic_todo/features/note/presentation/pages/note_page/note_page.dart';
 
@@ -39,7 +40,11 @@ class AppRoutes {
                   child: OnBoardingScreen(),
                 ));
       case signInScreen:
-        return MaterialPageRoute(builder: (_) => const SignInPage());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider<SignInBloc>(
+                  create: (context) => ls<SignInBloc>(),
+                  child: const SignInPage(),
+                ));
       case registerScreen:
         return MaterialPageRoute(
             builder: (_) => BlocProvider<RegisterBloc>(

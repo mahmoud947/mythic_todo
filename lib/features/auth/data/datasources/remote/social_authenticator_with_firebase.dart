@@ -1,26 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mythic_todo/core/error/error_strings.dart';
 import 'package:mythic_todo/core/error/exceptions.dart';
+import 'package:mythic_todo/core/util/extensions.dart';
+import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/dto/response/user_response_dto.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator.dart';
 
 class SocialAuthenticatorWithFirebase implements SocialAuthenticator {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
   Future<UserResponseDto> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-
     try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+
       final UserCredential userCredential =
-          await firebaseAuth.signInWithCredential(credential);
+          await _firebaseAuth.signInWithCredential(credential);
+
+      final CollectionReference users = _firestore.collection('users');
+      final UserRequestDto userRequestDto = UserRequestDto(
+        email: _firebaseAuth.currentUser?.email.orEmpty() ?? '',
+        displayName: _firebaseAuth.currentUser?.displayName.orEmpty() ?? '',
+        imageUrl: _firebaseAuth.currentUser?.photoURL?.orEmpty(),
+        password: '',
+      );
+      users.doc(_firebaseAuth.currentUser?.uid).set(userRequestDto.toMap());
+
       return Future.value(UserResponseDto.fromCredential(userCredential));
     } on FirebaseAuthException catch (e) {
       // TODO: remove hard coded
@@ -29,7 +43,7 @@ class SocialAuthenticatorWithFirebase implements SocialAuthenticator {
       } else {
         throw UnKnownException(message: ErrorString.unexpectedError);
       }
-    } on Exception catch (e) {
+    } on Exception {
       throw UnKnownException(message: ErrorString.unexpectedError);
     }
   }
@@ -37,8 +51,8 @@ class SocialAuthenticatorWithFirebase implements SocialAuthenticator {
   @override
   Future<Unit> signOut() async {
     try {
-      await firebaseAuth.signOut();
-      if (firebaseAuth.currentUser == null) {
+      await _firebaseAuth.signOut();
+      if (_firebaseAuth.currentUser == null) {
         return Future.value(unit);
       } else {
         throw UnKnownException(message: ErrorString.unexpectedError);

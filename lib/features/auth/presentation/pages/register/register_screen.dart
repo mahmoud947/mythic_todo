@@ -34,9 +34,10 @@ class RegisterScreen extends StatelessWidget {
             if (state is RegisterLoading) {
               context.showSnackBar('Loading');
             } else if (state is RegisterError) {
-              context.showSnackBar('Error');
+              context.showSnackBar(state.message);
             } else if (state is RegisterSuccessfully) {
-              Navigator.pushReplacementNamed(context, AppRoutes.notsScreen);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  AppRoutes.notsScreen, (route) => false);
             }
           },
           child: Scaffold(

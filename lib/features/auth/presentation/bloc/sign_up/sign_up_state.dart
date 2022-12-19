@@ -12,8 +12,16 @@ class SignUpInitial extends SignUpState {}
 
 class SignUpSuccessfully extends SignUpState {}
 
-class SignUpError extends SignUpState {
-  const SignUpError({required this.message});
+class SignUpErrorState extends SignUpState {
+  const SignUpErrorState({required this.message});
+  final String message;
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class UserAlreadyExistState extends SignUpState {
+  const UserAlreadyExistState({required this.message});
   final String message;
 
   @override

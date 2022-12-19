@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../../core/platform/widgets/custom_text_field.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({
-    Key? key,
-    required this.formKey,
-  }) : super(key: key);
+  const LoginForm({Key? key, required this.state}) : super(key: key);
 
-  final GlobalKey<FormState> formKey;
+  final SignInFormState state;
 
   @override
   Widget build(BuildContext context) {
@@ -19,34 +18,27 @@ class LoginForm extends StatelessWidget {
       right: 0,
       bottom: 0,
       child: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              CustomTextField(
-                hint: 'Email',
-                textFieldType: TextFieldType.normal,
-                icon: Icons.email,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Email is requeued';
-                  }
-                  return null;
-                },
-              ),
-              CustomTextField(
-                hint: 'password',
-                textFieldType: TextFieldType.password,
-                icon: Icons.lock,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Password is requeued';
-                  }
-                  return null;
-                },
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            CustomTextField(
+              hint: 'Email',
+              textFieldType: TextFieldType.normal,
+              icon: Icons.email,
+              onTextChange: (value) => context
+                  .read<SignInBloc>()
+                  .add(OnEmailChangeEvent(email: value)),
+              errorText: state.emailError,
+            ),
+            CustomTextField(
+              hint: 'password',
+              textFieldType: TextFieldType.password,
+              icon: Icons.lock,
+              onTextChange: (value) => context
+                  .read<SignInBloc>()
+                  .add(OnPasswordChangeEvent(password: value)),
+              errorText: state.passwordError,
+            ),
+          ],
         ),
       ),
     );

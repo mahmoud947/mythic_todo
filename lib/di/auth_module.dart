@@ -3,6 +3,8 @@ import 'package:mythic_todo/features/auth/data/datasources/remote/authenticator.
 import 'package:mythic_todo/features/auth/data/datasources/remote/authenticator_with_firebase.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator_with_firebase.dart';
+import 'package:mythic_todo/features/auth/domain/usecases/get_user_info_use_case.dart';
+import 'package:mythic_todo/features/auth/domain/usecases/sign_in_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/sign_in_with_google_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/auth_form_validation_use_cases.dart';
@@ -19,6 +21,7 @@ import '../features/auth/domain/repositories/auth_repository.dart';
 import '../features/auth/domain/usecases/auth_use_cases.dart';
 import '../features/auth/domain/usecases/check_is_first_launch_use_case.dart';
 import '../features/auth/domain/usecases/set_is_first_launch_use_case.dart';
+import '../features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import '../features/auth/presentation/cubit/on_boarding_cubit/on_boarding_cubit.dart';
 import '../features/auth/presentation/cubit/splash_cubit/splash_cubit.dart';
 import 'app_module.dart';
@@ -36,6 +39,11 @@ initAuthModule() {
         authFormValidationUseCase: ls(),
         authUseCases: ls(),
       ));
+//? ...SignInBloc
+  ls.registerFactory<SignInBloc>(() => SignInBloc(
+        authFormValidationUseCase: ls(),
+        authUseCases: ls(),
+      ));
 
 //! UseCases
 //? ...provide all usecases with singltone pattern
@@ -45,6 +53,8 @@ initAuthModule() {
       setIsFirstLaunchUseCase: SetIsFirstLaunchUseCase(repository: ls()),
       signInWithGoogleUseCase: SignInWithGoogleUseCase(authRepository: ls()),
       signUpUseCase: SignUpUseCase(authRepository: ls()),
+      signInUseCase: SignInUseCase(authRepository: ls()),
+      getUserInfoUseCase: GetUserInfoUseCase(authRepository: ls()),
     ),
   );
 

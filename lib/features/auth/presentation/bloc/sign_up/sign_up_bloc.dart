@@ -1,12 +1,13 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/core/error/failures.dart';
+import 'package:mythic_todo/core/util/extensions.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/auth_use_cases.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/auth_form_validation_use_cases.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/confirm_password_validation_use_case.dart';
 
-import '../../../../../core/error/failures.dart';
+import '../../../../../core/error/exceptions.dart';
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
@@ -39,20 +40,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     );
 
     on<OnSubmitEvent>(
-      (event, emit) async {
-        final formState = (state as SignUpFormState);
-        final either = await authUseCases.signUpUseCase(
-            userRequestDto: UserRequestDto(
-          email: formState.email,
-          displayName: '${formState.firstName} ${formState.lastName}',
-          password: formState.password,
-        ));
-
-        either.fold(
-          (failure) => emit(SignUpError(message: failure.message)),
-          (token) => emit(SignUpSuccessfully()),
-        );
-      },
+      (event, emit) async => await _onSubmit(emit),
     );
   }
 
@@ -67,6 +55,27 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     emit(formState.copyWith(isFormValid: isFormValid));
   }
 
+  Future<void> _onSubmit(Emitter<SignUpState> emit) async {
+    final formState = (state as SignUpFormState);
+    final either = await authUseCases.signUpUseCase(
+        userRequestDto: UserRequestDto(
+      email: formState.email,
+      displayName: '${formState.firstName} ${formState.lastName}',
+      password: formState.password,
+    ));
+
+    either.fold(
+      (failure) {
+        if (failure is FirebaseAuthAccountAlreadyExistFailure) {
+          emit(UserAlreadyExistState(message: failure.message.orEmpty()));
+        } else {
+          emit(SignUpErrorState(message: failure.message));
+        }
+      },
+      (_) => emit(SignUpSuccessfully()),
+    );
+  }
+
   Future<void> _onConfirmPasswordChange(
     OnConfirmPasswordChangeEvent event,
     Emitter<SignUpState> emit,
@@ -78,21 +87,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       confirmPassword: event.confirmPassword,
     ));
 
-    either.fold(
-      (failure) => emit(
-        currentState.copyWith(
-          confirmPasswordError: Wrapped.value(failure.message),
+    failureState(message) => currentState.copyWith(
+          confirmPasswordError: Wrapped.value(message),
           confirmPassword: '',
           isFormValid: false,
-        ),
-      ),
-      (input) {
-        emit(
-          currentState.copyWith(
-            confirmPassword: input,
-            confirmPasswordError: const Wrapped.value(null),
-          ),
         );
+    successState(input) => currentState.copyWith(
+          confirmPassword: input,
+          confirmPasswordError: const Wrapped.value(null),
+        );
+
+    either.fold(
+      (failure) => emit(failureState(failure.message)),
+      (input) {
+        emit(successState(input));
         _isAllInputValid(event, emit);
       },
     );
@@ -105,21 +113,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final confirmPasswordEither = await authFormValidationUseCase
         .passwordValidationUseCase(event.password);
     final currentState = state as SignUpFormState;
-    confirmPasswordEither.fold(
-      (failure) => emit(
-        currentState.copyWith(
-          passwordError: Wrapped.value(failure.message),
+
+    failureState(message) => currentState.copyWith(
+          passwordError: Wrapped.value(message),
           password: '',
           isFormValid: false,
-        ),
-      ),
-      (input) {
-        emit(
-          currentState.copyWith(
-            password: input,
-            passwordError: const Wrapped.value(null),
-          ),
         );
+    successState(input) => currentState.copyWith(
+          password: input,
+          passwordError: const Wrapped.value(null),
+        );
+    confirmPasswordEither.fold(
+      (failure) => emit(failureState(failure.message)),
+      (input) {
+        emit(successState(input));
         _isAllInputValid(event, emit);
       },
     );
@@ -133,21 +140,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         await authFormValidationUseCase.emailValidationUseCase(event.email);
     final currentState = state as SignUpFormState;
 
-    passwordValidationEither.fold(
-      (failure) => emit(
-        currentState.copyWith(
-          emailError: Wrapped.value(failure.message),
+    failureState(message) => currentState.copyWith(
+          emailError: Wrapped.value(message),
           email: '',
           isFormValid: false,
-        ),
-      ),
-      (input) {
-        emit(
-          currentState.copyWith(
-            email: input,
-            emailError: const Wrapped.value(null),
-          ),
         );
+    successState(input) => currentState.copyWith(
+          email: input,
+          emailError: const Wrapped.value(null),
+        );
+
+    passwordValidationEither.fold(
+      (failure) => emit(failureState(failure.message)),
+      (input) {
+        emit(successState(input));
         _isAllInputValid(event, emit);
       },
     );
@@ -160,24 +166,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     final firstNameEither = await authFormValidationUseCase
         .firstNameValidationUseCase(event.firstName);
     final currentState = state as SignUpFormState;
+    failureState(message) => currentState.copyWith(
+        firstNameError: Wrapped.value(message),
+        firstName: '',
+        isFormValid: false);
+    successState(input) => currentState.copyWith(
+          firstName: input,
+          firstNameError: const Wrapped.value(null),
+        );
 
     firstNameEither.fold(
-      (failure) {
-        emit(
-          currentState.copyWith(
-            firstNameError: Wrapped.value(failure.message),
-            firstName: '',
-            isFormValid: false,
-          ),
-        );
-      },
+      (failure) => emit(failureState(failure.message)),
       (input) {
-        emit(
-          currentState.copyWith(
-            firstName: input,
-            firstNameError: const Wrapped.value(null),
-          ),
-        );
+        emit(successState(input));
         _isAllInputValid(event, emit);
       },
     );
@@ -191,10 +192,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         .lastNameValidationUseCase(event.lastName);
     final currentState = state as SignUpFormState;
     failureState(message) => currentState.copyWith(
-          lastNameError: Wrapped.value(message),
-          lastName: '',
-          isFormValid: false,
-        );
+        lastNameError: Wrapped.value(message),
+        lastName: '',
+        isFormValid: false);
     successState(input) => currentState.copyWith(
           lastName: input,
           lastNameError: const Wrapped.value(null),

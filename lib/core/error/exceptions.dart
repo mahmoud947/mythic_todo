@@ -27,3 +27,13 @@ class UnKnownException implements Exception {
   UnKnownException({this.message});
   String? message;
 }
+
+class UserNotFoundException implements Exception {
+  UserNotFoundException({this.message});
+  String? message;
+}
+
+class SignInException implements Exception {
+  SignInException({this.message});
+  String? message;
+}
