@@ -1,14 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/core/error/failures.dart';
-import 'package:mythic_todo/core/util/extensions.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
-import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
-import 'package:mythic_todo/features/auth/domain/usecases/auth_use_cases.dart';
-import 'package:mythic_todo/features/auth/domain/usecases/validation/auth_form_validation_use_cases.dart';
-import 'package:mythic_todo/features/auth/domain/usecases/validation/confirm_password_validation_use_case.dart';
-
-import '../../../../../core/error/exceptions.dart';
+import '../../../../../core/error/failures.dart';
+import '../../../../../core/util/extensions.dart';
+import '../../../data/datasources/remote/dto/request/user_request_dto.dart';
+import '../../../domain/model/user_model.dart';
+import '../../../domain/usecases/auth_use_cases.dart';
+import '../../../domain/usecases/validation/auth_form_validation_use_cases.dart';
+import '../../../domain/usecases/validation/confirm_password_validation_use_case.dart';
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';

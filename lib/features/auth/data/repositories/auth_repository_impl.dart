@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/authenticator.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/response/user_response_dto.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator.dart';
-import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
+import '../datasources/remote/dto/request/user_request_dto.dart';
+import '../datasources/remote/authenticator.dart';
+import '../datasources/remote/dto/response/user_response_dto.dart';
+import '../datasources/remote/social_authenticator.dart';
+import '../../domain/model/user_model.dart';
 import '../../../../core/error/error_strings.dart';
 
 import '../../../../core/error/exceptions.dart';

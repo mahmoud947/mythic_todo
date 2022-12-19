@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
-import 'package:mythic_todo/features/auth/presentation/bloc/register/register_bloc.dart';
-import 'package:mythic_todo/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
-import 'package:mythic_todo/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
-import 'package:mythic_todo/features/note/presentation/pages/note_page/note_page.dart';
+import '../features/auth/domain/model/user_model.dart';
+import '../features/auth/presentation/bloc/register/register_bloc.dart';
+import '../features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
+import '../features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
+import '../features/note/presentation/pages/note_page/note_page.dart';
 
 import '../di/app_module.dart';
 import '../di/auth_module.dart';

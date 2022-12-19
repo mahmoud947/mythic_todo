@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'canvas_circle.dart';
 import 'package:sizer/sizer.dart';
+
+import 'canvas_circle.dart';
 
 class RedTopLeftCircle extends StatelessWidget {
   const RedTopLeftCircle({

@@ -1,6 +1,6 @@
-import 'package:mythic_todo/core/error/failures.dart';
+import '../error/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:mythic_todo/core/usecase/base_use_case.dart';
+import 'base_use_case.dart';
 
 class TextFieldValidationUseCase extends BaseUseCase<String?, String?> {
   @override

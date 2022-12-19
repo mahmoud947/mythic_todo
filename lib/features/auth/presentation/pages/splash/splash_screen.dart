@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mythic_todo/common/app_colors.dart';
-import 'package:mythic_todo/features/auth/presentation/widgets/canvas_circle.dart';
+import '../../../../../common/app_colors.dart';
+import '../../widgets/canvas_circle.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../common/app_routes.dart';

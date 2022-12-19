@@ -1,6 +1,6 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
+import '../../../../auth/domain/model/user_model.dart';
 
 import '../../../../../common/app_colors.dart';
 import '../../../../../common/app_fonts.dart';

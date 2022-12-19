@@ -1,8 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/response/user_response_dto.dart';
-import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
+import '../../data/datasources/remote/dto/request/user_request_dto.dart';
+import '../../data/datasources/remote/dto/response/user_response_dto.dart';
+import '../model/user_model.dart';
 
 import '../../../../core/error/failures.dart';
 

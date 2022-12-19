@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mythic_todo/core/error/error_strings.dart';
-import 'package:mythic_todo/core/error/exceptions.dart';
-import 'package:mythic_todo/core/util/extensions.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/response/user_response_dto.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator.dart';
+import '../../../../../core/error/error_strings.dart';
+import '../../../../../core/error/exceptions.dart';
+import '../../../../../core/util/extensions.dart';
+import 'dto/request/user_request_dto.dart';
+import 'dto/response/user_response_dto.dart';
+import 'social_authenticator.dart';
 
 class SocialAuthenticatorWithFirebase implements SocialAuthenticator {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

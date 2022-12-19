@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
-import 'package:mythic_todo/features/auth/data/mapper/auth_mapper.dart';
-import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
+import '../../../data/datasources/remote/dto/request/user_request_dto.dart';
+import '../../../data/mapper/auth_mapper.dart';
+import '../../../domain/model/user_model.dart';
 
-import 'package:mythic_todo/features/auth/domain/usecases/auth_use_cases.dart';
+import '../../../domain/usecases/auth_use_cases.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';

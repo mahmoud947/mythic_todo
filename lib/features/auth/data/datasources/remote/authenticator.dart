@@ -1,5 +1,5 @@
-import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
-import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
+import 'dto/request/user_request_dto.dart';
+import '../../../domain/model/user_model.dart';
 
 typedef Token = String;
 

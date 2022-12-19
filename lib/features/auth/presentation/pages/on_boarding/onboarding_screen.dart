@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/platform/utils/exetension.dart';
 import 'package:sizer/sizer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../../common/app_routes.dart';
+import '../../../../../core/platform/utils/exetension.dart';
 import '../../cubit/on_boarding_cubit/on_boarding_cubit.dart';
 import 'widgets/on_boarding_view.dart';
 
