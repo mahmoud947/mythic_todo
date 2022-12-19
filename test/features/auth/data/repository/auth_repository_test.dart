@@ -4,18 +4,32 @@ import 'package:mocktail/mocktail.dart';
 import 'package:mythic_todo/core/error/exceptions.dart';
 import 'package:mythic_todo/core/error/failures.dart';
 import 'package:mythic_todo/features/auth/data/datasources/local/auth_dao.dart';
+import 'package:mythic_todo/features/auth/data/datasources/remote/authenticator.dart';
+import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator.dart';
 import 'package:mythic_todo/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:mythic_todo/features/auth/domain/repositories/auth_repository.dart';
 
 class MockAuthDao extends Mock implements AuthDao {}
 
+class MockSocialAuthenticator extends Mock implements SocialAuthenticator {}
+
+class MockAuthenticator extends Mock implements Authenticator {}
+
 void main() {
   late MockAuthDao mockAuthDao;
+  late MockAuthenticator mockAuthenticator;
+  late MockSocialAuthenticator mockSocialAuthenticator;
   late AuthRepository repository;
 
   setUp(() {
     mockAuthDao = MockAuthDao();
-    repository = AuthRepositoryImpl(authDao: mockAuthDao);
+    mockAuthenticator = MockAuthenticator();
+    mockSocialAuthenticator = MockSocialAuthenticator();
+    repository = AuthRepositoryImpl(
+      authDao: mockAuthDao,
+      authenticator: mockAuthenticator,
+      socialAuthenticator: mockSocialAuthenticator,
+    );
   });
 
   group('isFirstLaunching repository', () {
