@@ -1,7 +1,6 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/core/util/extensions.dart';
+import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
 
 import '../../../../../common/app_colors.dart';
 import '../../../../../common/app_fonts.dart';
@@ -11,8 +10,8 @@ import '../../../data/util/note_extension.dart';
 import '../../../domain/entities/note.dart';
 
 class NotePage extends StatelessWidget {
-  NotePage({Key? key}) : super(key: key);
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  const NotePage({Key? key, required this.userModel}) : super(key: key);
+  final UserModel userModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,13 +161,12 @@ class NotePage extends StatelessWidget {
             onPressed: () => {},
             icon: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              backgroundImage:
-                  NetworkImage(firebaseAuth.currentUser!.photoURL!),
+              backgroundImage: NetworkImage(userModel.imageUrl),
             ),
           ),
           Flexible(
             child: Text(
-              (firebaseAuth.currentUser?.displayName).orEmpty(),
+              userModel.displayName,
               style:
                   Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 12),
             ),

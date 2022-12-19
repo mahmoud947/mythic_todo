@@ -54,12 +54,13 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, Token?>> signUp(
+  Future<Either<Failure, UserModel>> signUp(
       {required UserRequestDto userRequestDto}) async {
     try {
-      final Token? token =
+      final UserModel userModel =
           await authenticator.signUp(userRequestDto: userRequestDto);
-      return Right(token);
+
+      return Right(userModel);
     } on FirebaseAuthAccountAlreadyExistException catch (e) {
       return Left(FirebaseAuthAccountAlreadyExistFailure(message: e.message));
     } on UnKnownException catch (e) {

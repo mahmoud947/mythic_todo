@@ -37,7 +37,9 @@ class RegisterScreen extends StatelessWidget {
               context.showSnackBar(state.message);
             } else if (state is RegisterSuccessfully) {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                  AppRoutes.notsScreen, (route) => false);
+                  arguments: state.userModel,
+                  AppRoutes.notsScreen,
+                  (route) => false);
             }
           },
           child: Scaffold(

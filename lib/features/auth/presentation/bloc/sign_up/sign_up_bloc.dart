@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mythic_todo/core/error/failures.dart';
 import 'package:mythic_todo/core/util/extensions.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/dto/request/user_request_dto.dart';
+import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/auth_use_cases.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/auth_form_validation_use_cases.dart';
 import 'package:mythic_todo/features/auth/domain/usecases/validation/confirm_password_validation_use_case.dart';
@@ -58,11 +59,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Future<void> _onSubmit(Emitter<SignUpState> emit) async {
     final formState = (state as SignUpFormState);
     final either = await authUseCases.signUpUseCase(
-        userRequestDto: UserRequestDto(
-      email: formState.email,
-      displayName: '${formState.firstName} ${formState.lastName}',
-      password: formState.password,
-    ));
+      UserRequestDto(
+        email: formState.email,
+        displayName: '${formState.firstName} ${formState.lastName}',
+        password: formState.password,
+      ),
+    );
 
     either.fold(
       (failure) {
@@ -72,7 +74,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           emit(SignUpErrorState(message: failure.message));
         }
       },
-      (_) => emit(SignUpSuccessfully()),
+      (userModel) => emit(SignUpSuccessfully(userModel: userModel)),
     );
   }
 

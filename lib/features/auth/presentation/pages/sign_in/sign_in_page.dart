@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mythic_todo/core/platform/utils/exetension.dart';
+import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
 import '../../../../../core/platform/widgets/custom_elevated_button.dart';
 import 'package:sizer/sizer.dart';
 
@@ -34,7 +35,9 @@ class SignInPage extends StatelessWidget {
               context.showSnackBar(state.message);
             } else if (state is SingInSuccessfulState) {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                  AppRoutes.notsScreen, (route) => false);
+                  arguments: state.userModel,
+                  AppRoutes.notsScreen,
+                  (route) => false);
             }
           },
           builder: (context, state) {

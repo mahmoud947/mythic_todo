@@ -15,7 +15,7 @@ class AuthenticatorWithFirebase implements Authenticator {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
-  Future<Token?> signUp({required UserRequestDto userRequestDto}) async {
+  Future<UserModel> signUp({required UserRequestDto userRequestDto}) async {
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: userRequestDto.email,
@@ -24,8 +24,9 @@ class AuthenticatorWithFirebase implements Authenticator {
 
       final CollectionReference users = _firestore.collection('users');
       users.doc(credential.user?.uid).set(userRequestDto.toMap());
-
-      return credential.credential?.accessToken;
+      final UserModel userModel =
+          await getUserInfo(uid: _firebaseAuth.currentUser?.uid ?? '');
+      return userModel;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw UnKnownException(message: 'The password provided is too weak.');
@@ -51,12 +52,7 @@ class AuthenticatorWithFirebase implements Authenticator {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      final UserModel userModel = UserModel(
-          uid: _firebaseAuth.currentUser?.uid ?? '',
-          email: _firebaseAuth.currentUser?.email ?? '',
-          displayName: _firebaseAuth.currentUser?.displayName ?? '',
-          imageUrl: _firebaseAuth.currentUser?.photoURL ?? '');
-      return userModel;
+      return getUserInfo(uid: _firebaseAuth.currentUser?.uid ?? '');
     } on FirebaseAuthException catch (e) {
       throw SignInException(message: e.message);
     } on Exception {

@@ -59,7 +59,9 @@ class SignUpWithEmailPage extends StatelessWidget {
                     if (state is SignUpSuccessfully) {
                       context.showSnackBar('signUp successfully ');
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          AppRoutes.notsScreen, (route) => false);
+                          arguments: state.userModel,
+                          AppRoutes.notsScreen,
+                          (route) => false);
                     } else if (state is SignUpErrorState) {
                       context.showSnackBar(state.message);
                     } else if (state is UserAlreadyExistState) {

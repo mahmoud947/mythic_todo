@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/features/auth/data/mapper/auth_mapper.dart';
+import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
 
 import '../../../domain/usecases/auth_use_cases.dart';
 import '../../../domain/usecases/sign_in_use_case.dart';
@@ -94,7 +96,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         emit(SingInErrorState(message: failure.message));
         emit(const SignInFormState());
       },
-      (_) => emit(const SingInSuccessfulState()),
+      (userModel) => emit(SingInSuccessfulState(userModel: userModel)),
     );
   }
 
@@ -106,7 +108,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         emit(const SignInFormState());
       },
       (userDto) {
-        emit(const SingInSuccessfulState());
+        emit(SingInSuccessfulState(userModel: userDto.toDomain()));
       },
     );
   }

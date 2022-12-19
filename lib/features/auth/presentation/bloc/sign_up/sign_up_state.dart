@@ -10,7 +10,12 @@ abstract class SignUpState extends Equatable {
 
 class SignUpInitial extends SignUpState {}
 
-class SignUpSuccessfully extends SignUpState {}
+class SignUpSuccessfully extends SignUpState {
+  const SignUpSuccessfully({
+    required this.userModel,
+  });
+  final UserModel userModel;
+}
 
 class SignUpErrorState extends SignUpState {
   const SignUpErrorState({required this.message});

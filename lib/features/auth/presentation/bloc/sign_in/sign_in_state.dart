@@ -59,7 +59,8 @@ class SingInErrorState extends SignInState {
 }
 
 class SingInSuccessfulState extends SignInState {
-  const SingInSuccessfulState();
+  final UserModel userModel;
+  const SingInSuccessfulState({required this.userModel});
 }
 
 class Wrapper<T> extends Equatable {

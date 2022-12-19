@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/features/auth/domain/model/user_model.dart';
 import 'package:mythic_todo/features/auth/presentation/bloc/register/register_bloc.dart';
 import 'package:mythic_todo/features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import 'package:mythic_todo/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
@@ -58,7 +59,13 @@ class AppRoutes {
                   child: const SignUpWithEmailPage(),
                 ));
       case notsScreen:
-        return MaterialPageRoute(builder: (_) => NotePage());
+        {
+          final userModel = settings.arguments as UserModel;
+          return MaterialPageRoute(
+              builder: (_) => NotePage(
+                    userModel: userModel,
+                  ));
+        }
       default:
         return null;
     }
