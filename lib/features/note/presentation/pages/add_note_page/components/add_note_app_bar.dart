@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../../../../../common/app_strings.dart';
+import '../../../bloc/add_note/add_note_bloc.dart';
+
+AppBar addNoteAppBar(BuildContext context) {
+  return AppBar(
+    backgroundColor: Theme.of(context).colorScheme.background,
+    elevation: 0,
+    actionsIconTheme: IconThemeData(
+      color: Theme.of(context).colorScheme.onBackground,
+      size: 8.w,
+    ),
+    actions: [
+      BlocConsumer<AddNoteBloc, AddNoteState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          if (state is AddNoteFormState) {
+            return IconButton(
+              icon: Icon(
+                Icons.check_circle,
+                color: state.isAllInputValid
+                    ? Colors.green
+                    : Colors.green.withAlpha(100),
+              ),
+              onPressed: state.isAllInputValid
+                  ? () => context.read<AddNoteBloc>().add(OnSubmitEvent())
+                  : null,
+            );
+          } else {
+            return Container();
+          }
+        },
+      )
+    ],
+    title: Text(
+      AppStrings.addNote,
+      style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
+    ),
+  );
+}

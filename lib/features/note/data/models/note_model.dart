@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:mythic_todo/core/util/extensions.dart';
 
 enum NoteColor { yellow, green, pink, babyBlue, purple, orang }
 
@@ -114,8 +115,8 @@ class NoteModel extends Equatable {
           ? map['endTime'] as String
           : null,
       color: NoteColor.values[map[NoteTableInfo.color.getName] as int],
-      isCompleted: map[NoteTableInfo.isCompleted.getName] as bool,
-      reminder: map[NoteTableInfo.reminder.getName] as bool,
+      isCompleted: (map[NoteTableInfo.isCompleted.getName] as int).toBoolean(),
+      reminder: (map[NoteTableInfo.reminder.getName] as int).toBoolean(),
     );
   }
 

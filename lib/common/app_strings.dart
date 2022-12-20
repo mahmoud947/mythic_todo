@@ -31,4 +31,7 @@ class AppStrings {
   static const register = 'Register';
   static const alreadyHaveAnAccount = 'Already have an account?';
   static const signIn = 'SignIn';
+
+  //? AddNote
+  static const addNote = 'Add Note';
 }

@@ -1,5 +1,10 @@
+import 'dart:math';
+
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/common/app_routes.dart';
+import 'package:mythic_todo/features/note/presentation/bloc/home/home_bloc.dart';
 import '../../../../auth/domain/model/user_model.dart';
 
 import '../../../../../common/app_colors.dart';
@@ -25,22 +30,22 @@ class NotePage extends StatelessWidget {
             ),
             _buildDatePickerSection(context),
             Expanded(
-              child: ListView.builder(
-                  itemCount: 4,
-                  itemBuilder: (_, index) {
-                    return _noteWidget(
-                        context,
-                        Note(
-                            id: index,
-                            title: 'it is a title',
-                            description:
-                                'this is a description an more for just test we can do it if we work to gether',
-                            startTime: 'startTime',
-                            endTime: 'endTime',
-                            color: NoteColor.babyBlue,
-                            isCompleted: true,
-                            reminder: true));
-                  }),
+              child: BlocBuilder<HomeBloc, HomeState>(
+                builder: (context, state) {
+                  if (state is GetNoteSuccessfulState) {
+                    return ListView.builder(
+                        itemCount: state.notes.length,
+                        itemBuilder: (_, index) {
+                          return _noteWidget(
+                            context,
+                            state.notes[index],
+                          );
+                        });
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
             )
           ],
         ),
@@ -122,7 +127,18 @@ class NotePage extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                // NoteModel noteModel = NoteModel(
+                //     title: 'hello',
+                //     color: NoteColor.green,
+                //     description: 'this a dddd',
+                //     isCompleted: true,
+                //     reminder: true,
+                //     startTime: DateTime.now().toString(),
+                //     id: Random().nextInt(1000));
+                // context.read<HomeBloc>().add(InsertNoteEvent(note: noteModel));
+                Navigator.of(context).pushNamed(AppRoutes.addNotsScreen);
+              },
               icon: Icon(
                 Icons.add_circle_rounded,
                 size: 30,
@@ -158,7 +174,9 @@ class NotePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-            onPressed: () => {},
+            onPressed: () => {
+              context.read<HomeBloc>().add(GetAllNotesEvent()),
+            },
             icon: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primary,
               backgroundImage: NetworkImage(userModel.imageUrl),

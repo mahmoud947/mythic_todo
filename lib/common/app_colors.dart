@@ -12,7 +12,7 @@ class AppColors {
 
   static const Color lightOnPrimaryColor = Colors.white;
   static const Color lightOnSecondaryColor = Colors.white;
-  static const Color lightOnBackgroundColor = Color(0xFFFF3A3A);
+  static const Color lightOnBackgroundColor = Color.fromARGB(255, 19, 18, 18);
   static const Color lightOnSurfaceColor = Colors.white;
   static const Color lightOnErrorColor = Color(0xFFE9E7EF);
   static const Color lightOnNoteColor = Color(0xFF000000);

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/di/note_module.dart';
+import 'package:mythic_todo/features/note/presentation/pages/add_note_page/add_note_page.dart';
 import '../features/auth/domain/model/user_model.dart';
 import '../features/auth/presentation/bloc/register/register_bloc.dart';
 import '../features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import '../features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
+import '../features/note/presentation/bloc/add_note/add_note_bloc.dart';
+import '../features/note/presentation/bloc/home/home_bloc.dart';
 import '../features/note/presentation/pages/note_page/note_page.dart';
 
 import '../di/app_module.dart';
@@ -24,6 +28,7 @@ class AppRoutes {
   static const String registerScreen = 'register_screen';
   static const String signUpWithEmailScreen = 'sign_up_with_email_screen';
   static const String notsScreen = 'note_screen';
+  static const String addNotsScreen = 'add_note_screen';
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -59,13 +64,24 @@ class AppRoutes {
                   child: const SignUpWithEmailPage(),
                 ));
       case notsScreen:
+        initNoteModule();
         {
           final userModel = settings.arguments as UserModel;
           return MaterialPageRoute(
-              builder: (_) => NotePage(
-                    userModel: userModel,
+              builder: (_) => BlocProvider<HomeBloc>(
+                    create: (context) => ls<HomeBloc>(),
+                    child: NotePage(
+                      userModel: userModel,
+                    ),
                   ));
         }
+      case addNotsScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<AddNoteBloc>(
+            create: (context) => ls<AddNoteBloc>(),
+            child: const AddNotePage(),
+          ),
+        );
       default:
         return null;
     }

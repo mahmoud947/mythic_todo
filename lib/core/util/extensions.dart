@@ -15,3 +15,9 @@ extension NotNullBoolean on bool? {
     return this ?? false;
   }
 }
+
+extension IntegerToBoolean on int {
+  bool toBoolean() {
+    return this == 0 ? false : true;
+  }
+}
