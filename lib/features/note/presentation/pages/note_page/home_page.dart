@@ -1,7 +1,7 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/core/util/extensions.dart';
+import '../../../../../core/util/extensions.dart';
 import '../../../../../common/app_routes.dart';
 import '../../../../../common/image_resources.dart';
 import '../../../../auth/domain/model/user_model.dart';
@@ -196,9 +196,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-            onPressed: () => {
-              context.read<HomeCubit>().getNotes(),
-            },
+            onPressed: () => {},
             icon: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primary,
               backgroundImage: widget.userModel.imageUrl != null
@@ -218,7 +216,7 @@ class _HomePageState extends State<HomePage> {
       ),
       actions: [
         IconButton(
-            onPressed: () => {},
+            onPressed: () => {context.read<HomeCubit>().deleteAllNote()},
             icon: Icon(
               Icons.search,
               size: 32,

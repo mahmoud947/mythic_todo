@@ -1,3 +1,5 @@
+import '../features/note/domain/usecases/delete_all_note_use_case.dart';
+
 import 'app_module.dart';
 import '../features/note/data/data_sources/local/note_dao.dart';
 import '../features/note/data/data_sources/local/note_dao_impl.dart';
@@ -34,11 +36,12 @@ initNoteModule() {
 
 //! UseCases
 //? ...provide all usecases with singltone pattern
-  ls.registerLazySingleton<NoteUseCases>(
+  ls.registerFactory<NoteUseCases>(
     () => NoteUseCases(
         getNoteUseCase: GetNoteUseCase(repository: ls()),
         insertNoteUseCase: InsertNoteUseCase(repository: ls()),
-        getNotesUseCase: GetNotesUseCase(repository: ls())),
+        getNotesUseCase: GetNotesUseCase(repository: ls()),
+        deleteAllNoteUseCase: DeleteAllNoteUseCase(repository: ls())),
   );
 
 //? ...provide validation usecases with singltone pattern

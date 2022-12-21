@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../core/util/extensions.dart';
 
 enum NoteColor { yellow, green, pink, babyBlue, purple, orang }

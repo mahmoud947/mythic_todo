@@ -71,6 +71,7 @@ initAuthModule() {
 //? ...AuthRepository
   ls.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
+      networkHelper: ls(),
       authDao: ls(),
       socialAuthenticator: ls(),
       authenticator: ls(),

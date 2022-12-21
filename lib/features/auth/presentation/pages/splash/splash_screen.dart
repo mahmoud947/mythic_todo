@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../../../../common/app_colors.dart';
-import '../../widgets/canvas_circle.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../../common/app_colors.dart';
 import '../../../../../common/app_routes.dart';
 import '../../../../../common/app_strings.dart';
 import '../../../../../common/image_resources.dart';
 import '../../cubit/splash_cubit/splash_cubit.dart';
+import '../../widgets/canvas_circle.dart';
 import '../../widgets/canvas_line_end_with_circle.dart';
 import '../../widgets/over_lapping_circles.dart';
 import '../../widgets/red_top_left_circle.dart';

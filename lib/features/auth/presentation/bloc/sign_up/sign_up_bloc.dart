@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/util/extensions.dart';
 import '../../../data/datasources/remote/dto/request/user_request_dto.dart';

@@ -67,4 +67,14 @@ class NoteRepositoryImpl implements NoteRepository {
       return Left(LocalDatabaseNotFoundFailure(message: e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAllNote() async {
+    try {
+      await noteDao.deleteAllNote();
+      return const Right(unit);
+    } on LocalDatabaseException catch (e) {
+      return Left(LocalDatabaseFailure(message: e.message));
+    }
+  }
 }

@@ -41,7 +41,6 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getNotes() async {
-    emit(const GetNoteSuccessfulState());
     final either = await noteUseCases.getNotesUseCase();
     either.fold(
       (failure) {
@@ -50,12 +49,19 @@ class HomeCubit extends Cubit<HomeState> {
         );
       },
       (notes) {
-        print('Note-- ${notes.length}');
         _notes.addAll(notes);
         emit(
           (state as GetNoteSuccessfulState).copyWith(notes: _notes.toList()),
         );
       },
     );
+  }
+
+  Future<void> deleteAllNote() async {
+    final either = await noteUseCases.deleteAllNoteUseCase();
+    either.fold((failure) {}, (_) {
+      _notes.clear();
+      emit((state as GetNoteSuccessfulState).copyWith(notes: _notes.toList()));
+    });
   }
 }

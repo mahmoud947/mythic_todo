@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
+
+import '../../../../core/error/failures.dart';
 import '../../data/datasources/remote/dto/request/user_request_dto.dart';
 import '../../data/datasources/remote/dto/response/user_response_dto.dart';
 import '../model/user_model.dart';
-
-import '../../../../core/error/failures.dart';
 
 abstract class AuthRepository {
   /// check if it first time lunching application

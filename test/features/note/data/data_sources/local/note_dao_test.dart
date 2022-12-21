@@ -71,13 +71,18 @@ void main() {
         'should return notesModels from Database(sqflite) when there is notesModels in the database',
         () async {
       // arrange
-      when(() => mockDatabase.query(NoteTableInfo.tableName.getName))
-          .thenAnswer((_) async => tMap);
+      when(() => mockDatabase.query(
+            NoteTableInfo.tableName.getName,
+            orderBy: '${NoteTableInfo.startTime.getName} DESC',
+          )).thenAnswer((_) async => tMap);
 
       // act
       final List<NoteModel> result = await daoImpl.getNotes();
       // assert
-      verify(() => mockDatabase.query(NoteTableInfo.tableName.getName));
+      verify(() => mockDatabase.query(
+            NoteTableInfo.tableName.getName,
+            orderBy: '${NoteTableInfo.startTime.getName} DESC',
+          ));
       verifyNoMoreInteractions(mockDatabase);
       expect(result, tNotesModels);
     });
@@ -86,8 +91,10 @@ void main() {
         'should throw a EmptyNotesDataException when there is no database values',
         () async {
       // arrange
-      when(() => mockDatabase.query(NoteTableInfo.tableName.getName))
-          .thenAnswer((_) async => []);
+      when(() => mockDatabase.query(
+            NoteTableInfo.tableName.getName,
+            orderBy: '${NoteTableInfo.startTime.getName} DESC',
+          )).thenAnswer((_) async => []);
 
       // act
       final call = daoImpl.getNotes;

@@ -3,21 +3,21 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
+
 import '../../../../../common/app_routes.dart';
-import '../../../../../core/platform/utils/exetension.dart';
-import '../../bloc/register/register_bloc.dart';
 import '../../../../../common/app_strings.dart';
+import '../../../../../core/platform/utils/exetension.dart';
 import '../../../../../core/platform/widgets/custom_elevated_button.dart';
-import '../../widgets/over_lapping_circles.dart';
+import '../../bloc/register/register_bloc.dart';
 import '../../widgets/canvas_line_end_with_circle.dart';
+import '../../widgets/clickable_texts.dart';
 import '../../widgets/google_button.dart';
+import '../../widgets/over_lapping_circles.dart';
 import '../../widgets/red_top_left_circle.dart';
 import '../../widgets/text_on_divider.dart';
 import '../../widgets/top_left_text.dart';
 import '../../widgets/top_title.dart';
-import 'package:sizer/sizer.dart';
-
-import '../../widgets/clickable_texts.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});

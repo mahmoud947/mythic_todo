@@ -10,4 +10,5 @@ abstract class NoteRepository {
   Future<Either<Failure, Unit>> deleteNote({required String noteId});
   Future<Either<Failure, Note>> updateNote({required NoteModel noteModel});
   Future<Either<Failure, Note>> getNote({required String noteId});
+  Future<Either<Failure, Unit>> deleteAllNote();
 }

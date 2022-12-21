@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mythic_todo/core/error/exceptions.dart';
 import 'package:mythic_todo/core/error/failures.dart';
+import 'package:mythic_todo/core/network/network_helper.dart';
 import 'package:mythic_todo/features/auth/data/datasources/local/auth_dao.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/authenticator.dart';
 import 'package:mythic_todo/features/auth/data/datasources/remote/social_authenticator.dart';
@@ -15,20 +16,25 @@ class MockSocialAuthenticator extends Mock implements SocialAuthenticator {}
 
 class MockAuthenticator extends Mock implements Authenticator {}
 
+class MockNetworkHelper extends Mock implements NetworkHelper {}
+
 void main() {
   late MockAuthDao mockAuthDao;
   late MockAuthenticator mockAuthenticator;
   late MockSocialAuthenticator mockSocialAuthenticator;
+  late MockNetworkHelper mockNetworkHelper;
   late AuthRepository repository;
 
   setUp(() {
     mockAuthDao = MockAuthDao();
     mockAuthenticator = MockAuthenticator();
     mockSocialAuthenticator = MockSocialAuthenticator();
+    mockNetworkHelper = MockNetworkHelper();
     repository = AuthRepositoryImpl(
       authDao: mockAuthDao,
       authenticator: mockAuthenticator,
       socialAuthenticator: mockSocialAuthenticator,
+      networkHelper: mockNetworkHelper,
     );
   });
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/di/note_module.dart';
-import 'package:mythic_todo/features/note/presentation/pages/add_note_page/add_note_page.dart';
+import '../di/note_module.dart';
+import '../features/note/presentation/pages/add_note_page/add_note_page.dart';
 import '../features/auth/domain/model/user_model.dart';
 import '../features/auth/presentation/bloc/register/register_bloc.dart';
 import '../features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';

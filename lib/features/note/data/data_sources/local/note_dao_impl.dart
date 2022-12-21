@@ -42,7 +42,13 @@ class NoteDaoImpl implements NoteDao {
 
   @override
   Future<Unit> deleteAllNote() async {
-    throw UnKnownException();
+    final int affectedRowsCount =
+        await database.delete(NoteTableInfo.tableName.getName);
+    if (affectedRowsCount == 0) {
+      throw LocalDatabaseException(message: 'an error occurred');
+    } else {
+      return Future.value(unit);
+    }
   }
 
   @override

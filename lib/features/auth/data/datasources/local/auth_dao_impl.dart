@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import '../remote/dto/response/user_response_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../application/app_constants.dart';
@@ -27,6 +28,29 @@ class AuthDaoImpl implements AuthDao {
       return Future.value(unit);
     } else {
       throw AppSettingException(message: ErrorString.unSavedError);
+    }
+  }
+
+  @override
+  Future<Unit> updateLocalUserInfo(
+      {required UserResponseDto userResponseDto}) async {
+    final String userAsString = userResponseDto.toJson();
+    final result =
+        await prefs.setString(AppConstants.USER_INFO_APP_KEY, userAsString);
+    if (result) {
+      return Future.value(unit);
+    } else {
+      throw AppSettingException(message: ErrorString.unSavedError);
+    }
+  }
+
+  @override
+  Future<UserResponseDto> getLocalUserInfo() async {
+    final String? jsonString = prefs.getString(AppConstants.USER_INFO_APP_KEY);
+    if (jsonString == null) {
+      throw UserNotFoundException(message: ErrorString.unSavedError);
+    } else {
+      return UserResponseDto.fromJson(jsonString);
     }
   }
 }

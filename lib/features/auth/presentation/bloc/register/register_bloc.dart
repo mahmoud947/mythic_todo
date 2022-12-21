@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../data/datasources/remote/dto/request/user_request_dto.dart';
 import '../../../data/mapper/auth_mapper.dart';
 import '../../../domain/model/user_model.dart';
-
 import '../../../domain/usecases/auth_use_cases.dart';
 
 part 'register_event.dart';

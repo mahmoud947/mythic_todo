@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'firebase_options.dart';
 import 'package:sizer/sizer.dart';
 
 import 'common/app_routes.dart';
 import 'common/app_themes.dart';
 import 'di/app_module.dart' as di;
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

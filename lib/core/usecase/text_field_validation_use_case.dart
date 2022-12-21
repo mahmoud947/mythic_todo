@@ -1,5 +1,6 @@
-import '../error/failures.dart';
 import 'package:dartz/dartz.dart';
+
+import '../error/failures.dart';
 import 'base_use_case.dart';
 
 class TextFieldValidationUseCase extends BaseUseCase<String?, String?> {
