@@ -5,7 +5,7 @@ import '../models/note_model.dart';
 extension NoteEntityMapper on NoteModel {
   Note toDomain() {
     return Note(
-      id: id.orZero(),
+      id: id.orEmpty(),
       title: title,
       description: description.orEmpty(),
       startTime: startTime.orEmpty(),

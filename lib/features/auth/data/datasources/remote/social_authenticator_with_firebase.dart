@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import '../../../../../core/error/error_strings.dart';
 import '../../../../../core/error/exceptions.dart';
 import '../../../../../core/util/extensions.dart';

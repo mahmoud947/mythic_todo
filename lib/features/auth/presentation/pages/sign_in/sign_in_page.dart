@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/platform/utils/exetension.dart';
-import '../../../../../core/platform/widgets/custom_elevated_button.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../common/app_colors.dart';
 import '../../../../../common/app_routes.dart';
 import '../../../../../common/app_strings.dart';
+import '../../../../../core/platform/utils/exetension.dart';
+import '../../../../../core/platform/widgets/custom_elevated_button.dart';
 import '../../bloc/sign_in/sign_in_bloc.dart';
 import '../../widgets/canvas_circle.dart';
 import '../../widgets/clickable_texts.dart';
@@ -16,7 +16,6 @@ import '../../widgets/red_top_left_circle.dart';
 import '../../widgets/small_yellow_circle.dart';
 import '../../widgets/top_left_text.dart';
 import '../../widgets/top_title.dart';
-
 import 'widgets/login_form.dart';
 
 class SignInPage extends StatelessWidget {

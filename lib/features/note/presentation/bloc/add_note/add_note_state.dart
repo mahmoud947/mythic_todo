@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'add_note_bloc.dart';
 
 abstract class AddNoteState extends Equatable {
@@ -14,7 +15,14 @@ class AddNoteErrorState extends AddNoteState {
   List<Object?> get props => [message];
 }
 
-class AddNoteAddNoteSuccessful extends AddNoteState {}
+class NoteAddedSuccessfulState extends AddNoteState {
+  const NoteAddedSuccessfulState({
+    required this.note,
+  });
+  final Note note;
+  @override
+  List<Object?> get props => [note.id, note];
+}
 
 class AddNoteFormState extends AddNoteState {
   const AddNoteFormState({

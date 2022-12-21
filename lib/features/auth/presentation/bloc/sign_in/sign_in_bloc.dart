@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../data/mapper/auth_mapper.dart';
 import '../../../domain/model/user_model.dart';
-
 import '../../../domain/usecases/auth_use_cases.dart';
 import '../../../domain/usecases/sign_in_use_case.dart';
 import '../../../domain/usecases/validation/auth_form_validation_use_cases.dart';

@@ -23,7 +23,7 @@ void main() {
   group('getNotes', () {
     const List<NoteModel> tNotesModels = [
       NoteModel(
-          id: 1,
+          id: '1',
           title: 'title1',
           description: 'description',
           startTime: 'startTime',
@@ -32,7 +32,7 @@ void main() {
           isCompleted: true,
           reminder: true),
       NoteModel(
-          id: 2,
+          id: '2',
           title: 'title2',
           description: 'description',
           startTime: 'startTime',
@@ -41,7 +41,7 @@ void main() {
           isCompleted: true,
           reminder: true),
       NoteModel(
-          id: 3,
+          id: '3',
           title: 'title3',
           description: 'description',
           startTime: 'startTime',
@@ -82,7 +82,7 @@ void main() {
   });
 
   group('deleteNote', () {
-    const tNoteId = 1;
+    const tNoteId = '1';
     test(
         'should return unit when local data source is delete note successfully',
         () async {
@@ -110,7 +110,7 @@ void main() {
 
   group('insertNote', () {
     const NoteModel tNoteModel = NoteModel(
-        id: 2,
+        id: '2',
         title: 'title2',
         description: 'description',
         startTime: 'startTime',
@@ -145,7 +145,7 @@ void main() {
 
   group('updateNote', () {
     const NoteModel tNoteModel = NoteModel(
-        id: 2,
+        id: '2',
         title: 'title2',
         description: 'description',
         startTime: 'startTime',
@@ -181,9 +181,9 @@ void main() {
   });
 
   group('getNote', () {
-    const tNoteId = 1;
+    const tNoteId = '1';
     const NoteModel tNoteModel = NoteModel(
-        id: 2,
+        id: '2',
         title: 'title2',
         description: 'description',
         startTime: 'startTime',

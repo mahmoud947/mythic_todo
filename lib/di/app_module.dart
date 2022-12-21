@@ -1,8 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:mythic_todo/features/note/data/models/note_model.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../features/note/data/models/note_model.dart';
 
 final ls = GetIt.instance;
 
@@ -22,7 +23,7 @@ Future<void> initAppModule() async {
       onCreate: (db, version) async {
         await db.execute('''
     CREATE TABLE ${NoteTableInfo.tableName.getName} (
-     ${NoteTableInfo.id.getName} INTEGER NOT NULL PRIMARY KEY,
+     ${NoteTableInfo.id.getName} TEXT NOT NULL PRIMARY KEY,
      ${NoteTableInfo.title.getName} TEXT,
      ${NoteTableInfo.description.getName} TEXT,
      ${NoteTableInfo.startTime.getName} TEXT,

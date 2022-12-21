@@ -1,17 +1,37 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/core/util/wrappers.dart';
-import 'package:mythic_todo/features/note/domain/usecases/validation/note_title_validation_use_case.dart';
+import 'package:intl/intl.dart';
+import '../../../../../core/util/wrappers.dart';
+import '../../../data/mapper/mapper.dart';
+import '../../../data/models/note_model.dart';
+import '../../../domain/entities/note.dart';
+import '../../../domain/usecases/note_use_cases.dart';
+import '../../../domain/usecases/validation/note_title_validation_use_case.dart';
+
+import 'package:uuid/uuid.dart';
 
 part 'add_note_event.dart';
 part 'add_note_state.dart';
 
 class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
   final NoteTitleValidationUseCase noteTitleValidationUseCase;
-  AddNoteBloc({required this.noteTitleValidationUseCase})
-      : super(const AddNoteFormState()) {
+  final NoteUseCases noteUseCases;
+
+  AddNoteBloc({
+    required this.noteTitleValidationUseCase,
+    required this.noteUseCases,
+  }) : super(const AddNoteFormState()) {
     on<OnTitleChange>((event, emit) => _onTitleChange(event, emit));
     on<OnDescriptionChange>((event, emit) => null);
+    on<OnSubmitEvent>((event, emit) => _insertNote(event, emit));
+  }
+
+  @override
+  Future<void> close() {
+    return super.close();
   }
 
   _onTitleChange(OnTitleChange event, Emitter<AddNoteState> emit) async {
@@ -43,5 +63,55 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
     final isAllInputValued = currentState.title.isNotEmpty;
 
     emit(currentState.copyWith(isAllInputValid: isAllInputValued));
+  }
+
+  void _insertNote(AddNoteEvent event, Emitter<AddNoteState> emit) async {
+    final DateFormat dateFormat = DateFormat('yyyy/mm/dd');
+    final time = dateFormat.format(DateTime.now());
+    final currentState = state as AddNoteFormState;
+
+    final NoteModel note = NoteModel(
+        title: currentState.title,
+        description: currentState.description,
+        color: getRandomColor(),
+        id: const Uuid().v1(),
+        isCompleted: true,
+        reminder: true,
+        startTime: time,
+        endTime: time);
+    final either = await noteUseCases.insertNoteUseCase(input: note);
+    either.fold(
+      (failure) {
+        emit(AddNoteErrorState(message: failure.message));
+        emit(currentState);
+      },
+      (_) {
+        emit(NoteAddedSuccessfulState(note: note.toDomain()));
+        emit(currentState.copyWith(
+          title: '',
+          isAllInputValid: false,
+          titleErrorMessage: const NullableWrapped.value(null),
+        ));
+      },
+    );
+  }
+
+  NoteColor getRandomColor() {
+    final int numberColor = Random().nextInt(6);
+
+    switch (numberColor) {
+      case 1:
+        return NoteColor.babyBlue;
+      case 2:
+        return NoteColor.green;
+      case 3:
+        return NoteColor.orang;
+      case 4:
+        return NoteColor.pink;
+      case 5:
+        return NoteColor.yellow;
+      default:
+        return NoteColor.purple;
+    }
   }
 }

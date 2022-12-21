@@ -24,7 +24,7 @@ class NoteDaoImpl implements NoteDao {
   }
 
   @override
-  Future<Unit> deleteNote({required int noteId}) async {
+  Future<Unit> deleteNote({required String noteId}) async {
     final int affectedRowsCount = await database.delete(
       NoteTableInfo.tableName.getName,
       where: '${NoteTableInfo.id.getName} = ?',
@@ -36,6 +36,11 @@ class NoteDaoImpl implements NoteDao {
     } else {
       return Future.value(unit);
     }
+  }
+
+  @override
+  Future<Unit> deleteAllNote() async {
+    throw UnKnownException();
   }
 
   @override
@@ -70,7 +75,7 @@ class NoteDaoImpl implements NoteDao {
   }
 
   @override
-  Future<NoteModel> getNote({required int noteId}) async {
+  Future<NoteModel> getNote({required String noteId}) async {
     final List<Map<String, dynamic>> noteAsMap = await database.query(
         NoteTableInfo.tableName.getName,
         where: '${NoteTableInfo.id} = ?',

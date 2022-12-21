@@ -1,6 +1,6 @@
 import '../../../../core/util/extensions.dart';
-import '../datasources/remote/dto/response/user_response_dto.dart';
 import '../../domain/model/user_model.dart';
+import '../datasources/remote/dto/response/user_response_dto.dart';
 
 extension UserDtoToDomain on UserResponseDto {
   UserModel toDomain() => UserModel(

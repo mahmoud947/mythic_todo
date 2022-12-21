@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
+
 import '../../../common/app_size.dart';
 import '../utils/exetension.dart';
-import 'package:sizer/sizer.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({

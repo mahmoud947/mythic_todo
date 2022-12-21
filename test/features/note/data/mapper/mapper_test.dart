@@ -6,7 +6,7 @@ import 'package:mythic_todo/features/note/domain/entities/note.dart';
 void main() {
   const List<NoteModel> notesModels = [
     NoteModel(
-        id: 1,
+        id: '1',
         title: 'title',
         description: 'description',
         startTime: 'startTime',
@@ -17,7 +17,7 @@ void main() {
   ];
   const List<Note> notes = [
     Note(
-        id: 1,
+        id: '1',
         title: 'title',
         description: 'description',
         startTime: 'startTime',

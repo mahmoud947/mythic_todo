@@ -18,7 +18,7 @@ void main() {
     useCase = GetNoteUseCase(repository: mockNoteRepository);
   });
   const Note tNote = Note(
-      id: 1,
+      id: '1',
       title: 'title1',
       description: 'description',
       startTime: 'startTime',
@@ -27,14 +27,14 @@ void main() {
       isCompleted: true,
       reminder: true);
   test('should get note from the repository', () async {
-    when(() => mockNoteRepository.getNote(noteId: 1))
+    when(() => mockNoteRepository.getNote(noteId: '1'))
         .thenAnswer((_) async => const Right(tNote));
-    final result = await useCase(input: 1);
+    final result = await useCase(input: '1');
 
     expect(result, const Right(tNote));
 
     verify(
-      () => mockNoteRepository.getNote(noteId: 1),
+      () => mockNoteRepository.getNote(noteId: '1'),
     );
 
     verifyNoMoreInteractions(mockNoteRepository);

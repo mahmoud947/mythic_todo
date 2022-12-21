@@ -17,7 +17,7 @@ void main() {
   });
 
   const NoteModel noteModel =
-      NoteModel(title: 'test title', color: NoteColor.babyBlue);
+      NoteModel(title: 'test title', color: NoteColor.babyBlue, id: '1');
 
   test('should insert new note vie repository', () async {
     // arrange

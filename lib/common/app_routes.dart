@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/di/note_module.dart';
-import 'package:mythic_todo/features/note/presentation/pages/add_note_page/add_note_page.dart';
+import '../di/note_module.dart';
+import '../features/note/presentation/pages/add_note_page/add_note_page.dart';
 import '../features/auth/domain/model/user_model.dart';
 import '../features/auth/presentation/bloc/register/register_bloc.dart';
 import '../features/auth/presentation/bloc/sign_in/sign_in_bloc.dart';
 import '../features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
 import '../features/note/presentation/bloc/add_note/add_note_bloc.dart';
-import '../features/note/presentation/bloc/home/home_bloc.dart';
-import '../features/note/presentation/pages/note_page/note_page.dart';
+import '../features/note/presentation/cubit/home/home_cubit.dart';
+import '../features/note/presentation/pages/note_page/home_page.dart';
 
 import '../di/app_module.dart';
 import '../di/auth_module.dart';
@@ -65,25 +65,53 @@ class AppRoutes {
                 ));
       case notsScreen:
         initNoteModule();
-        {
-          final userModel = settings.arguments as UserModel;
-          return MaterialPageRoute(
-              builder: (_) => BlocProvider<HomeBloc>(
-                    create: (context) => ls<HomeBloc>(),
-                    child: NotePage(
-                      userModel: userModel,
-                    ),
-                  ));
-        }
+        final userModel = settings.arguments as UserModel;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider<HomeCubit>.value(
+            value: ls<HomeCubit>(),
+            child: HomePage(
+              userModel: userModel,
+            ),
+          ),
+        );
+
       case addNotsScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<AddNoteBloc>(
-            create: (context) => ls<AddNoteBloc>(),
+          builder: (context) => BlocProvider<AddNoteBloc>.value(
+            value: ls<AddNoteBloc>(),
             child: const AddNotePage(),
           ),
         );
+
       default:
         return null;
     }
   }
+
+  // Route? generateNoteRoute(RouteSettings settings) {
+  //   switch (settings.name) {
+  //     case notsScreen:
+  //       initNoteModule();
+  //       final userModel = settings.arguments as UserModel;
+  //       return MaterialPageRoute(
+  //         builder: (_) => BlocProvider<HomeBloc>(
+  //           create: (context) => ls<HomeBloc>(),
+  //           child: NotePage(
+  //             userModel: userModel,
+  //           ),
+  //         ),
+  //       );
+
+  //     case addNotsScreen:
+  //       return MaterialPageRoute(
+  //         builder: (context) => BlocProvider<AddNoteBloc>(
+  //           create: (_) => ls<AddNoteBloc>(),
+  //           child: const AddNotePage(),
+  //         ),
+  //       );
+
+  //     default:
+  //       return null;
+  //   }
+  // }
 }

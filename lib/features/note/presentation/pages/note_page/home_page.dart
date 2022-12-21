@@ -1,22 +1,37 @@
-import 'dart:math';
-
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/common/app_routes.dart';
-import 'package:mythic_todo/features/note/presentation/bloc/home/home_bloc.dart';
+import '../../../../../common/app_routes.dart';
 import '../../../../auth/domain/model/user_model.dart';
 
 import '../../../../../common/app_colors.dart';
 import '../../../../../common/app_fonts.dart';
 import '../../../../../common/app_size.dart';
-import '../../../data/models/note_model.dart';
 import '../../../data/util/note_extension.dart';
 import '../../../domain/entities/note.dart';
+import '../../cubit/home/home_cubit.dart';
 
-class NotePage extends StatelessWidget {
-  const NotePage({Key? key, required this.userModel}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key, required this.userModel}) : super(key: key);
   final UserModel userModel;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeCubit>().getNotes();
+  }
+
+  @override
+  void dispose() {
+    context.read<HomeCubit>().close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,17 +45,22 @@ class NotePage extends StatelessWidget {
             ),
             _buildDatePickerSection(context),
             Expanded(
-              child: BlocBuilder<HomeBloc, HomeState>(
-                builder: (context, state) {
+              child: BlocBuilder<HomeCubit, HomeState>(
+                builder: (_, state) {
                   if (state is GetNoteSuccessfulState) {
                     return ListView.builder(
-                        itemCount: state.notes.length,
-                        itemBuilder: (_, index) {
+                      itemCount: state.notes.length,
+                      itemBuilder: (_, index) {
+                        if (state.notes.isNotEmpty) {
                           return _noteWidget(
                             context,
-                            state.notes[index],
+                            state.notes[index]!,
                           );
-                        });
+                        } else {
+                          return Container();
+                        }
+                      },
+                    );
                   } else {
                     return Container();
                   }
@@ -175,16 +195,17 @@ class NotePage extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () => {
-              context.read<HomeBloc>().add(GetAllNotesEvent()),
+              context.read<HomeCubit>().getNotes(),
             },
             icon: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              backgroundImage: NetworkImage(userModel.imageUrl),
+              backgroundImage: const NetworkImage(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTThiqIsUDzRYdYTWKMpJm6x_5VGUu8MuiUyFgsLKEz&s'),
             ),
           ),
           Flexible(
             child: Text(
-              userModel.displayName,
+              widget.userModel.displayName,
               style:
                   Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 12),
             ),

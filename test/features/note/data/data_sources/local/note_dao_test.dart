@@ -26,7 +26,7 @@ void main() {
   group('getNotes', () {
     const List<NoteModel> tNotesModels = [
       NoteModel(
-          id: 1,
+          id: '1',
           title: 'title1',
           description: 'description',
           startTime: 'startTime',
@@ -35,7 +35,7 @@ void main() {
           isCompleted: true,
           reminder: true),
       NoteModel(
-          id: 2,
+          id: '2',
           title: 'title1',
           description: 'description',
           startTime: 'startTime',
@@ -44,7 +44,7 @@ void main() {
           isCompleted: true,
           reminder: true),
       NoteModel(
-          id: 3,
+          id: '3',
           title: 'title1',
           description: 'description',
           startTime: 'startTime',
@@ -97,7 +97,7 @@ void main() {
   });
 
   group('deleteNote', () {
-    const tNoteId = 1;
+    const tNoteId = '1';
     const successCount = 1;
     const failureCount = 0;
     test(
@@ -138,7 +138,7 @@ void main() {
 
   group('insertNote', () {
     const tNote = NoteModel(
-        id: 3,
+        id: '3',
         title: 'title1',
         description: 'description',
         startTime: 'startTime',
@@ -180,7 +180,7 @@ void main() {
 
   group('updateNote', () {
     const tNote = NoteModel(
-        id: 3,
+        id: '3',
         title: 'title1',
         description: 'description',
         startTime: 'startTime',
@@ -229,28 +229,29 @@ void main() {
 
   group('getNote', () {
     const tNote = NoteModel(
-        id: 1,
-        title: 'title1',
-        description: 'description',
-        startTime: 'startTime',
-        endTime: 'endTime',
-        color: NoteColor.babyBlue,
-        isCompleted: true,
-        reminder: true);
+      id: '1',
+      title: 'title1',
+      description: 'description',
+      startTime: 'startTime',
+      endTime: 'endTime',
+      color: NoteColor.babyBlue,
+      isCompleted: true,
+      reminder: true,
+    );
 
     const List<Map<String, dynamic>> tMap = [
       {
-        'id': 1,
+        'id': '1',
         'title': 'title1',
         'description': 'description',
         'startTime': 'startTime',
         'endTime': 'endTime',
         'color': 3,
-        'isCompleted': true,
-        'reminder': true
+        'isCompleted': 1,
+        'reminder': 1
       },
     ];
-    const tNoteId = 1;
+    const tNoteId = '1';
     test(
         'should return notesModel by noteId from Database(sqflite) when database success to found it',
         () async {

@@ -21,3 +21,9 @@ extension IntegerToBoolean on int {
     return this == 0 ? false : true;
   }
 }
+
+extension BooleanToInteger on bool {
+  int toInteger() {
+    return this ? 1 : 0;
+  }
+}

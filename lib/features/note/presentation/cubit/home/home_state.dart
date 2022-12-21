@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'home_bloc.dart';
+part of 'home_cubit.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -7,12 +7,6 @@ abstract class HomeState extends Equatable {
   @override
   List<Object> get props => [];
 }
-
-class HomeInitial extends HomeState {}
-
-class GetNoteLoadingState extends HomeState {}
-
-class InsertNoteSuccessfulState extends HomeState {}
 
 class GetNoteErrorState extends HomeState {
   const GetNoteErrorState({
@@ -22,8 +16,15 @@ class GetNoteErrorState extends HomeState {
 }
 
 class GetNoteSuccessfulState extends HomeState {
-  const GetNoteSuccessfulState({
-    required this.notes,
-  });
-  final List<Note> notes;
+  const GetNoteSuccessfulState({this.notes = const []});
+  final List<Note?> notes;
+
+  @override
+  List<Object> get props => [notes, notes.length];
+
+  GetNoteSuccessfulState copyWith({List<Note>? notes}) {
+    return GetNoteSuccessfulState(
+      notes: notes ?? this.notes,
+    );
+  }
 }

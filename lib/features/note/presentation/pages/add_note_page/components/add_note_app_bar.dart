@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../../common/app_strings.dart';
+import '../../../../../../core/platform/utils/exetension.dart';
 import '../../../bloc/add_note/add_note_bloc.dart';
 
 AppBar addNoteAppBar(BuildContext context) {
@@ -15,8 +16,11 @@ AppBar addNoteAppBar(BuildContext context) {
     ),
     actions: [
       BlocConsumer<AddNoteBloc, AddNoteState>(
-        listener: (context, state) {
-          // TODO: implement listener
+        listener: (_, state) {
+          if (state is NoteAddedSuccessfulState) {
+            context.showSnackBar('Note added Successfully');
+            Navigator.of(context).pop();
+          }
         },
         builder: (context, state) {
           if (state is AddNoteFormState) {

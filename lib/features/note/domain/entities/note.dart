@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import '../../data/models/note_model.dart';
 
 class Note extends Equatable {
-  final int id;
+  final String id;
   final String title;
   final String description;
   final String startTime;
@@ -24,7 +24,7 @@ class Note extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         id,
         title,
         description,

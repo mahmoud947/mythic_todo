@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+
 import '../../../../common/app_colors.dart';
 import 'canvas_circle.dart';
-import 'package:sizer/sizer.dart';
 
 class SmallYellowCircle extends StatelessWidget {
   const SmallYellowCircle({

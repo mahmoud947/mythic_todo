@@ -17,14 +17,14 @@ class NoteRepositoryImpl implements NoteRepository {
       final localNotes = await noteDao.getNotes();
       final List<Note> notes =
           localNotes.map((localNote) => localNote.toDomain()).toList();
-      return Right(notes);
+      return Future.value(Right(notes));
     } on EmptyNotesDataException catch (e) {
-      return Left(EmptyNotesDataFailure(message: e.message));
+      return Future.value(Left(EmptyNotesDataFailure(message: e.message)));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteNote({required int noteId}) async {
+  Future<Either<Failure, Unit>> deleteNote({required String noteId}) async {
     try {
       await noteDao.deleteNote(noteId: noteId);
       return const Right(unit);
@@ -58,7 +58,7 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<Either<Failure, Note>> getNote({required int noteId}) async {
+  Future<Either<Failure, Note>> getNote({required String noteId}) async {
     try {
       final NoteModel localNoteModel = await noteDao.getNote(noteId: noteId);
       final Note note = localNoteModel.toDomain();

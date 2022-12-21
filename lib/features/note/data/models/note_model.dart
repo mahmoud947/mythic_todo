@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:mythic_todo/core/util/extensions.dart';
+import '../../../../core/util/extensions.dart';
 
 enum NoteColor { yellow, green, pink, babyBlue, purple, orang }
 
@@ -52,7 +52,7 @@ extension GetTableInfo on NoteTableInfo {
 }
 
 class NoteModel extends Equatable {
-  final int? id;
+  final String? id;
   final String title;
   final String? description;
   final String? startTime;
@@ -61,7 +61,7 @@ class NoteModel extends Equatable {
   final bool? isCompleted;
   final bool? reminder;
   const NoteModel({
-    this.id,
+    required this.id,
     required this.title,
     this.description,
     this.startTime,
@@ -98,14 +98,14 @@ class NoteModel extends Equatable {
       NoteTableInfo.startTime.getName: startTime,
       NoteTableInfo.endTime.getName: endTime,
       NoteTableInfo.color.getName: color.index,
-      NoteTableInfo.isCompleted.getName: isCompleted,
-      NoteTableInfo.reminder.getName: reminder,
+      NoteTableInfo.isCompleted.getName: isCompleted?.toInteger(),
+      NoteTableInfo.reminder.getName: reminder?.toInteger(),
     };
   }
 
   factory NoteModel.fromMap(Map<String, dynamic> map) {
     return NoteModel(
-      id: map[NoteTableInfo.id.getName] as int,
+      id: map[NoteTableInfo.id.getName] as String,
       title: map[NoteTableInfo.title.getName] as String,
       description: map[NoteTableInfo.description.getName] as String,
       startTime: map[NoteTableInfo.startTime.getName] != null

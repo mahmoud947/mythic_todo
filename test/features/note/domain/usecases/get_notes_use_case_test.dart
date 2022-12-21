@@ -19,7 +19,7 @@ void main() {
 
   const List<Note> tNotes = [
     Note(
-        id: 1,
+        id: '1',
         title: 'title1',
         description: 'description',
         startTime: 'startTime',
@@ -28,7 +28,7 @@ void main() {
         isCompleted: true,
         reminder: true),
     Note(
-        id: 2,
+        id: '2',
         title: 'title2',
         description: 'description',
         startTime: 'startTime',
@@ -37,7 +37,7 @@ void main() {
         isCompleted: true,
         reminder: true),
     Note(
-        id: 3,
+        id: '3',
         title: 'title3',
         description: 'description',
         startTime: 'startTime',
