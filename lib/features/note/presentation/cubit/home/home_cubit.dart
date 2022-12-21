@@ -25,7 +25,7 @@ class HomeCubit extends Cubit<HomeState> {
     streamSubscription = addNoteBloc.stream.listen(
       (addNoteBlocState) {
         if (addNoteBlocState is NoteAddedSuccessfulState) {
-          _notes.add(addNoteBlocState.note);
+          _notes.insert(0, addNoteBlocState.note);
           emit(
             (state as GetNoteSuccessfulState).copyWith(notes: _notes.toList()),
           );
@@ -44,7 +44,11 @@ class HomeCubit extends Cubit<HomeState> {
     emit(const GetNoteSuccessfulState());
     final either = await noteUseCases.getNotesUseCase();
     either.fold(
-      (failure) => emit(GetNoteErrorState(message: failure.message)),
+      (failure) {
+        emit(
+          (state as GetNoteSuccessfulState).copyWith(notes: _notes.toList()),
+        );
+      },
       (notes) {
         print('Note-- ${notes.length}');
         _notes.addAll(notes);

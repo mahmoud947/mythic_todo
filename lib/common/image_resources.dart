@@ -16,4 +16,5 @@ class ImageResources {
 
   // auth
   static const String gmailLogo = 'assets/images/gmail_logo.svg';
+  static const String emptyAvatar = 'assets/images/empty_avatar.png';
 }

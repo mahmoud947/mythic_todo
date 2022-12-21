@@ -29,8 +29,13 @@ class SplashScreen extends StatelessWidget {
         if (state is NavigateToOnBoarding) {
           Navigator.of(context)
               .pushReplacementNamed(AppRoutes.onBoardingScreen);
-        } else if (state is NavigateToHome) {
+        } else if (state is NavigateToSignIn) {
           Navigator.of(context).pushReplacementNamed(AppRoutes.signInScreen);
+        } else if (state is NavigateToHome) {
+          Navigator.of(context).pushReplacementNamed(
+            AppRoutes.notsScreen,
+            arguments: state.userModel,
+          );
         }
       },
       child: AnnotatedRegion<SystemUiOverlayStyle>(

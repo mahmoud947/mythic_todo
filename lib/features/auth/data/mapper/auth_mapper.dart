@@ -7,6 +7,6 @@ extension UserDtoToDomain on UserResponseDto {
         uid: uid.orEmpty(),
         email: email.orEmpty(),
         displayName: displayName.orEmpty(),
-        imageUrl: imageUrl.orEmpty(),
+        imageUrl: imageUrl,
       );
 }

@@ -11,8 +11,10 @@ class NoteDaoImpl implements NoteDao {
 
   @override
   Future<List<NoteModel>> getNotes() async {
-    final List<Map<String, dynamic>> notesAsMap =
-        await database.query(NoteTableInfo.tableName.getName);
+    final List<Map<String, dynamic>> notesAsMap = await database.query(
+      NoteTableInfo.tableName.getName,
+      orderBy: '${NoteTableInfo.startTime.getName} DESC',
+    );
     if (notesAsMap.isEmpty) {
       // TODO: remove hard coded
       throw EmptyNotesDataException(message: 'Empty Notes');

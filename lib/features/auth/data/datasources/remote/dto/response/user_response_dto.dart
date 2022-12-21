@@ -29,4 +29,12 @@ class UserResponseDto {
       imageUrl: map['imageUrl'],
     );
   }
+
+  factory UserResponseDto.fromFirebaseCurrentUser(User? currentUser) {
+    return UserResponseDto(
+      email: currentUser?.email,
+      displayName: currentUser?.displayName,
+      imageUrl: currentUser?.photoURL,
+    );
+  }
 }

@@ -1,7 +1,9 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mythic_todo/core/util/extensions.dart';
 import '../../../../../common/app_routes.dart';
+import '../../../../../common/image_resources.dart';
 import '../../../../auth/domain/model/user_model.dart';
 
 import '../../../../../common/app_colors.dart';
@@ -199,8 +201,10 @@ class _HomePageState extends State<HomePage> {
             },
             icon: CircleAvatar(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              backgroundImage: const NetworkImage(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTThiqIsUDzRYdYTWKMpJm6x_5VGUu8MuiUyFgsLKEz&s'),
+              backgroundImage: widget.userModel.imageUrl != null
+                  ? NetworkImage(widget.userModel.imageUrl.orEmpty())
+                  : const AssetImage(ImageResources.emptyAvatar)
+                      as ImageProvider,
             ),
           ),
           Flexible(

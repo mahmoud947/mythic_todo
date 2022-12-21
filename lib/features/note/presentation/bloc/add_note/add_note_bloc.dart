@@ -66,7 +66,7 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
   }
 
   void _insertNote(AddNoteEvent event, Emitter<AddNoteState> emit) async {
-    final DateFormat dateFormat = DateFormat('yyyy/mm/dd');
+    final DateFormat dateFormat = DateFormat('yyyy/mm/dd hh-mm-ss');
     final time = dateFormat.format(DateTime.now());
     final currentState = state as AddNoteFormState;
 
