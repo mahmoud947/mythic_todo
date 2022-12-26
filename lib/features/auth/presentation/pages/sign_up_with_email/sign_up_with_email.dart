@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
+
 import '../../../../../common/app_routes.dart';
 import '../../../../../common/app_strings.dart';
 import '../../../../../core/platform/utils/exetension.dart';
 import '../../../../../core/platform/widgets/custom_elevated_button.dart';
 import '../../../../../core/platform/widgets/custom_text_field.dart';
 import '../../bloc/sign_up/sign_up_bloc.dart';
-import 'package:sizer/sizer.dart';
 
 class SignUpWithEmailPage extends StatelessWidget {
   const SignUpWithEmailPage({super.key});

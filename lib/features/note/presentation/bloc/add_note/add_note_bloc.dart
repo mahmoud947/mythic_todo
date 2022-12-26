@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import '../../../../../core/error/failures.dart';
 import '../../../../../core/util/wrappers.dart';
 import '../../../data/mapper/mapper.dart';
 import '../../../data/models/note_model.dart';
@@ -75,6 +77,7 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
         description: currentState.description,
         color: getRandomColor(),
         id: const Uuid().v1(),
+        uuid: FirebaseAuth.instance.currentUser?.uid,
         isCompleted: true,
         reminder: true,
         startTime: time,
@@ -82,6 +85,10 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
     final either = await noteUseCases.insertNoteUseCase(input: note);
     either.fold(
       (failure) {
+        if (failure is RemoteDataSourceFailure) {
+          emit(NoteAddedSuccessfulState(note: note.toDomain()));
+          return;
+        }
         emit(AddNoteErrorState(message: failure.message));
         emit(currentState);
       },

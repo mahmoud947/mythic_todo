@@ -1,6 +1,7 @@
 [
   {
     "id": "1",
+    "uuid": "uuid",
     "title": "title1",
     "description": "description",
     "startTime": "startTime",
@@ -11,6 +12,7 @@
   },
   {
     "id": "2",
+    "uuid": "uuid",
     "title": "title1",
     "description": "description",
     "startTime": "startTime",
@@ -21,6 +23,7 @@
   },
   {
     "id": "3",
+    "uuid": "uuid",
     "title": "title1",
     "description": "description",
     "startTime": "startTime",

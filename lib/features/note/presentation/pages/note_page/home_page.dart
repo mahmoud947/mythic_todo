@@ -1,14 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/util/extensions.dart';
-import '../../../../../common/app_routes.dart';
-import '../../../../../common/image_resources.dart';
-import '../../../../auth/domain/model/user_model.dart';
 
 import '../../../../../common/app_colors.dart';
 import '../../../../../common/app_fonts.dart';
+import '../../../../../common/app_routes.dart';
 import '../../../../../common/app_size.dart';
+import '../../../../../core/util/extensions.dart';
+import '../../../../auth/domain/model/user_model.dart';
 import '../../../data/util/note_extension.dart';
 import '../../../domain/entities/note.dart';
 import '../../cubit/home/home_cubit.dart';
@@ -197,12 +197,19 @@ class _HomePageState extends State<HomePage> {
         children: [
           IconButton(
             onPressed: () => {},
-            icon: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              backgroundImage: widget.userModel.imageUrl != null
-                  ? NetworkImage(widget.userModel.imageUrl.orEmpty())
-                  : const AssetImage(ImageResources.emptyAvatar)
-                      as ImageProvider,
+            icon: CachedNetworkImage(
+              imageUrl: widget.userModel.imageUrl.orEmpty(),
+              imageBuilder: (context, imageProvider) => Container(
+                width: 80.0,
+                height: 80.0,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image:
+                      DecorationImage(image: imageProvider, fit: BoxFit.cover),
+                ),
+              ),
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           Flexible(

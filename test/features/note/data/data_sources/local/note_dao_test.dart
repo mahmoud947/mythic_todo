@@ -27,6 +27,7 @@ void main() {
     const List<NoteModel> tNotesModels = [
       NoteModel(
           id: '1',
+          uuid: 'uuid',
           title: 'title1',
           description: 'description',
           startTime: 'startTime',
@@ -36,6 +37,7 @@ void main() {
           reminder: true),
       NoteModel(
           id: '2',
+          uuid: 'uuid',
           title: 'title1',
           description: 'description',
           startTime: 'startTime',
@@ -45,6 +47,7 @@ void main() {
           reminder: true),
       NoteModel(
           id: '3',
+          uuid: 'uuid',
           title: 'title1',
           description: 'description',
           startTime: 'startTime',
@@ -58,6 +61,7 @@ void main() {
     final List<Map<String, dynamic>> tMap = tJson
         .map((e) => {
               NoteTableInfo.id.getName.toString(): e['id'],
+              NoteTableInfo.uuid.getName.toString(): e['uuid'],
               NoteTableInfo.title.getName.toString(): e['title'],
               NoteTableInfo.description.getName.toString(): e['description'],
               NoteTableInfo.startTime.getName.toString(): e['startTime'],
@@ -146,6 +150,7 @@ void main() {
   group('insertNote', () {
     const tNote = NoteModel(
         id: '3',
+        uuid: 'uuid',
         title: 'title1',
         description: 'description',
         startTime: 'startTime',
@@ -188,6 +193,7 @@ void main() {
   group('updateNote', () {
     const tNote = NoteModel(
         id: '3',
+        uuid: 'uuid',
         title: 'title1',
         description: 'description',
         startTime: 'startTime',
@@ -237,6 +243,7 @@ void main() {
   group('getNote', () {
     const tNote = NoteModel(
       id: '1',
+      uuid: 'uuid',
       title: 'title1',
       description: 'description',
       startTime: 'startTime',
@@ -249,6 +256,7 @@ void main() {
     const List<Map<String, dynamic>> tMap = [
       {
         'id': '1',
+        'uuid': 'uuid',
         'title': 'title1',
         'description': 'description',
         'startTime': 'startTime',

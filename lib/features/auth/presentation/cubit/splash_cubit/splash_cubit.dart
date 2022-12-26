@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/util/extensions.dart';
-import '../../../domain/model/user_model.dart';
 
 import '../../../../../application/app_constants.dart';
+import '../../../../../core/util/extensions.dart';
+import '../../../domain/model/user_model.dart';
 import '../../../domain/usecases/auth_use_cases.dart';
 
 part 'splash_state.dart';

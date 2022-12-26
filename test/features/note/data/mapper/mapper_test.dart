@@ -7,6 +7,7 @@ void main() {
   const List<NoteModel> notesModels = [
     NoteModel(
         id: '1',
+        uuid: 'uuid',
         title: 'title',
         description: 'description',
         startTime: 'startTime',

@@ -1,3 +1,7 @@
+import '../core/platform/worker/note_work_manager.dart';
+import '../features/note/data/data_sources/remote/remote_data_source.dart';
+import '../features/note/data/data_sources/remote/remote_data_source_impl_with_firebase.dart';
+
 import '../features/note/domain/usecases/delete_all_note_use_case.dart';
 
 import 'app_module.dart';
@@ -52,11 +56,21 @@ initNoteModule() {
 //? ..note repository
 
   ls.registerLazySingleton<NoteRepository>(
-    () => NoteRepositoryImpl(noteDao: ls()),
+    () => NoteRepositoryImpl(
+      noteDao: ls(),
+      remoteDataSource: ls(),
+      workmanager: NoteWorkManagerImpl(),
+    ),
   );
 
 //! Datasources
 //? ...local data source
   ls.registerLazySingleton<NoteDao>(
       () => NoteDaoImpl(database: ls<Database>()));
+
+//? ...remote data source
+  ls.registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImplWithFirebase());
+
+//
 }

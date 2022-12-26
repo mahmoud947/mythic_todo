@@ -4,26 +4,59 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mythic_todo/core/error/exceptions.dart';
 import 'package:mythic_todo/core/error/failures.dart';
+import 'package:mythic_todo/core/platform/worker/note_work_manager.dart';
 import 'package:mythic_todo/features/note/data/data_sources/local/note_dao.dart';
+import 'package:mythic_todo/features/note/data/data_sources/remote/remote_data_source.dart';
 import 'package:mythic_todo/features/note/data/mapper/mapper.dart';
 import 'package:mythic_todo/features/note/data/models/note_model.dart';
 import 'package:mythic_todo/features/note/data/repositories/note_repository_impl.dart';
 import 'package:mythic_todo/features/note/domain/entities/note.dart';
+import 'package:workmanager/workmanager.dart';
 
 class MockNoteDao extends Mock implements NoteDao {}
+
+class MockRemoteDataSource extends Mock implements RemoteDataSource {}
+
+class MockNoteWorkManager extends Mock implements NoteWorkManager {}
+
+void tCallbackDispatcher() async {
+  Workmanager().executeTask(
+    (taskName, inputData) async {
+      switch (taskName) {
+        case ADD_NOTE_TASK:
+          if (inputData != null) {
+            await Future.value(unit);
+          }
+          break;
+        default:
+          break;
+      }
+
+      return Future.value(true);
+    },
+  );
+}
 
 void main() {
   late NoteRepositoryImpl repository;
   late MockNoteDao mockNoteDao;
-
-  setUp(() {
+  late MockRemoteDataSource mockRemoteDataSource;
+  late MockNoteWorkManager mockNoteWorkManager;
+  setUp(() async {
     mockNoteDao = MockNoteDao();
-    repository = NoteRepositoryImpl(noteDao: mockNoteDao);
+    mockRemoteDataSource = MockRemoteDataSource();
+    mockNoteWorkManager = MockNoteWorkManager();
+
+    repository = NoteRepositoryImpl(
+        noteDao: mockNoteDao,
+        remoteDataSource: mockRemoteDataSource,
+        workmanager: mockNoteWorkManager);
   });
   group('getNotes', () {
     const List<NoteModel> tNotesModels = [
       NoteModel(
           id: '1',
+          uuid: 'uuid',
           title: 'title1',
           description: 'description',
           startTime: 'startTime',
@@ -33,6 +66,7 @@ void main() {
           reminder: true),
       NoteModel(
           id: '2',
+          uuid: 'uuid',
           title: 'title2',
           description: 'description',
           startTime: 'startTime',
@@ -42,6 +76,7 @@ void main() {
           reminder: true),
       NoteModel(
           id: '3',
+          uuid: 'uuid',
           title: 'title3',
           description: 'description',
           startTime: 'startTime',
@@ -110,21 +145,28 @@ void main() {
 
   group('insertNote', () {
     const NoteModel tNoteModel = NoteModel(
-        id: '2',
-        title: 'title2',
-        description: 'description',
-        startTime: 'startTime',
-        endTime: 'endTime',
-        color: NoteColor.babyBlue,
-        isCompleted: true,
-        reminder: true);
+      id: '2',
+      uuid: 'uuid',
+      title: 'title2',
+      description: 'description',
+      startTime: 'startTime',
+      endTime: 'endTime',
+      color: NoteColor.babyBlue,
+      isCompleted: true,
+      reminder: true,
+    );
     test(
         'should return unit when local data source is insert note successfully',
         () async {
       // arrange
+
       when(() => mockNoteDao.insertNote(noteModel: tNoteModel))
           .thenAnswer((_) async => unit);
-      // act
+      when(() => mockRemoteDataSource.insertNote(noteModel: tNoteModel))
+          .thenAnswer((_) async => unit);
+      when(() => mockNoteWorkManager.insertNote(noteModel: tNoteModel))
+          .thenAnswer((_) async => unit);
+      //act
       final result = await repository.insertNote(noteModel: tNoteModel);
       // assert
       expect(result, const Right(unit));
@@ -146,6 +188,7 @@ void main() {
   group('updateNote', () {
     const NoteModel tNoteModel = NoteModel(
         id: '2',
+        uuid: 'uuid',
         title: 'title2',
         description: 'description',
         startTime: 'startTime',
@@ -184,6 +227,7 @@ void main() {
     const tNoteId = '1';
     const NoteModel tNoteModel = NoteModel(
         id: '2',
+        uuid: 'uuid',
         title: 'title2',
         description: 'description',
         startTime: 'startTime',

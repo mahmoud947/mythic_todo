@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import '../../../../core/platform/worker/note_work_manager.dart';
+import '../data_sources/remote/remote_data_source.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -9,8 +11,15 @@ import '../mapper/mapper.dart';
 import '../models/note_model.dart';
 
 class NoteRepositoryImpl implements NoteRepository {
-  NoteRepositoryImpl({required this.noteDao});
+  NoteRepositoryImpl({
+    required this.noteDao,
+    required this.remoteDataSource,
+    required this.workmanager,
+  });
   final NoteDao noteDao;
+  final RemoteDataSource remoteDataSource;
+  final NoteWorkManager workmanager;
+
   @override
   Future<Either<Failure, List<Note>>> getNotes() async {
     try {
@@ -39,9 +48,12 @@ class NoteRepositoryImpl implements NoteRepository {
   }) async {
     try {
       await noteDao.insertNote(noteModel: noteModel);
+      await workmanager.insertNote(noteModel: noteModel);
       return const Right(unit);
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));
+    } on RemoteDataSourceException catch (e) {
+      return Left(RemoteDataSourceFailure(message: e.message));
     }
   }
 

@@ -10,6 +10,7 @@ enum NoteColor { yellow, green, pink, babyBlue, purple, orang }
 enum NoteTableInfo {
   tableName,
   id,
+  uuid,
   title,
   description,
   startTime,
@@ -27,6 +28,9 @@ extension GetTableInfo on NoteTableInfo {
 
       case NoteTableInfo.id:
         return 'id';
+
+      case NoteTableInfo.uuid:
+        return 'uuid';
 
       case NoteTableInfo.title:
         return 'title';
@@ -54,6 +58,7 @@ extension GetTableInfo on NoteTableInfo {
 
 class NoteModel extends Equatable {
   final String? id;
+  final String? uuid;
   final String title;
   final String? description;
   final String? startTime;
@@ -61,8 +66,10 @@ class NoteModel extends Equatable {
   final NoteColor color;
   final bool? isCompleted;
   final bool? reminder;
+
   const NoteModel({
     required this.id,
+    required this.uuid,
     required this.title,
     this.description,
     this.startTime,
@@ -94,6 +101,7 @@ class NoteModel extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       NoteTableInfo.id.getName: id,
+      NoteTableInfo.uuid.getName: uuid,
       NoteTableInfo.title.getName: title,
       NoteTableInfo.description.getName: description,
       NoteTableInfo.startTime.getName: startTime,
@@ -107,6 +115,7 @@ class NoteModel extends Equatable {
   factory NoteModel.fromMap(Map<String, dynamic> map) {
     return NoteModel(
       id: map[NoteTableInfo.id.getName] as String,
+      uuid: map[NoteTableInfo.uuid.getName] as String,
       title: map[NoteTableInfo.title.getName] as String,
       description: map[NoteTableInfo.description.getName] as String,
       startTime: map[NoteTableInfo.startTime.getName] != null

@@ -8,6 +8,7 @@ import '../../../../fixtures/fixtures_render.dart';
 void main() {
   const NoteModel tNoteModel = NoteModel(
     id: '1',
+    uuid: 'uuid',
     title: 'title1',
     description: 'description',
     startTime: 'startTime',

@@ -16,8 +16,12 @@ void main() {
     useCase = InsertNoteUseCase(repository: mockNoteRepository);
   });
 
-  const NoteModel noteModel =
-      NoteModel(title: 'test title', color: NoteColor.babyBlue, id: '1');
+  const NoteModel noteModel = NoteModel(
+    title: 'test title',
+    color: NoteColor.babyBlue,
+    id: '1',
+    uuid: 'uuid',
+  );
 
   test('should insert new note vie repository', () async {
     // arrange

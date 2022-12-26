@@ -37,3 +37,8 @@ class SignInException implements Exception {
   SignInException({this.message});
   String? message;
 }
+
+class RemoteDataSourceException implements Exception {
+  RemoteDataSourceException({this.message});
+  String? message;
+}

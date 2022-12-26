@@ -1,5 +1,5 @@
-import 'dto/request/user_request_dto.dart';
 import '../../../domain/model/user_model.dart';
+import 'dto/request/user_request_dto.dart';
 
 typedef Token = String;
 

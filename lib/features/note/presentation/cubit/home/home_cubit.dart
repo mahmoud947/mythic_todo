@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../domain/entities/note.dart';
 import '../../../domain/usecases/note_use_cases.dart';
 import '../../bloc/add_note/add_note_bloc.dart';

@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/network/network_helper.dart';
-import '../mapper/auth_mapper.dart';
-import '../datasources/remote/dto/request/user_request_dto.dart';
-import '../datasources/remote/authenticator.dart';
-import '../datasources/remote/dto/response/user_response_dto.dart';
-import '../datasources/remote/social_authenticator.dart';
-import '../../domain/model/user_model.dart';
-import '../../../../core/error/error_strings.dart';
 
+import '../../../../core/error/error_strings.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/network/network_helper.dart';
+import '../../domain/model/user_model.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/local/auth_dao.dart';
+import '../datasources/remote/authenticator.dart';
+import '../datasources/remote/dto/request/user_request_dto.dart';
+import '../datasources/remote/dto/response/user_response_dto.dart';
+import '../datasources/remote/social_authenticator.dart';
+import '../mapper/auth_mapper.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({

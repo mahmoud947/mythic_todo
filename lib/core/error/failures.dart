@@ -80,3 +80,11 @@ class SignInFailure extends Failure {
   @override
   List<Object?> get props => [message];
 }
+
+class RemoteDataSourceFailure extends Failure {
+  RemoteDataSourceFailure({this.message});
+  @override
+  final String? message;
+  @override
+  List<Object?> get props => [message];
+}

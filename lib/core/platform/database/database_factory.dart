@@ -7,6 +7,7 @@ class SqfliteFactory {
   final String createNoteTable = '''
     CREATE TABLE ${NoteTableInfo.tableName.getName} (
      ${NoteTableInfo.id.getName} TEXT NOT NULL PRIMARY KEY,
+     ${NoteTableInfo.uuid.getName} TEXT NOT NULL,
      ${NoteTableInfo.title.getName} TEXT,
      ${NoteTableInfo.description.getName} TEXT,
      ${NoteTableInfo.startTime.getName} TEXT,
