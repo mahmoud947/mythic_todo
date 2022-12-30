@@ -17,6 +17,9 @@ class AppThemes {
         statusBarIconBrightness: Brightness.dark,
       ),
       centerTitle: true,
+      iconTheme: IconThemeData(
+        color: AppColors.lightSecondaryColor,
+      ),
     ),
     scaffoldBackgroundColor: AppColors.lightBackgroundColor,
     colorScheme: const ColorScheme(

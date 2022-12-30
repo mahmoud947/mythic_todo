@@ -124,6 +124,10 @@ void main() {
       // arrange
       when(() => mockNoteDao.deleteNote(noteId: tNoteId))
           .thenAnswer((_) async => unit);
+      when(() => mockRemoteDataSource.deleteNote(noteId: tNoteId))
+          .thenAnswer((_) async => unit);
+      when(() => mockNoteWorkManager.deleteNote(noteId: tNoteId))
+          .thenAnswer((_) async => unit);
       // act
       final result = await repository.deleteNote(noteId: tNoteId);
       // assert

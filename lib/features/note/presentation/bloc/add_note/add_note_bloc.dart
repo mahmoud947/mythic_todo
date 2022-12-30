@@ -5,6 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
+
 import '../../../../../core/error/failures.dart';
 import '../../../../../core/util/wrappers.dart';
 import '../../../data/mapper/mapper.dart';
@@ -12,8 +14,6 @@ import '../../../data/models/note_model.dart';
 import '../../../domain/entities/note.dart';
 import '../../../domain/usecases/note_use_cases.dart';
 import '../../../domain/usecases/validation/note_title_validation_use_case.dart';
-
-import 'package:uuid/uuid.dart';
 
 part 'add_note_event.dart';
 part 'add_note_state.dart';
@@ -27,7 +27,7 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
     required this.noteUseCases,
   }) : super(const AddNoteFormState()) {
     on<OnTitleChange>((event, emit) => _onTitleChange(event, emit));
-    on<OnDescriptionChange>((event, emit) => null);
+    on<OnDescriptionChange>((event, emit) => _onDescriptionChange(event, emit));
     on<OnSubmitEvent>((event, emit) => _insertNote(event, emit));
   }
 
@@ -58,6 +58,11 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
         _isAllInputValid(event, emit);
       },
     );
+  }
+
+  _onDescriptionChange(OnDescriptionChange event, Emitter<AddNoteState> emit) {
+    final currentState = state as AddNoteFormState;
+    emit(currentState.copyWith(description: event.description));
   }
 
   void _isAllInputValid(OnTitleChange event, Emitter<AddNoteState> emit) {

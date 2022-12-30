@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import '../remote/dto/response/user_response_dto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../application/app_constants.dart';
 import '../../../../../core/error/error_strings.dart';
 import '../../../../../core/error/exceptions.dart';
+import '../remote/dto/response/user_response_dto.dart';
 import 'auth_dao.dart';
 
 class AuthDaoImpl implements AuthDao {

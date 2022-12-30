@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'core/platform/worker/note_work_manager.dart';
 import 'package:sizer/sizer.dart';
 import 'package:workmanager/workmanager.dart';
 
 import 'common/app_routes.dart';
 import 'common/app_themes.dart';
+import 'core/platform/worker/note_work_manager.dart';
 import 'di/app_module.dart' as di;
 import 'firebase_options.dart';
 

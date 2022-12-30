@@ -30,7 +30,11 @@ class AddNoteBody extends StatelessWidget {
                         ),
                     errorMessage: state.titleErrorMessage,
                   ),
-                  const NoteDescriptionTextField(),
+                  NoteDescriptionTextField(
+                    onTextChange: (value) => context.read<AddNoteBloc>().add(
+                          OnDescriptionChange(description: value),
+                        ),
+                  )
                 ],
               );
             } else {

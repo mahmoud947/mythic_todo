@@ -58,6 +58,18 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  Future<void> deleteNote(Note note) async {
+    final either = await noteUseCases.deleteNoteUseCase(input: note.id);
+    either.fold(
+      (failure) => {},
+      (_) {
+        _notes.remove(note);
+        emit(
+            (state as GetNoteSuccessfulState).copyWith(notes: _notes.toList()));
+      },
+    );
+  }
+
   Future<void> deleteAllNote() async {
     final either = await noteUseCases.deleteAllNoteUseCase();
     either.fold((failure) {}, (_) {

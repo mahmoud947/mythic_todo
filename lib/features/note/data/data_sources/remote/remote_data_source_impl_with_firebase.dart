@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../../core/error/exceptions.dart';
 import '../../models/note_model.dart';
@@ -7,17 +8,36 @@ import 'remote_data_source.dart';
 
 class RemoteDataSourceImplWithFirebase implements RemoteDataSource {
   final notes = FirebaseFirestore.instance.collection('notes');
-
+  final uuid = FirebaseAuth.instance.currentUser?.uid;
   @override
-  Future<Unit> deleteAllNote() {
-    // TODO: implement deleteAllNote
-    throw UnimplementedError();
+  Future<Unit> deleteAllNote() async {
+    try {
+      //TODO : remove this shit
+      await notes.where('uuid', isEqualTo: uuid).get().then((value) {
+        final y = value.docs;
+        for (final m in y) {
+          m.reference.delete();
+        }
+      });
+      return Future.value(unit);
+    } on FirebaseException catch (e) {
+      throw RemoteDataSourceException(message: e.toString());
+    } on Exception catch (e) {
+      throw UnKnownException(message: e.toString());
+    }
   }
 
   @override
-  Future<Unit> deleteNote({required String noteId}) {
-    // TODO: implement deleteNote
-    throw UnimplementedError();
+  Future<Unit> deleteNote({required String noteId}) async {
+    try {
+      await notes.doc(noteId).delete();
+
+      return Future.value(unit);
+    } on FirebaseException catch (e) {
+      throw RemoteDataSourceException(message: e.toString());
+    } on Exception catch (e) {
+      throw UnKnownException(message: e.toString());
+    }
   }
 
   @override
@@ -35,7 +55,7 @@ class RemoteDataSourceImplWithFirebase implements RemoteDataSource {
   @override
   Future<Unit> insertNote({required NoteModel noteModel}) async {
     try {
-      await notes.add(noteModel.toMap());
+      await notes.doc(noteModel.id).set(noteModel.toMap());
       return Future.value(unit);
     } on FirebaseException catch (e) {
       throw RemoteDataSourceException(message: e.toString());

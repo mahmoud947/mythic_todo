@@ -36,9 +36,12 @@ class NoteRepositoryImpl implements NoteRepository {
   Future<Either<Failure, Unit>> deleteNote({required String noteId}) async {
     try {
       await noteDao.deleteNote(noteId: noteId);
+      await workmanager.deleteNote(noteId: noteId);
       return const Right(unit);
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));
+    } on RemoteDataSourceException catch (e) {
+      return Left(RemoteDataSourceFailure(message: e.message));
     }
   }
 
@@ -84,6 +87,7 @@ class NoteRepositoryImpl implements NoteRepository {
   Future<Either<Failure, Unit>> deleteAllNote() async {
     try {
       await noteDao.deleteAllNote();
+      await workmanager.deleteAllNotes();
       return const Right(unit);
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));

@@ -1,3 +1,5 @@
+import '../features/note/domain/usecases/delete_note_use_case.dart';
+
 import '../core/platform/worker/note_work_manager.dart';
 import '../features/note/data/data_sources/remote/remote_data_source.dart';
 import '../features/note/data/data_sources/remote/remote_data_source_impl_with_firebase.dart';
@@ -42,10 +44,12 @@ initNoteModule() {
 //? ...provide all usecases with singltone pattern
   ls.registerFactory<NoteUseCases>(
     () => NoteUseCases(
-        getNoteUseCase: GetNoteUseCase(repository: ls()),
-        insertNoteUseCase: InsertNoteUseCase(repository: ls()),
-        getNotesUseCase: GetNotesUseCase(repository: ls()),
-        deleteAllNoteUseCase: DeleteAllNoteUseCase(repository: ls())),
+      getNoteUseCase: GetNoteUseCase(repository: ls()),
+      insertNoteUseCase: InsertNoteUseCase(repository: ls()),
+      getNotesUseCase: GetNotesUseCase(repository: ls()),
+      deleteAllNoteUseCase: DeleteAllNoteUseCase(repository: ls()),
+      deleteNoteUseCase: DeleteNoteUseCase(repository: ls()),
+    ),
   );
 
 //? ...provide validation usecases with singltone pattern
