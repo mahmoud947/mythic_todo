@@ -15,6 +15,15 @@ AppBar addNoteAppBar(BuildContext context) {
       size: 8.w,
     ),
     actions: [
+      IconButton(
+        onPressed: () {
+          context.read<AddNoteBloc>().add(TogglePreview());
+        },
+        icon: const Icon(
+          Icons.view_array,
+          color: Colors.green,
+        ),
+      ),
       BlocConsumer<AddNoteBloc, AddNoteState>(
         listener: (_, state) {
           if (state is NoteAddedSuccessfulState) {
@@ -39,7 +48,7 @@ AppBar addNoteAppBar(BuildContext context) {
             return Container();
           }
         },
-      )
+      ),
     ],
     title: Text(
       AppStrings.addNote,

@@ -30,17 +30,20 @@ class AddNoteFormState extends AddNoteState {
     this.description = '',
     this.isAllInputValid = false,
     this.titleErrorMessage,
+    this.isPreview = false,
   });
   final String title;
   final String description;
   final String? titleErrorMessage;
   final bool isAllInputValid;
+  final bool isPreview;
 
   AddNoteFormState copyWith({
     String? title,
     String? description,
     bool? isAllInputValid,
     NullableWrapped<String?>? titleErrorMessage,
+    bool? isPreview,
   }) {
     return AddNoteFormState(
       title: title ?? this.title,
@@ -49,14 +52,11 @@ class AddNoteFormState extends AddNoteState {
       titleErrorMessage: titleErrorMessage != null
           ? titleErrorMessage.value
           : this.titleErrorMessage,
+      isPreview: isPreview ?? this.isPreview,
     );
   }
 
   @override
-  List<Object?> get props => [
-        title,
-        description,
-        isAllInputValid,
-        titleErrorMessage,
-      ];
+  List<Object?> get props =>
+      [title, description, isAllInputValid, titleErrorMessage, isPreview];
 }

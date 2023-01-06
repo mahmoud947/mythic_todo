@@ -1,108 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'add_note_editor_bar.dart';
+import 'add_note_form.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../bloc/add_note/add_note_bloc.dart';
-import 'note_description_text_field.dart';
-import 'note_title_text_field.dart';
+import 'add_note_markdown_preview.dart';
 
-class AddNoteBody extends StatelessWidget {
+class AddNoteBody extends StatefulWidget {
   const AddNoteBody({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Stack(children: [
-      Positioned(
-        top: 0,
-        left: 0,
-        right: 0,
-        child: BlocBuilder<AddNoteBloc, AddNoteState>(
-          builder: (_, state) {
-            if (state is AddNoteFormState) {
-              return Column(
-                children: [
-                  NoteTitleTextField(
-                    onTextChange: (value) => context.read<AddNoteBloc>().add(
-                          OnTitleChange(title: value),
-                        ),
-                    errorMessage: state.titleErrorMessage,
-                  ),
-                  NoteDescriptionTextField(
-                    onTextChange: (value) => context.read<AddNoteBloc>().add(
-                          OnDescriptionChange(description: value),
-                        ),
-                  )
-                ],
-              );
-            } else {
-              return Container();
-            }
-          },
-        ),
-      ),
-      Positioned(
-          bottom: 2.h,
-          left: 0,
-          right: 0,
-          height: 5.h,
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 2.w),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(40),
-              ),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextCustomizationButton(
-                  iconData: FontAwesomeIcons.bold,
-                  onClick: () {},
-                ),
-                TextCustomizationButton(
-                  iconData: FontAwesomeIcons.italic,
-                  onClick: () {},
-                ),
-                TextCustomizationButton(
-                  iconData: FontAwesomeIcons.underline,
-                  onClick: () {},
-                ),
-                TextCustomizationButton(
-                  iconData: FontAwesomeIcons.circleDot,
-                  onClick: () {},
-                )
-              ],
-            ),
-          ))
-    ]);
-  }
+  State<AddNoteBody> createState() => _AddNoteBodyState();
 }
 
-class TextCustomizationButton extends StatelessWidget {
-  final IconData iconData;
-  final Function() onClick;
-  const TextCustomizationButton({
-    Key? key,
-    required this.iconData,
-    required this.onClick,
-  }) : super(key: key);
+class _AddNoteBodyState extends State<AddNoteBody> {
+  late TextEditingController _controller;
+  late ScrollController _scrollController;
+  late ImagePicker _picker;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+    _scrollController = ScrollController();
+    _picker = ImagePicker();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void deactivate() {
+    context.read<AddNoteBloc>().add(Clear());
+    super.deactivate();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: onClick,
-        icon: Padding(
-          padding: EdgeInsets.all(1.25.w),
-          child: FaIcon(
-            size: 4.5.w,
-            iconData,
-            color: Theme.of(context).colorScheme.onPrimary,
+    return BlocConsumer<AddNoteBloc, AddNoteState>(listener: (context, state) {
+      // TODO: implement listener
+    }, builder: (_, state) {
+      if (state is AddNoteFormState) {
+        return Stack(children: [
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            left: 0,
+            top: 0.h,
+            bottom: 10.h,
+            right: state.isPreview ? 55.w : 0,
+            child: AddNoteForm(
+                state: state,
+                scrollController: _scrollController,
+                textEditingController: _controller),
           ),
-        ));
+          Positioned(
+            bottom: 2.h,
+            left: 0,
+            right: 0,
+            height: 5.h,
+            child: AddNoteTextEditorBar(
+              controller: _controller,
+              picker: _picker,
+            ),
+          ),
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 300),
+            top: state.isPreview ? 2.h : 0,
+            right: state.isPreview ? 1.w : 0,
+            height: state.isPreview ? 40.h : 0,
+            width: state.isPreview ? 50.w : 0,
+            child: AddNoteMarkdownPreview(
+              controller: _scrollController,
+              data: state.description,
+            ),
+          ),
+        ]);
+      } else {
+        return Container();
+      }
+    });
   }
 }

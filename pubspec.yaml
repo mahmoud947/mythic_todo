@@ -21,12 +21,14 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.0.1
   flutter_hooks: ^0.18.5+1
+  flutter_markdown: ^0.6.13
   flutter_svg: ^1.1.1
   focused_menu: ^1.0.5
   font_awesome_flutter: ^10.3.0
   get_it: ^7.2.0
   google_fonts: ^3.0.1
   google_sign_in: ^5.4.2
+  image_picker: ^0.8.6
   internet_connection_checker: ^1.0.0+1
   intl: ^0.17.0
   path: ^1.8.1

@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
-class NoteDescriptionTextField extends StatelessWidget {
-  final Function(String value)? onTextChange;
-  const NoteDescriptionTextField({
+class NoteBodyTextField extends StatelessWidget {
+  const NoteBodyTextField({
     Key? key,
     this.onTextChange,
+    required this.controller,
   }) : super(key: key);
+  final Function(String value)? onTextChange;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        keyboardType: TextInputType.multiline,
+        textInputAction: TextInputAction.newline,
+        controller: controller,
         onChanged: onTextChange,
-        maxLines: 9,
-        style: Theme.of(context).textTheme.bodySmall,
+        maxLines: 100,
+        minLines: 100,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 12.sp),
         decoration: InputDecoration(
           hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context)
                   .textTheme
                   .titleMedium
                   ?.color
-                  ?.withAlpha(130)),
+                  ?.withAlpha(130),
+              fontSize: 12.sp),
           border: InputBorder.none,
-          hintText: 'Note Description',
+          hintText: 'Note Body',
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           contentPadding: const EdgeInsets.all(8),

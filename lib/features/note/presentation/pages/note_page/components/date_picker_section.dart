@@ -8,19 +8,23 @@ class DatePickerSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DatePicker(
+      daysCount: 10,
+      height: SizerUtil.deviceType == DeviceType.tablet ? 10.5.h : 80,
+      width: SizerUtil.deviceType == DeviceType.tablet ? 12.w : 60,
       onDateChange: (selectedDate) {
         print('date $selectedDate');
       },
       DateTime.now(),
-      daysCount: 7,
+      initialSelectedDate: DateTime.now(),
       selectionColor: Theme.of(context).colorScheme.primary,
       monthTextStyle:
-          Theme.of(context).textTheme.bodySmall ?? const TextStyle(),
+          Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 9.sp) ??
+              const TextStyle(),
       dayTextStyle:
-          Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 8.sp) ??
+          Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 7.sp) ??
               const TextStyle(),
       dateTextStyle:
-          Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 10.sp) ??
+          Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 9.sp) ??
               const TextStyle(),
     );
   }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'components/home_app_bar.dart';
-import 'components/home_body.dart';
 
 import '../../../../auth/domain/model/user_model.dart';
-
 import '../../cubit/home/home_cubit.dart';
+import 'components/home_app_bar.dart';
+import 'components/home_body.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.userModel}) : super(key: key);
@@ -37,8 +36,9 @@ class _HomePageState extends State<HomePage> {
       appBar: homeAppBar(
         context: context,
         userModel: widget.userModel,
+        date: date,
       ),
-      body: HomeBody(date: date),
+      body: const HomeBody(),
     );
   }
 }

@@ -19,6 +19,10 @@ class OnTitleChange extends AddNoteEvent {
 
 class OnSubmitEvent extends AddNoteEvent {}
 
+class TogglePreview extends AddNoteEvent {}
+
+class Clear extends AddNoteEvent {}
+
 class OnDescriptionChange extends AddNoteEvent {
   final String description;
   const OnDescriptionChange({

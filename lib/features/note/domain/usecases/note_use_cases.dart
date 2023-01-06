@@ -1,7 +1,5 @@
-import 'delete_note_use_case.dart';
-
 import 'delete_all_note_use_case.dart';
-
+import 'delete_note_use_case.dart';
 import 'get_note_use_case.dart';
 import 'get_notes_use_case.dart';
 import 'insert_note_use_case.dart';

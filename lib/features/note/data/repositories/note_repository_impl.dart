@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/platform/worker/note_work_manager.dart';
-import '../data_sources/remote/remote_data_source.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/platform/worker/note_work_manager.dart';
 import '../../domain/entities/note.dart';
 import '../../domain/repositories/note_repository.dart';
 import '../data_sources/local/note_dao.dart';
+import '../data_sources/remote/remote_data_source.dart';
 import '../mapper/mapper.dart';
 import '../models/note_model.dart';
 

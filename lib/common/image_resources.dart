@@ -18,4 +18,6 @@ class ImageResources {
   static const String gmailLogo = 'assets/images/gmail_logo.svg';
   static const String emptyAvatar = 'assets/images/empty_avatar.svg';
   static const String emptyNotes = 'assets/images/empty_notes.svg';
+  static const String emptyUserImageUrl =
+      'https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png';
 }

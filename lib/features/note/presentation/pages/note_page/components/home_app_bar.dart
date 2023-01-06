@@ -2,16 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../../../core/util/extensions.dart';
 import '../../../../../auth/domain/model/user_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../../common/app_fonts.dart';
 import '../../../../../../common/image_resources.dart';
 import '../../../cubit/home/home_cubit.dart';
+import 'date_and_add_note_section.dart';
+import 'date_picker_section.dart';
 
 AppBar homeAppBar(
-    {required BuildContext context, required UserModel userModel}) {
+    {required BuildContext context,
+    required UserModel userModel,
+    required String date}) {
   return AppBar(
     backgroundColor: Theme.of(context).colorScheme.background,
     elevation: 0,
@@ -22,7 +25,7 @@ AppBar homeAppBar(
         IconButton(
           onPressed: () => {},
           icon: CachedNetworkImage(
-            imageUrl: userModel.imageUrl.orEmpty(),
+            imageUrl: userModel.imageUrl ?? ImageResources.emptyUserImageUrl,
             imageBuilder: (context, imageProvider) => Container(
               width: 9.0.w,
               height: 9.0.w,
@@ -62,6 +65,20 @@ AppBar homeAppBar(
         fontFamily: AppFontConstants.inconsolataFontFamily,
         fontSize: AppFontSize.titleMedium,
         fontWeight: AppFontWeight.bold,
+      ),
+    ),
+    bottom: PreferredSize(
+      preferredSize: Size.fromHeight(20.h),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const DatePickerSection(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              child: DateAndAddNoteSection(date: date),
+            ),
+          ],
+        ),
       ),
     ),
   );

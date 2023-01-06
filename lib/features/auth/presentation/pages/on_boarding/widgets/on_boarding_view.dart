@@ -43,8 +43,8 @@ class OnBoardingView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 16.h,
-                right: 19.5.w,
+                top: 12.h,
+                right: 18.5.w,
                 child: SizedBox(
                   height: 40.h,
                   width: 1.w,

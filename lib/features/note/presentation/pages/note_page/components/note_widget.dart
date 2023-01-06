@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
+import '../../../../../../core/platform/utils/exetension.dart';
 import '../../../../data/util/note_extension.dart';
 import '../../../cubit/home/home_cubit.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../../../common/app_colors.dart';
 import '../../../../domain/entities/note.dart';
 
 class NoteWidget extends StatelessWidget {
@@ -58,33 +59,51 @@ class NoteWidget extends StatelessWidget {
       onPressed: () {},
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.1),
+          borderRadius: BorderRadius.circular(20),
         ),
+        color:
+            context.isDarkMode ? Colors.black26.withAlpha(100) : Colors.white,
         elevation: 2,
-        color: note.color.intColor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Flexible(
+              Expanded(
                 flex: 1,
-                child: Text(
-                  note.title,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontSize: 14.sp,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Flexible(
+                      flex: 10,
+                      child: Center(
+                        child: Text(
+                          note.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(
+                                fontSize: 14.sp,
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                              ),
+                        ),
                       ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: CircleAvatar(
+                        backgroundColor: note.color.intColor,
+                        radius: 2.w,
+                      ),
+                    )
+                  ],
                 ),
               ),
               Flexible(
-                flex: 5,
-                child: Text(
-                  note.description,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 12.sp,
-                        color: AppColors.lightOnNoteColor,
-                      ),
-                ),
-              ),
+                  flex: 5,
+                  child: Markdown(
+                    data: note.description,
+                  )),
             ],
           ),
         ),

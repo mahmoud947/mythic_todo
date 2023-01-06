@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
@@ -29,11 +28,8 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
     on<OnTitleChange>((event, emit) => _onTitleChange(event, emit));
     on<OnDescriptionChange>((event, emit) => _onDescriptionChange(event, emit));
     on<OnSubmitEvent>((event, emit) => _insertNote(event, emit));
-  }
-
-  @override
-  Future<void> close() {
-    return super.close();
+    on<Clear>((event, emit) => _clear(emit));
+    on<TogglePreview>((event, emit) => _togglePreview(emit));
   }
 
   _onTitleChange(OnTitleChange event, Emitter<AddNoteState> emit) async {
@@ -99,11 +95,7 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
       },
       (_) {
         emit(NoteAddedSuccessfulState(note: note.toDomain()));
-        emit(currentState.copyWith(
-          title: '',
-          isAllInputValid: false,
-          titleErrorMessage: const NullableWrapped.value(null),
-        ));
+        _clear(emit);
       },
     );
   }
@@ -125,5 +117,21 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
       default:
         return NoteColor.purple;
     }
+  }
+
+  _clear(Emitter<AddNoteState> emit) {
+    final currentState = state as AddNoteFormState;
+    emit(currentState.copyWith(
+      title: '',
+      description: '',
+      titleErrorMessage: const NullableWrapped.value(null),
+      isAllInputValid: false,
+      isPreview: false,
+    ));
+  }
+
+  _togglePreview(Emitter<AddNoteState> emit) {
+    final currentState = state as AddNoteFormState;
+    emit(currentState.copyWith(isPreview: !currentState.isPreview));
   }
 }

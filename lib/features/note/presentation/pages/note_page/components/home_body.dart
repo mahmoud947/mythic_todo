@@ -5,24 +5,16 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../../../common/image_resources.dart';
 import '../../../cubit/home/home_cubit.dart';
-import 'date_and_add_note_section.dart';
-import 'date_picker_section.dart';
 import 'note_widget.dart';
 
 class HomeBody extends StatelessWidget {
-  const HomeBody({super.key, required this.date});
-  final String date;
+  const HomeBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            child: DateAndAddNoteSection(date: date),
-          ),
-          const DatePickerSection(),
           Expanded(
             child: BlocBuilder<HomeCubit, HomeState>(
               builder: (_, state) {
