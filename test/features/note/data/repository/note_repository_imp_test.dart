@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:mythic_todo/core/error/exceptions.dart';
 import 'package:mythic_todo/core/error/failures.dart';
+import 'package:mythic_todo/core/network/network_helper.dart';
 import 'package:mythic_todo/core/platform/worker/note_work_manager.dart';
 import 'package:mythic_todo/features/note/data/data_sources/local/note_dao.dart';
 import 'package:mythic_todo/features/note/data/data_sources/remote/remote_data_source.dart';
@@ -18,6 +19,8 @@ class MockNoteDao extends Mock implements NoteDao {}
 class MockRemoteDataSource extends Mock implements RemoteDataSource {}
 
 class MockNoteWorkManager extends Mock implements NoteWorkManager {}
+
+class MockNetworkHelper extends Mock implements NetworkHelper {}
 
 void tCallbackDispatcher() async {
   Workmanager().executeTask(
@@ -42,15 +45,19 @@ void main() {
   late MockNoteDao mockNoteDao;
   late MockRemoteDataSource mockRemoteDataSource;
   late MockNoteWorkManager mockNoteWorkManager;
+  late MockNetworkHelper mockNetworkHelper;
   setUp(() async {
     mockNoteDao = MockNoteDao();
     mockRemoteDataSource = MockRemoteDataSource();
     mockNoteWorkManager = MockNoteWorkManager();
+    mockNetworkHelper = MockNetworkHelper();
 
     repository = NoteRepositoryImpl(
-        noteDao: mockNoteDao,
-        remoteDataSource: mockRemoteDataSource,
-        workmanager: mockNoteWorkManager);
+      noteDao: mockNoteDao,
+      remoteDataSource: mockRemoteDataSource,
+      workmanager: mockNoteWorkManager,
+      networkHelper: mockNetworkHelper,
+    );
   });
   group('getNotes', () {
     const List<NoteModel> tNotesModels = [
@@ -91,6 +98,7 @@ void main() {
         () async {
       // arrange
       when(() => mockNoteDao.getNotes()).thenAnswer((_) async => tNotesModels);
+      when(() => mockNetworkHelper.isConnected).thenAnswer((_) async => false);
       // act
       final result = await repository.getNotes();
       /*
@@ -109,6 +117,7 @@ void main() {
         () async {
       // arrange
       when(() => mockNoteDao.getNotes()).thenThrow(EmptyNotesDataException());
+      when(() => mockNetworkHelper.isConnected).thenAnswer((_) async => false);
       // act
       final result = await repository.getNotes();
       // assert

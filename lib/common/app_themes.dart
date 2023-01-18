@@ -22,6 +22,7 @@ class AppThemes {
       ),
     ),
     scaffoldBackgroundColor: AppColors.lightBackgroundColor,
+    primaryColor: AppColors.lightPrimaryColor,
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
       primary: AppColors.lightPrimaryColor,
@@ -74,6 +75,7 @@ class AppThemes {
       ),
       centerTitle: true,
     ),
+    primaryColor: AppColors.darkPrimaryColor,
     scaffoldBackgroundColor: AppColors.darkBackgroundColor,
     colorScheme: const ColorScheme(
       brightness: Brightness.dark,

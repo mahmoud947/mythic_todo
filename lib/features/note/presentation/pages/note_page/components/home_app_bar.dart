@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../../../../auth/domain/model/user_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../../common/app_fonts.dart';
 import '../../../../../../common/image_resources.dart';
+import '../../../../../auth/domain/model/user_model.dart';
 import '../../../cubit/home/home_cubit.dart';
 import 'date_and_add_note_section.dart';
 import 'date_picker_section.dart';

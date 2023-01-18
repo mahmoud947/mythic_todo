@@ -1,10 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
+
 import '../core/network/network_helper.dart';
 import '../core/network/network_helper_impl.dart';
 import '../core/platform/database/database_factory.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqflite/sqflite.dart';
 
 final ls = GetIt.instance;
 

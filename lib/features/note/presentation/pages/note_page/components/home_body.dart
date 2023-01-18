@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../../../common/app_routes.dart';
 import '../../../../../../common/image_resources.dart';
 import '../../../cubit/home/home_cubit.dart';
 import 'note_widget.dart';
@@ -16,7 +17,15 @@ class HomeBody extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: BlocBuilder<HomeCubit, HomeState>(
+            child: BlocConsumer<HomeCubit, HomeState>(
+              listener: (context, state) {
+                if (state is NavigateToPreviewState) {
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.notePreview,
+                    arguments: state.noteId,
+                  );
+                }
+              },
               builder: (_, state) {
                 if (state is GetNoteSuccessfulState) {
                   if (state.notes.isNotEmpty) {
@@ -29,6 +38,9 @@ class HomeBody extends StatelessWidget {
                       itemBuilder: (_, index) {
                         return NoteWidget(
                           note: state.notes[index]!,
+                          onClick: (String noteId) {
+                            context.read<HomeCubit>().navigateToPreview(noteId);
+                          },
                         );
                       },
                     );

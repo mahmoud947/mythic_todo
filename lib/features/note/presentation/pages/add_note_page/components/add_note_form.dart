@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'note_title_text_field.dart';
 
 import '../../../bloc/add_note/add_note_bloc.dart';
 import 'note_description_text_field.dart';
+import 'note_title_text_field.dart';
 
 class AddNoteForm extends StatelessWidget {
   const AddNoteForm({

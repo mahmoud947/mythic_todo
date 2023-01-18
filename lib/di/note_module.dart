@@ -1,3 +1,6 @@
+import '../features/note/presentation/cubit/preview/preview_cubit.dart';
+
+import '../core/network/network_helper.dart';
 import '../features/note/domain/usecases/delete_note_use_case.dart';
 
 import '../core/platform/worker/note_work_manager.dart';
@@ -40,6 +43,13 @@ initNoteModule() {
     ),
   );
 
+  //? ...PreviewCubit
+  ls.registerFactory<PreviewCubit>(
+    () => PreviewCubit(
+      noteUseCases: ls(),
+    ),
+  );
+
 //! UseCases
 //? ...provide all usecases with singltone pattern
   ls.registerFactory<NoteUseCases>(
@@ -64,6 +74,7 @@ initNoteModule() {
       noteDao: ls(),
       remoteDataSource: ls(),
       workmanager: NoteWorkManagerImpl(),
+      networkHelper: ls<NetworkHelper>(),
     ),
   );
 

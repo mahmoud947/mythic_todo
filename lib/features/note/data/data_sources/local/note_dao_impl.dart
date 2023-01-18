@@ -56,6 +56,7 @@ class NoteDaoImpl implements NoteDao {
     final int insertedRowsCount = await database.insert(
       NoteTableInfo.tableName.getName,
       noteModel.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
     if (insertedRowsCount == 0) {
       // TODO: remove hard coded
@@ -86,7 +87,7 @@ class NoteDaoImpl implements NoteDao {
   Future<NoteModel> getNote({required String noteId}) async {
     final List<Map<String, dynamic>> noteAsMap = await database.query(
         NoteTableInfo.tableName.getName,
-        where: '${NoteTableInfo.id} = ?',
+        where: '${NoteTableInfo.id.getName} = ?',
         whereArgs: [noteId]);
     if (noteAsMap.isEmpty) {
       // TODO: remove hard coded

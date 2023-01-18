@@ -15,8 +15,17 @@ class GetNoteErrorState extends HomeState {
   final String message;
 }
 
+class NavigateToPreviewState extends HomeState {
+  const NavigateToPreviewState({required this.noteId});
+  final String noteId;
+  @override
+  List<Object> get props => [noteId];
+}
+
 class GetNoteSuccessfulState extends HomeState {
-  const GetNoteSuccessfulState({this.notes = const []});
+  const GetNoteSuccessfulState({
+    this.notes = const [],
+  });
   final List<Note?> notes;
 
   @override

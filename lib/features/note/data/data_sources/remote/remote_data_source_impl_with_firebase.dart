@@ -47,9 +47,13 @@ class RemoteDataSourceImplWithFirebase implements RemoteDataSource {
   }
 
   @override
-  Future<List<NoteModel>> getNotes() {
-    // TODO: implement getNotes
-    throw UnimplementedError();
+  Future<List<NoteModel>> getNotes() async {
+    return await notes.where('uuid', isEqualTo: uuid).get().then((value) async {
+      return value.docs
+          .map((noteDoc) => NoteModel.fromMap(noteDoc.data()))
+          .toList();
+    }).onError((error, stackTrace) =>
+        throw RemoteDataSourceException(message: error.toString()));
   }
 
   @override

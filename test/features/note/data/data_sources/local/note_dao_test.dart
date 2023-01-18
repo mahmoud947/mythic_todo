@@ -165,9 +165,11 @@ void main() {
         () async {
       // arrange
       when(
-        () =>
-            mockDatabase.insert(NoteTableInfo.tableName.getName, tNote.toMap()),
+        () => mockDatabase.insert(
+            NoteTableInfo.tableName.getName, tNote.toMap(),
+            conflictAlgorithm: ConflictAlgorithm.replace),
       ).thenAnswer((_) async => successRowCount);
+
       // act
       final result = await daoImpl.insertNote(noteModel: tNote);
       // assert
@@ -179,8 +181,9 @@ void main() {
         () async {
       // arrange
       when(
-        () =>
-            mockDatabase.insert(NoteTableInfo.tableName.getName, tNote.toMap()),
+        () => mockDatabase.insert(
+            NoteTableInfo.tableName.getName, tNote.toMap(),
+            conflictAlgorithm: ConflictAlgorithm.replace),
       ).thenAnswer((_) async => failureRowCount);
       // act
       final call = daoImpl.insertNote;
@@ -273,7 +276,7 @@ void main() {
       // arrange
       when(
         () => mockDatabase.query(NoteTableInfo.tableName.getName,
-            where: '${NoteTableInfo.id} = ?', whereArgs: [tNoteId]),
+            where: '${NoteTableInfo.id.getName} = ?', whereArgs: [tNoteId]),
       ).thenAnswer((_) async => tMap);
       // act
       final result = await daoImpl.getNote(noteId: tNoteId);
@@ -287,7 +290,7 @@ void main() {
       // arrange
       when(
         () => mockDatabase.query(NoteTableInfo.tableName.getName,
-            where: '${NoteTableInfo.id} = ?', whereArgs: [tNoteId]),
+            where: '${NoteTableInfo.id.getName} = ?', whereArgs: [tNoteId]),
       ).thenAnswer((_) async => []);
       // act
       final call = daoImpl.getNote;

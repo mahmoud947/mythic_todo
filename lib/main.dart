@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         theme: AppThemes.lightTheme,
         darkTheme: AppThemes.darkTheme,
         themeMode: ThemeMode.system,
-        //home: const NotePage(),
+        //home: const NotePreviewPage(),
         onGenerateRoute: appRoutes.generateRoute,
         //test
       );

@@ -35,12 +35,6 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  @override
-  Future<void> close() {
-    streamSubscription?.cancel();
-    return super.close();
-  }
-
   Future<void> getNotes() async {
     final either = await noteUseCases.getNotesUseCase();
     either.fold(
@@ -76,5 +70,16 @@ class HomeCubit extends Cubit<HomeState> {
       _notes.clear();
       emit((state as GetNoteSuccessfulState).copyWith(notes: _notes.toList()));
     });
+  }
+
+  void navigateToPreview(String noteId) async {
+    emit(NavigateToPreviewState(noteId: noteId));
+    emit(GetNoteSuccessfulState(notes: _notes));
+  }
+
+  @override
+  Future<void> close() {
+    streamSubscription?.cancel();
+    return super.close();
   }
 }

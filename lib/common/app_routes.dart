@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../features/note/presentation/cubit/preview/preview_cubit.dart';
+import '../features/note/presentation/pages/note_preview_page/note_preview_page.dart';
 
 import '../di/app_module.dart';
 import '../di/auth_module.dart';
@@ -28,6 +30,7 @@ class AppRoutes {
   static const String signUpWithEmailScreen = 'sign_up_with_email_screen';
   static const String notsScreen = 'note_screen';
   static const String addNotsScreen = 'add_note_screen';
+  static const String notePreview = 'note_preview';
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -81,36 +84,17 @@ class AppRoutes {
             child: const AddNotePage(),
           ),
         );
+      case notePreview:
+        final noteId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider<PreviewCubit>(
+            create: (context) => ls<PreviewCubit>(),
+            child: NotePreviewPage(noteId: noteId),
+          ),
+        );
 
       default:
         return null;
     }
   }
-
-  // Route? generateNoteRoute(RouteSettings settings) {
-  //   switch (settings.name) {
-  //     case notsScreen:
-  //       initNoteModule();
-  //       final userModel = settings.arguments as UserModel;
-  //       return MaterialPageRoute(
-  //         builder: (_) => BlocProvider<HomeBloc>(
-  //           create: (context) => ls<HomeBloc>(),
-  //           child: NotePage(
-  //             userModel: userModel,
-  //           ),
-  //         ),
-  //       );
-
-  //     case addNotsScreen:
-  //       return MaterialPageRoute(
-  //         builder: (context) => BlocProvider<AddNoteBloc>(
-  //           create: (_) => ls<AddNoteBloc>(),
-  //           child: const AddNotePage(),
-  //         ),
-  //       );
-
-  //     default:
-  //       return null;
-  //   }
-  // }
 }

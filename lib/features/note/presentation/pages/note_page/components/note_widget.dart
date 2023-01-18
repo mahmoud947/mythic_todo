@@ -3,21 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import '../../../../../../core/platform/utils/exetension.dart';
-import '../../../../data/util/note_extension.dart';
-import '../../../cubit/home/home_cubit.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../../../core/platform/utils/exetension.dart';
+import '../../../../data/util/note_extension.dart';
 import '../../../../domain/entities/note.dart';
+import '../../../cubit/home/home_cubit.dart';
 
 class NoteWidget extends StatelessWidget {
-  const NoteWidget({super.key, required this.note});
+  const NoteWidget({super.key, required this.note, required this.onClick});
   final Note note;
+  final Function(String noteId) onClick;
 
   @override
   Widget build(BuildContext context) {
     return FocusedMenuHolder(
       blurBackgroundColor: Colors.black,
+      onPressed: () => onClick(note.id),
       blurSize: 8,
       menuItems: [
         FocusedMenuItem(
@@ -56,7 +58,6 @@ class NoteWidget extends StatelessWidget {
           },
         ),
       ],
-      onPressed: () {},
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),

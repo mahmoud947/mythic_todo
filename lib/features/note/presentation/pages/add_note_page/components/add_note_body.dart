@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'add_note_editor_bar.dart';
-import 'add_note_form.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../bloc/add_note/add_note_bloc.dart';
+import 'add_note_editor_bar.dart';
+import 'add_note_form.dart';
 import 'add_note_markdown_preview.dart';
 
 class AddNoteBody extends StatefulWidget {

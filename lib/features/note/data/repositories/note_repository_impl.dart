@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import '../../../../core/network/network_helper.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -15,14 +16,23 @@ class NoteRepositoryImpl implements NoteRepository {
     required this.noteDao,
     required this.remoteDataSource,
     required this.workmanager,
+    required this.networkHelper,
   });
   final NoteDao noteDao;
   final RemoteDataSource remoteDataSource;
   final NoteWorkManager workmanager;
+  final NetworkHelper networkHelper;
 
   @override
   Future<Either<Failure, List<Note>>> getNotes() async {
     try {
+      if (await networkHelper.isConnected) {
+        final remoteNotes = await remoteDataSource.getNotes();
+        for (NoteModel noteModel in remoteNotes) {
+          insertNote(noteModel: noteModel, insertToRemote: false);
+        }
+      }
+
       final localNotes = await noteDao.getNotes();
       final List<Note> notes =
           localNotes.map((localNote) => localNote.toDomain()).toList();
@@ -48,10 +58,13 @@ class NoteRepositoryImpl implements NoteRepository {
   @override
   Future<Either<Failure, Unit>> insertNote({
     required NoteModel noteModel,
+    bool insertToRemote = true,
   }) async {
     try {
       await noteDao.insertNote(noteModel: noteModel);
-      await workmanager.insertNote(noteModel: noteModel);
+      if (insertToRemote) {
+        await workmanager.insertNote(noteModel: noteModel);
+      }
       return const Right(unit);
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));
