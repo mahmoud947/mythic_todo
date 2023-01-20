@@ -6,15 +6,18 @@ class NoteBodyTextField extends StatelessWidget {
     Key? key,
     this.onTextChange,
     required this.controller,
+    this.initialValue,
   }) : super(key: key);
   final Function(String value)? onTextChange;
   final TextEditingController controller;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextField(
+      child: TextFormField(
+        initialValue: initialValue,
         keyboardType: TextInputType.multiline,
         textInputAction: TextInputAction.newline,
         controller: controller,

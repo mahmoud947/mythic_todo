@@ -10,11 +10,13 @@ class AddNoteForm extends StatelessWidget {
     super.key,
     required this.state,
     required this.scrollController,
-    required this.textEditingController,
+    required this.descriptionController,
+    required this.titleController,
   });
   final AddNoteFormState state;
   final ScrollController scrollController;
-  final TextEditingController textEditingController;
+  final TextEditingController descriptionController;
+  final TextEditingController titleController;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class AddNoteForm extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: [
         NoteTitleTextField(
+          textEditingController: titleController,
           onTextChange: (value) => context.read<AddNoteBloc>().add(
                 OnTitleChange(title: value),
               ),
@@ -29,14 +32,14 @@ class AddNoteForm extends StatelessWidget {
         ),
         Flexible(
           child: NoteBodyTextField(
-            controller: textEditingController,
+            controller: descriptionController,
             onTextChange: (value) {
               context.read<AddNoteBloc>().add(
                     OnDescriptionChange(description: value),
                   );
               if (state.isPreview &&
-                  textEditingController
-                          .text[textEditingController.text.length - 1] ==
+                  descriptionController
+                          .text[descriptionController.text.length - 1] ==
                       '\n') {
                 scrollController.animateTo(
                   scrollController.position.maxScrollExtent,

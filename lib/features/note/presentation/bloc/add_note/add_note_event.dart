@@ -19,6 +19,13 @@ class OnTitleChange extends AddNoteEvent {
 
 class OnSubmitEvent extends AddNoteEvent {}
 
+class OnGetNoteToUpdate extends AddNoteEvent {
+  const OnGetNoteToUpdate({required this.noteId});
+  final String noteId;
+  @override
+  List<Object> get props => [noteId];
+}
+
 class TogglePreview extends AddNoteEvent {}
 
 class Clear extends AddNoteEvent {}

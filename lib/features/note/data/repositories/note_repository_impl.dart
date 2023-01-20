@@ -62,9 +62,10 @@ class NoteRepositoryImpl implements NoteRepository {
   }) async {
     try {
       await noteDao.insertNote(noteModel: noteModel);
-      if (insertToRemote) {
-        await workmanager.insertNote(noteModel: noteModel);
-      }
+      //TODO: remove comment
+      // if (insertToRemote) {
+      //   await workmanager.insertNote(noteModel: noteModel);
+      // }
       return const Right(unit);
     } on LocalDatabaseException catch (e) {
       return Left(LocalDatabaseFailure(message: e.message));

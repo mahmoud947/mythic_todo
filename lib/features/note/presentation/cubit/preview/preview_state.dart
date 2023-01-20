@@ -28,4 +28,6 @@ class PreviewErrorState extends PreviewState {
 class PreviewSuccessState extends PreviewState {
   const PreviewSuccessState({required this.note});
   final Note note;
+  @override
+  List<Object> get props => [note.id, note.title, note.description];
 }

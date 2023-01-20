@@ -4,7 +4,12 @@ import 'package:sizer/sizer.dart';
 class NoteTitleTextField extends StatelessWidget {
   final Function(String value)? onTextChange;
   final String? errorMessage;
-  const NoteTitleTextField({Key? key, this.onTextChange, this.errorMessage})
+  final TextEditingController textEditingController;
+  const NoteTitleTextField(
+      {Key? key,
+      this.onTextChange,
+      this.errorMessage,
+      required this.textEditingController})
       : super(key: key);
 
   @override
@@ -12,6 +17,7 @@ class NoteTitleTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        controller: textEditingController,
         onChanged: onTextChange,
         maxLines: 1,
         style:

@@ -18,20 +18,14 @@ class HomeBody extends StatelessWidget {
         children: [
           Expanded(
             child: BlocConsumer<HomeCubit, HomeState>(
-              listener: (context, state) {
-                if (state is NavigateToPreviewState) {
-                  Navigator.of(context).pushNamed(
-                    AppRoutes.notePreview,
-                    arguments: state.noteId,
-                  );
-                }
-              },
+              listener: (_, state) {},
               builder: (_, state) {
                 if (state is GetNoteSuccessfulState) {
                   if (state.notes.isNotEmpty) {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                         maxCrossAxisExtent: 50.w,
+                        childAspectRatio: 3 / 2,
                         mainAxisExtent: 30.h,
                       ),
                       itemCount: state.notes.length,
@@ -39,7 +33,10 @@ class HomeBody extends StatelessWidget {
                         return NoteWidget(
                           note: state.notes[index]!,
                           onClick: (String noteId) {
-                            context.read<HomeCubit>().navigateToPreview(noteId);
+                            Navigator.of(context).pushNamed(
+                              AppRoutes.notePreview,
+                              arguments: noteId,
+                            );
                           },
                         );
                       },

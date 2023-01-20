@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:mythic_todo/features/note/presentation/cubit/home/home_cubit.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../../core/error/failures.dart';
@@ -30,6 +31,7 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
     on<OnSubmitEvent>((event, emit) => _insertNote(event, emit));
     on<Clear>((event, emit) => _clear(emit));
     on<TogglePreview>((event, emit) => _togglePreview(emit));
+    on<OnGetNoteToUpdate>((event, emit) => _onGetNoteToUpdate(event, emit));
   }
 
   _onTitleChange(OnTitleChange event, Emitter<AddNoteState> emit) async {
@@ -77,7 +79,7 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
         title: currentState.title,
         description: currentState.description,
         color: getRandomColor(),
-        id: const Uuid().v1(),
+        id: currentState.id ?? const Uuid().v1(),
         uuid: FirebaseAuth.instance.currentUser?.uid,
         isCompleted: true,
         reminder: true,
@@ -94,8 +96,11 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
         emit(currentState);
       },
       (_) {
-        emit(NoteAddedSuccessfulState(note: note.toDomain()));
-        _clear(emit);
+        if (currentState.isUpdated == true) {
+          emit(NoteUpdatedSuccessfulState(note: note.toDomain()));
+        } else {
+          emit(NoteAddedSuccessfulState(note: note.toDomain()));
+        }
       },
     );
   }
@@ -120,18 +125,43 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState> {
   }
 
   _clear(Emitter<AddNoteState> emit) {
-    final currentState = state as AddNoteFormState;
-    emit(currentState.copyWith(
+    //final currentState = state as AddNoteFormState;
+    emit(const AddNoteFormState(
       title: '',
+      id: null,
       description: '',
-      titleErrorMessage: const NullableWrapped.value(null),
+      titleErrorMessage: null,
       isAllInputValid: false,
       isPreview: false,
+      isUpdated: false,
     ));
   }
 
   _togglePreview(Emitter<AddNoteState> emit) {
     final currentState = state as AddNoteFormState;
     emit(currentState.copyWith(isPreview: !currentState.isPreview));
+  }
+
+  @override
+  Future<void> close() {
+    print('add note closed');
+    return super.close();
+  }
+
+  _onGetNoteToUpdate(
+      OnGetNoteToUpdate event, Emitter<AddNoteState> emit) async {
+    final either = await noteUseCases.getNoteUseCase(input: event.noteId);
+    either.fold(
+      (failure) => null,
+      (note) => emit(AddNoteFormState(
+        description: note.description,
+        isAllInputValid: true,
+        id: note.id,
+        isPreview: false,
+        isUpdated: true,
+        title: note.title,
+        titleErrorMessage: null,
+      )),
+    );
   }
 }

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mythic_todo/common/app_routes.dart';
 
 import '../../cubit/preview/preview_cubit.dart';
+import 'components/note_preview_app_bar.dart';
+import 'components/note_preview_body.dart';
 
 class NotePreviewPage extends StatefulWidget {
   const NotePreviewPage({super.key, required this.noteId});
@@ -27,35 +30,12 @@ class _NotePreviewPageState extends State<NotePreviewPage> {
         floatHeaderSlivers: true,
         headerSliverBuilder: (_, innerBoxIsScrolled) {
           return [
-            const SliverAppBar(
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                title: Text('preview'),
-              ),
-              floating: true,
-              actions: [
-                Center(
-                  child: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: FaIcon(
-                        FontAwesomeIcons.penToSquare,
-                        size: 18,
-                      )),
-                ),
-              ],
-              snap: true,
+            NotePreviewAppBar(
+              noteId: widget.noteId,
             )
           ];
         },
-        body: BlocBuilder<PreviewCubit, PreviewState>(
-          builder: (_, state) {
-            if (state is PreviewSuccessState) {
-              return Markdown(data: state.note.description);
-            } else {
-              return Container();
-            }
-          },
-        ),
+        body: const NotePreviewBody(),
       ),
     );
   }

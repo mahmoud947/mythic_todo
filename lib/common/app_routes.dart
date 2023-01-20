@@ -19,7 +19,7 @@ import '../features/auth/presentation/pages/sign_up_with_email/sign_up_with_emai
 import '../features/auth/presentation/pages/splash/splash_screen.dart';
 import '../features/note/presentation/bloc/add_note/add_note_bloc.dart';
 import '../features/note/presentation/cubit/home/home_cubit.dart';
-import '../features/note/presentation/pages/add_note_page/add_note_page.dart';
+import '../features/note/presentation/pages/add_edit_note_page/add_edit_note_page.dart';
 import '../features/note/presentation/pages/note_page/home_page.dart';
 
 class AppRoutes {
@@ -69,8 +69,8 @@ class AppRoutes {
         initNoteModule();
         final userModel = settings.arguments as UserModel;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider<HomeCubit>.value(
-            value: ls<HomeCubit>(),
+          builder: (_) => BlocProvider<HomeCubit>(
+            create: (context) => ls<HomeCubit>(),
             child: HomePage(
               userModel: userModel,
             ),
@@ -78,10 +78,11 @@ class AppRoutes {
         );
 
       case addNotsScreen:
+        final String? noteId = settings.arguments as String?;
         return MaterialPageRoute(
           builder: (context) => BlocProvider<AddNoteBloc>.value(
             value: ls<AddNoteBloc>(),
-            child: const AddNotePage(),
+            child: AddNotePage(noteId: noteId),
           ),
         );
       case notePreview:

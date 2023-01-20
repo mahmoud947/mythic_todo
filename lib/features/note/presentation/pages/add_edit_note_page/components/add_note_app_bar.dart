@@ -29,6 +29,9 @@ AppBar addNoteAppBar(BuildContext context) {
           if (state is NoteAddedSuccessfulState) {
             context.showSnackBar('Note added Successfully');
             Navigator.of(context).pop();
+          } else if (state is NoteUpdatedSuccessfulState) {
+            context.showSnackBar('Note Updated Successfully');
+            Navigator.of(context).pop();
           }
         },
         builder: (context, state) {

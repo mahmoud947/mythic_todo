@@ -18,21 +18,24 @@ class AddNoteBody extends StatefulWidget {
 }
 
 class _AddNoteBodyState extends State<AddNoteBody> {
-  late TextEditingController _controller;
+  late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
   late ScrollController _scrollController;
   late ImagePicker _picker;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _titleController = TextEditingController();
+    _descriptionController = TextEditingController();
     _scrollController = ScrollController();
     _picker = ImagePicker();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _titleController.dispose();
+    _descriptionController.dispose();
     _scrollController.dispose();
     super.dispose();
   }
@@ -45,8 +48,13 @@ class _AddNoteBodyState extends State<AddNoteBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddNoteBloc, AddNoteState>(listener: (context, state) {
-      // TODO: implement listener
+    return BlocConsumer<AddNoteBloc, AddNoteState>(listener: (_, state) {
+      if (state is AddNoteFormState) {
+        if (_descriptionController.text.isEmpty) {
+          _descriptionController.text = state.description;
+          _titleController.text = state.title;
+        }
+      }
     }, builder: (_, state) {
       if (state is AddNoteFormState) {
         return Stack(children: [
@@ -57,9 +65,11 @@ class _AddNoteBodyState extends State<AddNoteBody> {
             bottom: 10.h,
             right: state.isPreview ? 55.w : 0,
             child: AddNoteForm(
-                state: state,
-                scrollController: _scrollController,
-                textEditingController: _controller),
+              state: state,
+              scrollController: _scrollController,
+              descriptionController: _descriptionController,
+              titleController: _titleController,
+            ),
           ),
           Positioned(
             bottom: 2.h,
@@ -67,7 +77,7 @@ class _AddNoteBodyState extends State<AddNoteBody> {
             right: 0,
             height: 5.h,
             child: AddNoteTextEditorBar(
-              controller: _controller,
+              controller: _titleController,
               picker: _picker,
             ),
           ),

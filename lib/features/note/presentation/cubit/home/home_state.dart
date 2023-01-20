@@ -13,6 +13,8 @@ class GetNoteErrorState extends HomeState {
     required this.message,
   });
   final String message;
+  @override
+  List<Object> get props => [message];
 }
 
 class NavigateToPreviewState extends HomeState {
@@ -23,17 +25,18 @@ class NavigateToPreviewState extends HomeState {
 }
 
 class GetNoteSuccessfulState extends HomeState {
-  const GetNoteSuccessfulState({
+  GetNoteSuccessfulState({
     this.notes = const [],
-  });
+  }) : uuid = const Uuid().v4();
   final List<Note?> notes;
-
-  @override
-  List<Object> get props => [notes, notes.length];
+  final String uuid;
 
   GetNoteSuccessfulState copyWith({List<Note>? notes}) {
     return GetNoteSuccessfulState(
       notes: notes ?? this.notes,
     );
   }
+
+  @override
+  List<Object> get props => [notes, uuid];
 }

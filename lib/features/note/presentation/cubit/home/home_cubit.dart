@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../domain/entities/note.dart';
 import '../../../domain/usecases/note_use_cases.dart';
@@ -12,23 +13,32 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   final NoteUseCases noteUseCases;
 
-  StreamSubscription? streamSubscription;
+  StreamSubscription? _streamSubscription;
   final AddNoteBloc addNoteBloc;
 
   final List<Note> _notes = [];
+
   HomeCubit({required this.noteUseCases, required this.addNoteBloc})
-      : super(const GetNoteSuccessfulState()) {
+      : super(GetNoteSuccessfulState()) {
     _onStart();
   }
 
   _onStart() {
-    streamSubscription?.cancel();
-    streamSubscription = addNoteBloc.stream.listen(
+    _streamSubscription?.cancel();
+
+    _streamSubscription = addNoteBloc.stream.listen(
       (addNoteBlocState) {
         if (addNoteBlocState is NoteAddedSuccessfulState) {
-          _notes.insert(0, addNoteBlocState.note);
+          _notes.insert(0, addNoteBlocState.note); // ! O(n)
           emit(
-            (state as GetNoteSuccessfulState).copyWith(notes: _notes.toList()),
+            (state as GetNoteSuccessfulState).copyWith(notes: _notes),
+          );
+        } else if (addNoteBlocState is NoteUpdatedSuccessfulState) {
+          _notes.removeWhere(
+              (note) => note.id == addNoteBlocState.note.id); //! O(n)
+          _notes.insert(0, addNoteBlocState.note); // ! O(n)
+          emit(
+            (state as GetNoteSuccessfulState).copyWith(notes: _notes),
           );
         }
       },
@@ -72,14 +82,9 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  void navigateToPreview(String noteId) async {
-    emit(NavigateToPreviewState(noteId: noteId));
-    emit(GetNoteSuccessfulState(notes: _notes));
-  }
-
   @override
   Future<void> close() {
-    streamSubscription?.cancel();
+    _streamSubscription?.cancel();
     return super.close();
   }
 }

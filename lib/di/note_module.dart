@@ -28,7 +28,7 @@ initNoteModule() {
 //! Bloc && Cubit
 
 //? ...HomeCubit
-  ls.registerLazySingleton<HomeCubit>(
+  ls.registerFactory<HomeCubit>(
     () => HomeCubit(
       noteUseCases: ls(),
       addNoteBloc: ls<AddNoteBloc>(),
@@ -45,9 +45,7 @@ initNoteModule() {
 
   //? ...PreviewCubit
   ls.registerFactory<PreviewCubit>(
-    () => PreviewCubit(
-      noteUseCases: ls(),
-    ),
+    () => PreviewCubit(noteUseCases: ls(), addNoteBloc: ls<AddNoteBloc>()),
   );
 
 //! UseCases
