@@ -1,19 +1,15 @@
-import '../features/note/presentation/cubit/preview/preview_cubit.dart';
+import 'package:sqflite/sqflite.dart';
 
 import '../core/network/network_helper.dart';
-import '../features/note/domain/usecases/delete_note_use_case.dart';
-
 import '../core/platform/worker/note_work_manager.dart';
-import '../features/note/data/data_sources/remote/remote_data_source.dart';
-import '../features/note/data/data_sources/remote/remote_data_source_impl_with_firebase.dart';
-
-import '../features/note/domain/usecases/delete_all_note_use_case.dart';
-
-import 'app_module.dart';
 import '../features/note/data/data_sources/local/note_dao.dart';
 import '../features/note/data/data_sources/local/note_dao_impl.dart';
+import '../features/note/data/data_sources/remote/remote_data_source.dart';
+import '../features/note/data/data_sources/remote/remote_data_source_impl_with_firebase.dart';
 import '../features/note/data/repositories/note_repository_impl.dart';
 import '../features/note/domain/repositories/note_repository.dart';
+import '../features/note/domain/usecases/delete_all_note_use_case.dart';
+import '../features/note/domain/usecases/delete_note_use_case.dart';
 import '../features/note/domain/usecases/get_note_use_case.dart';
 import '../features/note/domain/usecases/get_notes_use_case.dart';
 import '../features/note/domain/usecases/insert_note_use_case.dart';
@@ -21,8 +17,8 @@ import '../features/note/domain/usecases/note_use_cases.dart';
 import '../features/note/domain/usecases/validation/note_title_validation_use_case.dart';
 import '../features/note/presentation/bloc/add_note/add_note_bloc.dart';
 import '../features/note/presentation/cubit/home/home_cubit.dart';
-
-import 'package:sqflite/sqflite.dart';
+import '../features/note/presentation/cubit/preview/preview_cubit.dart';
+import 'app_module.dart';
 
 initNoteModule() {
 //! Bloc && Cubit

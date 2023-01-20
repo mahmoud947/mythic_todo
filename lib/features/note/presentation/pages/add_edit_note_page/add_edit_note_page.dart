@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/features/note/presentation/bloc/add_note/add_note_bloc.dart';
+import '../../bloc/add_note/add_note_bloc.dart';
 
 import 'components/add_note_app_bar.dart';
 import 'components/add_note_body.dart';

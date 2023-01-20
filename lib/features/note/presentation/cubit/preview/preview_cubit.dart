@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mythic_todo/features/note/presentation/bloc/add_note/add_note_bloc.dart';
+import '../../bloc/add_note/add_note_bloc.dart';
 
 import '../../../domain/entities/note.dart';
 import '../../../domain/usecases/note_use_cases.dart';
