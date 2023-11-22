@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,40 +49,20 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyClzwrNXkTC1mZhlj-eyv2O6A8SsemZqyo',
-    appId: '1:208559165492:web:24c3bebff8bf33a835ba61',
-    messagingSenderId: '208559165492',
-    projectId: 'mythictodo-cf582',
-    authDomain: 'mythictodo-cf582.firebaseapp.com',
-    storageBucket: 'mythictodo-cf582.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB45Pv_DY0YL-vxJH0qz2QB8PRVedtalCE',
-    appId: '1:208559165492:android:181582f68c5890b535ba61',
-    messagingSenderId: '208559165492',
-    projectId: 'mythictodo-cf582',
-    storageBucket: 'mythictodo-cf582.appspot.com',
+    apiKey: 'AIzaSyAx9ngnEdHCifJvMVOxKFokh7fcS9UyHwI',
+    appId: '1:739028257849:android:00f942cfda0130904c91e8',
+    messagingSenderId: '739028257849',
+    projectId: 'mythictodo-781e7',
+    storageBucket: 'mythictodo-781e7.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCddwLHPFgrV9IFwCnTzC9tdOm4Qjk57AM',
-    appId: '1:208559165492:ios:eab55206a9197c3e35ba61',
-    messagingSenderId: '208559165492',
-    projectId: 'mythictodo-cf582',
-    storageBucket: 'mythictodo-cf582.appspot.com',
-    iosClientId: '208559165492-rhjt4debqj48d7o4oot2qgm62mjdvq9q.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mythicTodo',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCddwLHPFgrV9IFwCnTzC9tdOm4Qjk57AM',
-    appId: '1:208559165492:ios:eab55206a9197c3e35ba61',
-    messagingSenderId: '208559165492',
-    projectId: 'mythictodo-cf582',
-    storageBucket: 'mythictodo-cf582.appspot.com',
-    iosClientId: '208559165492-rhjt4debqj48d7o4oot2qgm62mjdvq9q.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBG7xQPEumouZJiKeftuAfsDwmBF0jqSkM',
+    appId: '1:739028257849:ios:2e2942a69c0db2a24c91e8',
+    messagingSenderId: '739028257849',
+    projectId: 'mythictodo-781e7',
+    storageBucket: 'mythictodo-781e7.appspot.com',
     iosBundleId: 'com.example.mythicTodo',
   );
 }
